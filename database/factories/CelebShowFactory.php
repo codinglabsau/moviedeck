@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Celeb_Show;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CelebShowFactory extends Factory
@@ -22,7 +23,8 @@ class CelebShowFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'celeb_id' => numberBetween(1, 20),
+            'show_id' => numberBetween(1, 20),
         ];
     }
 }

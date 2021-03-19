@@ -22,7 +22,8 @@ class GenreMovieFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'genre_id' => numberBetween(1, 20),
+            'movie_id' => numberBetween(1, 20),
         ];
     }
 }
