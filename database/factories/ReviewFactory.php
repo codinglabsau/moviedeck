@@ -24,8 +24,6 @@ class ReviewFactory extends Factory
      */
     public function definition()
     {
-
-
         return [
             /**'user_id' => function() {
                 return User::factory()->create()->id;

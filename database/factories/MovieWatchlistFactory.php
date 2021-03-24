@@ -12,7 +12,7 @@ class MovieWatchlistFactory extends Factory
      *
      * @var string
      */
-    protected $model = Model::class;
+    protected $model = MovieWatchlist::class;
 
     /**
      * Define the model's default state.

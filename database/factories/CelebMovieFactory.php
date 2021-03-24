@@ -12,7 +12,7 @@ class CelebMovieFactory extends Factory
      *
      * @var string
      */
-    protected $model = Model::class;
+    protected $model = CelebMovie::class;
 
     /**
      * Define the model's default state.
