@@ -40,4 +40,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function watchlist() {
+        return $this->hasOne('App\Watchlist');
+    }
+
+    public function reviews() {
+        return $this->hasMany('App\Review');
+    }
 }
