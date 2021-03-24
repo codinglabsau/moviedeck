@@ -17,6 +17,8 @@ class CreateGenreMovieTable extends Migration
             $table->unsignedInteger('genre_id');
             $table->unsignedInteger('movie_id');
             $table->timestamps();
+
+            $table->primary(['genre_id', 'movie_id']);
         });
     }
 

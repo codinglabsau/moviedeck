@@ -15,7 +15,7 @@ class GenreSeeder extends Seeder
      */
     public function run()
     {
-        $categories = [
+        $genres = [
             "Action",
             "Anime",
             "Adventure",
@@ -30,9 +30,9 @@ class GenreSeeder extends Seeder
             "Thriller"
         ];
 
-        foreach($categories as $category) {
+        foreach($genres as $genre) {
             DB::table('genres')->insert([
-                'name' => $category
+                'name' => $genre
              ]);
         }
     }

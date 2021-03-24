@@ -17,6 +17,8 @@ class CreateGenreShowTable extends Migration
             $table->unsignedInteger('genre_id');
             $table->unsignedInteger('show_id');
             $table->timestamps();
+
+            $table->primary(['genre_id', 'show_id']);
         });
     }
 

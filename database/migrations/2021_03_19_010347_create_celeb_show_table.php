@@ -17,6 +17,8 @@ class CreateCelebShowTable extends Migration
             $table->unsignedInteger('celeb_id');
             $table->unsignedInteger('show_id');
             $table->timestamps();
+
+            $table->primary(['celeb_id', 'show_id']);
         });
     }
 
