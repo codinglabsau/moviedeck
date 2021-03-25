@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\Model;
+use App\Models\MovieWatchlist;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class MovieWatchlistFactory extends Factory
@@ -22,7 +22,12 @@ class MovieWatchlistFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'movie_id' => function() {
+                return Movie::factory()->create()->id;
+            },
+            'watchlist_id' => function() {
+                return Watchlist::factory()->create()->id;
+            },
         ];
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\Model;
+use App\Models\CelebMovie;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CelebMovieFactory extends Factory
@@ -22,7 +22,12 @@ class CelebMovieFactory extends Factory
     public function definition()
     {
         return [
-
+            'celeb_id' => function() {
+                return Celeb::factory()->create()->id;
+            },
+            'movie_id' => function() {
+                return Movie::factory()->create()->id;
+            }
         ];
     }
 }
