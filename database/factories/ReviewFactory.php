@@ -25,14 +25,14 @@ class ReviewFactory extends Factory
     public function definition()
     {
         return [
-            /**'user_id' => function() {
+            'user_id' => function() {
                 return User::factory()->create()->id;
             },
             'movie_id' => function() {
                 return Movie::factory()->create()->id;
             },
             'title' => $this->faker->word,
-            'rating' => $this->faker->randomFloat(1, 0, 10), */
+            'rating' => $this->faker->randomFloat(1, 0, 10),
         ];
     }
 }
