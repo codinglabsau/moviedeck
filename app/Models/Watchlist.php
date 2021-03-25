@@ -10,10 +10,10 @@ class Watchlist extends Model
     use HasFactory;
 
     public function user() {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo(User::class);
     }
 
     public function movies() {
-        return $this->belongsToMany('App\Movie');
+        return $this->belongsToMany(Movie::class, 'movie_watchlist');
     }
 }

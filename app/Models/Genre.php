@@ -22,6 +22,6 @@ class Genre extends Model
     public const GENRE_THRILLER = 'Thriller';
 
     public function movies() {
-        return $this->belongsToMany('App\Movie');
+        return $this->belongsToMany(Movie::class, 'genre_movie');
     }
 }

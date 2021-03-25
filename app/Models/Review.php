@@ -10,10 +10,10 @@ class Review extends Model
     use HasFactory;
 
     public function user() {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo(User::class);
     }
 
     public function movie() {
-        return $this->hasOne('App\Movie');
+        return $this->hasOne(Movie::class);
     }
 }

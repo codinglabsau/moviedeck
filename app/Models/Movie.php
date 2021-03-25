@@ -10,18 +10,18 @@ class Movie extends Model
     use HasFactory;
 
     public function watchlists() {
-        return $this->belongsToMany('App\Watchlist');
+        return $this->belongsToMany(Watchlist::class, 'movie_watchlist');
     }
 
     public function reviews() {
-        return $this->hasMany('App\Review');
+        return $this->hasMany(Review::class);
     }
 
     public function genres() {
-        return $this->belongsToMany('App\Genre');
+        return $this->belongsToMany(Genre::class, 'genre_movie');
     }
 
     public function celebs() {
-        return $this->belongsToMany('App\Celeb');
+        return $this->belongsToMany(Celeb::class, 'celeb_movie');
     }
 }

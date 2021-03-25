@@ -12,7 +12,7 @@ class GenreMovieFactory extends Factory
      *
      * @var string
      */
-    protected $model = Model::class;
+    protected $model = GenreMovie::class;
 
     /**
      * Define the model's default state.
@@ -22,8 +22,12 @@ class GenreMovieFactory extends Factory
     public function definition()
     {
         return [
-            'genre_id' => Genre::factory()->create()->id,
-            'movie_id' => Movie::factory()->create()->id,
+            'genre_id' => function () {
+                return Genre::factory()->create()->id;
+            },
+            'movie_id' => function () {
+                return Movie::factory()->create()->id;
+            },
         ];
     }
 }

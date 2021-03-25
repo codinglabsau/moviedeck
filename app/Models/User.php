@@ -42,10 +42,10 @@ class User extends Authenticatable
     ];
 
     public function watchlist() {
-        return $this->hasOne('App\Watchlist');
+        return $this->hasOne(Watchlist::class);
     }
 
     public function reviews() {
-        return $this->hasMany('App\Review');
+        return $this->hasMany(Review::class);
     }
 }

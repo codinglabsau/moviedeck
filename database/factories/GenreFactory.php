@@ -23,7 +23,7 @@ class GenreFactory extends Factory
     {
 
         return [
-
+            'name' => Genre::GENRE_ACTION
         ];
     }
 }
