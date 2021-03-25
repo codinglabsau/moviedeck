@@ -3,6 +3,8 @@
 namespace Database\Factories;
 
 use App\Models\CelebMovie;
+use App\Models\Celeb;
+use App\Models\Movie;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CelebMovieFactory extends Factory

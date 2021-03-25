@@ -33,6 +33,7 @@ class ReviewFactory extends Factory
             },
             'title' => $this->faker->word,
             'rating' => $this->faker->randomFloat(1, 0, 10),
+            'content' => $this->faker->paragraph,
         ];
     }
 }

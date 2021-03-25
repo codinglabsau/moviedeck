@@ -14,10 +14,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\User::factory(20)->create();
-        \App\Models\Celeb::factory(20)->create();
-//        \App\Models\Genre_Movie::factory(20)->create();
-//        \App\Models\Review::factory(10)->create();
         $this->call(GenreSeeder::class);
+        \App\Models\User::factory(20)->create();
+        \App\Models\Movie::factory(20)->create();
+        \App\Models\Review::factory(20)->create();
+        \App\Models\Celeb::factory(20)->create();
+        \App\Models\Watchlist::factory(20)->create();
+        \App\Models\MovieWatchlist::factory(20)->create();
+        \App\Models\CelebMovie::factory(20)->create();
+        \App\Models\GenreMovie::factory(20)->create();
+
     }
 }

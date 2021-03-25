@@ -3,6 +3,8 @@
 namespace Database\Factories;
 
 use App\Models\MovieWatchlist;
+use App\Models\Movie;
+use App\Models\Watchlist;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class MovieWatchlistFactory extends Factory
