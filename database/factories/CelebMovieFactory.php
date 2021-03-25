@@ -2,17 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\GenreMovie;
+use App\Models\CelebMovie;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class GenreMovieFactory extends Factory
+class CelebMovieFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = GenreMovie::class;
+    protected $model = CelebMovie::class;
 
     /**
      * Define the model's default state.
@@ -22,12 +22,12 @@ class GenreMovieFactory extends Factory
     public function definition()
     {
         return [
-            'genre_id' => function() {
-                return Genre::factory()->create()->id;
+            'celeb_id' => function() {
+                return Celeb::factory()->create()->id;
             },
             'movie_id' => function() {
                 return Movie::factory()->create()->id;
-            },
+            }
         ];
     }
 }
