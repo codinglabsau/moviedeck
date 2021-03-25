@@ -17,8 +17,10 @@ public_html/hot
 
 storage/*.key
 .env
+.env.backup
 .idea
 Homestead.yaml
 Homestead.json
 /.vagrant
 .phpunit.result.cache
+docker-compose.override.yml
