@@ -31,7 +31,7 @@ class ReviewFactory extends Factory
             'movie_id' => function() {
                 return Movie::factory()->create()->id;
             },
-            'title' => $this->faker->word,
+            'title' => $this->faker->word(),
             'rating' => $this->faker->randomFloat(1, 0, 10),
         ];
     }
