@@ -2,11 +2,10 @@
 
 namespace Database\Factories;
 
-use App\Models\Review;
 use App\Models\User;
 use App\Models\Movie;
+use App\Models\Review;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App;
 
 class ReviewFactory extends Factory
 {
@@ -25,14 +24,11 @@ class ReviewFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => function() {
-                return User::factory()->create()->id;
-            },
-            'movie_id' => function() {
-                return Movie::factory()->create()->id;
-            },
-            'title' => $this->faker->word,
+            'user_id' => User::all()->random()->id,
+            'movie_id' => Movie::all()->random()->id,
+            'title' => $this->faker->realText(30),
             'rating' => $this->faker->randomFloat(1, 0, 10),
+            'content' => $this->faker->paragraph,
         ];
     }
 }
