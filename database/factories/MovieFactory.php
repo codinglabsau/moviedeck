@@ -22,7 +22,7 @@ class MovieFactory extends Factory
     public function definition()
     {
         return [
-            'title' => $this->faker->word,
+            'title' => $this->faker->realText(20),
             'synopsis' => $this->faker->paragraph,
             'year' => $this->faker->year,
             'poster' => $this->faker->imageUrl(600, 700, "poster", true),

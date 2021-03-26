@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class GenreMovie extends Model
 {
     use HasFactory;
+
+    public $table = "genre_movie";
 }

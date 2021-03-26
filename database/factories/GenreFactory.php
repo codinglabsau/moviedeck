@@ -21,9 +21,8 @@ class GenreFactory extends Factory
      */
     public function definition()
     {
-
         return [
-            'name' => Genre::GENRE_ACTION
+            'name' => Genre::GENRE_ACTION,
         ];
     }
 }

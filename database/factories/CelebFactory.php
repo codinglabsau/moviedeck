@@ -4,7 +4,6 @@ namespace Database\Factories;
 
 use App\Models\Celeb;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 class CelebFactory extends Factory
 {
@@ -25,7 +24,7 @@ class CelebFactory extends Factory
         return [
             'name' => $this->faker->name,
             'date_of_birth' => $this->faker->date(),
-            'photo' => $this->faker->imageUrl(600, 800, "movie", true),
+            'photo' => $this->faker->imageUrl(600, 700, "person", true),
         ];
     }
 }

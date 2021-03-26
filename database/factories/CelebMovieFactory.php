@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Celeb;
+use App\Models\Movie;
 use App\Models\CelebMovie;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -22,12 +24,8 @@ class CelebMovieFactory extends Factory
     public function definition()
     {
         return [
-            'celeb_id' => function() {
-                return Celeb::factory()->create()->id;
-            },
-            'movie_id' => function() {
-                return Movie::factory()->create()->id;
-            }
+            'celeb_id' => Celeb::all()->random()->id,
+            'movie_id' => Movie::all()->random()->id,
         ];
     }
 }
