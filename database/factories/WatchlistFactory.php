@@ -2,9 +2,9 @@
 
 namespace Database\Factories;
 
+use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Watchlist;
 use App\Models\User;
-use Illuminate\Database\Eloquent\Factories\Factory;
 
 class WatchlistFactory extends Factory
 {
@@ -23,9 +23,7 @@ class WatchlistFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => function() {
-                return User::factory()->create()->id;
-            },
+            'user_id' =>  User::factory(),
         ];
     }
 }

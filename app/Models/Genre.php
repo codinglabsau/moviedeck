@@ -12,6 +12,7 @@ class Genre extends Model
     public const GENRE_ACTION = 'Action';
     public const GENRE_ANIME = 'Anime';
     public const GENRE_ADVENTURE = 'Adventure';
+    public const GENRE_CHILDREN = 'Children';
     public const GENRE_COMEDY = 'Comedy';
     public const GENRE_CRIME = 'Crime';
     public const GENRE_DRAMA = 'Drama';

@@ -2,10 +2,10 @@
 
 namespace Database\Factories;
 
-use App\Models\GenreMovie;
-use App\Models\Genre;
-use App\Models\Movie;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\GenreMovie;
+use App\Models\Movie;
+use App\Models\Genre;
 
 class GenreMovieFactory extends Factory
 {
@@ -24,12 +24,8 @@ class GenreMovieFactory extends Factory
     public function definition()
     {
         return [
-            'genre_id' => function() {
-                return Genre::factory()->create()->id;
-            },
-            'movie_id' => function() {
-                return Movie::factory()->create()->id;
-            },
+            'genre_id' => rand(1, 12),
+            'movie_id' => Movie::factory(),
         ];
     }
 }

@@ -2,9 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Models\Celeb;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
+use App\Models\Celeb;
 
 class CelebFactory extends Factory
 {

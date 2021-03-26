@@ -2,9 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Models\Movie;
 use Illuminate\Database\Eloquent\Factories\Factory;
-require_once 'vendor/autoload.php';
+use App\Models\Movie;
 
 
 class MovieFactory extends Factory
