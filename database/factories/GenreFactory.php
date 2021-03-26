@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Genre;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class GenreFactory extends Factory
 {
@@ -22,7 +22,7 @@ class GenreFactory extends Factory
     public function definition()
     {
         return [
-            'name' => Genre::GENRE_ACTION
+            'name' => Genre::GENRE_ACTION,
         ];
     }
 }

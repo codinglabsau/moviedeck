@@ -2,10 +2,10 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\CelebMovie;
 use App\Models\Celeb;
 use App\Models\Movie;
+use App\Models\CelebMovie;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CelebMovieFactory extends Factory
 {
@@ -24,8 +24,8 @@ class CelebMovieFactory extends Factory
     public function definition()
     {
         return [
-            'celeb_id' => Celeb::factory(),
-            'movie_id' => Movie::factory(),
+            'celeb_id' => Celeb::all()->random()->id,
+            'movie_id' => Movie::all()->random()->id,
         ];
     }
 }

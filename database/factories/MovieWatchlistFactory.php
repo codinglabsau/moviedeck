@@ -2,10 +2,10 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\MovieWatchlist;
-use App\Models\Watchlist;
 use App\Models\Movie;
+use App\Models\Watchlist;
+use App\Models\MovieWatchlist;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class MovieWatchlistFactory extends Factory
 {
@@ -24,8 +24,8 @@ class MovieWatchlistFactory extends Factory
     public function definition()
     {
         return [
-            'movie_id' => Movie::factory(),
-            'watchlist_id' => Watchlist::factory(),
+            'movie_id' => Movie::all()->random()->id,
+            'watchlist_id' => Watchlist::all()->random()->id,
         ];
     }
 }
