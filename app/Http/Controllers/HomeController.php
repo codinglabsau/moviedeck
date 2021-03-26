@@ -16,7 +16,6 @@ class HomeController extends Controller
                             ->groupBy('movie_id')
                             ->orderByDesc('average_rating')
                             ->first();
-        dd($top_rated);
         $movies = App\Models\Movie::all();
         return view('home')->with('movies', $movies)->with('top_rated', $top_rated);
     }
