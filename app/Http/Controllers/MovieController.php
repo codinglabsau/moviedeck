@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Movie;
+use App\Models\Review;
 use Illuminate\Http\Request;
 
 class MovieController extends Controller
@@ -25,10 +26,18 @@ class MovieController extends Controller
 
     public function show(Movie $movie)
     {
+
         $genres = Movie::with('genres')->get();
         $castings = Movie::with('celebs')->get();
+        $reviews = Movie::with('reviews')->get();
         $duration = explode('.', (string) round($movie->duration/60, 2));
-        return view('movies.show', ['movie' => $movie, 'duration' => $duration, 'castings' => $castings, 'genres' => $genres]);
+        return view('movies.show', [
+            'movie' => $movie,
+            'duration' => $duration,
+            'castings' => $castings,
+            'genres' => $genres,
+            'reviews' => $reviews,
+        ]);
     }
 
     public function edit($id)

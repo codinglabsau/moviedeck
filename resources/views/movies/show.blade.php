@@ -62,8 +62,11 @@
                     <div class="pl-96 pr-12 py-8 bg-gray-300">
                         <div class="flex justify-between">
                             <div>
-                                <h1 class="text-6xl font-bold text-gray-600"> 4.8 <span class="font-normal text-3xl">/ 10</span></h1>
-                                <h4> 1,923 reviews </h4>
+                                <h1 class="text-6xl font-bold text-gray-600">
+                                    4.8 <span class="font-normal text-3xl">/ 10</span></h1>
+                                <h4> <svg class="w-5 h-5 inline-flex align-top" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                                    </svg> 1,923 reviews </h4>
                             </div>
                             <div class="my-6">
                                 <button class="px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-blue-600 rounded-md">
@@ -71,8 +74,6 @@
                                 </button>
                             </div>
                         </div>
-
-
                     </div>
                     <div class="flex px-4 py-5">
                         <img class="h-80 mx-12 -mt-24 mb-12" src="{{ $movie->poster }}" alt="{{ $movie->title }}">
@@ -80,27 +81,47 @@
                     </div>
                 </div>
             </div>
-            <div class="container mx-auto flex px-5 py-16 md:flex-row flex-col items-center">
+            <div class="container mx-auto flex px-5 py-16 md:flex-row flex-col items-start align-top">
                 <div class="w-full lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
                     <h1 class="font-medium text-gray-500 text-4xl py-16">Main Casts</h1>
-                        @foreach($castings as $casting)
-                            @foreach($casting->celebs as $cast)
-                            <div class="flex w-full justify-between align-middle">
-                                @if ($cast->pivot->movie_id == $movie->id)
-                                        <div class="flex">
-                                            <img class="h-12 border rounded-sm my-4" src="{{ $cast->photo }}" alt="{{ $cast->name }}">
-                                            <p class="p-6"> {{ $cast->name }} </p>
-                                        </div>
-                                        <div class="flex">
-                                            <p class="p-6"> as {{ $cast->pivot->character_name }} </p>
-                                        </div>
-                                @endif
-                            </div>
-                            @endforeach
+                    @foreach($castings as $casting)
+                        @foreach($casting->celebs as $cast)
+                        <div class="flex w-full justify-between">
+                            @if ($cast->pivot->movie_id == $movie->id)
+                                    <div class="flex">
+                                        <img class="h-12 border rounded-sm my-4" src="{{ $cast->photo }}" alt="{{ $cast->name }}">
+                                        <span class="p-6 font-medium"> {{ $cast->name }} </span>
+                                    </div>
+                                    <div class="flex">
+                                        <span class="p-6 font-light">
+                                            as {{ $cast->pivot->character_name }}
+                                        </span>
+                                    </div>
+                            @endif
+                        </div>
                         @endforeach
+                    @endforeach
                 </div>
                 <div class="w-full lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
-                    <h1 class="font-medium text-gray-500 text-4xl">Recent Reviews</h1>
+                    <h1 class="font-medium text-gray-500 text-4xl py-16">Recent Reviews</h1>
+                    @foreach($reviews as $review)
+                        @foreach($review->reviews as $rev)
+                                @if ($rev->movie_id == $movie->id)
+                                    <div class="flex-col py-6">
+                                        <h1 class="font-bold text-lg tracking-wide"> <svg class="w-5 h-5 inline-flex align-top" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                                            </svg> {{ $rev->rating }} <span class="font-normal text-sm">/ 10</span> </h1>
+                                        <h2 class="font-medium pt-2 text-md"> {{ $rev->title }} </h2>
+                                        <span class="font-bold text-sm text-blue-500 mr-4"> {{ $rev->user->name }} </span>
+                                        <span class="font-normal text-sm"> {{ $rev->created_at }} </span>
+                                        <p class="py-2"> {{ $rev->content }} </p>
+                                    </div>
+                                @endif
+                        @endforeach
+                    @endforeach
+                    <button class="flex my-6 px-4 py-2 font-sm tracking-wide capitalize transition-colors duration-200 transform rounded-md border-2 border-gray-700 hover:border-gray-500">
+                        <a href="#"><span class="whitespace-nowrap"> Read All Reviews </span></a>
+                    </button>
                 </div>
             </div>
         </section>
