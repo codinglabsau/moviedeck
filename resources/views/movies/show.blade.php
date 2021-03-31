@@ -44,7 +44,7 @@
                             </svg>
                             <a href="{{ $movie->trailer }}"><span class="mx-2 whitespace-nowrap">Play Trailer</span></a>
                         </button>
-                        <button class="flex items-center ml-5 px-2 py-2 font-medium tracking-wide capitalize transition-colors duration-200 transform bg-gray-200 rounded-md hover:bg-gray-300 focus:outline-none focus:bg-blue-500">
+                        <button class="flex items-center ml-5 px-2 py-2 font-medium tracking-wide capitalize transition-colors duration-200 transform bg-transparent rounded-md hover:bg-gray-300 focus:outline-none focus:bg-blue-500">
                             <svg class="w-5 h-5 mx-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
                             </svg>
@@ -82,17 +82,22 @@
             </div>
             <div class="container mx-auto flex px-5 py-16 md:flex-row flex-col items-center">
                 <div class="w-full lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
-                    <h1 class="font-medium text-gray-500 text-4xl py-6">Main Casts</h1>
-                    @foreach($castings as $casting)
-                        @foreach($casting->celebs as $cast)
-                            @if ($cast->pivot->movie_id == $movie->id)
-                                <div class="flex justify-between">
-                                    <img class="h-20 border " src="{{ $cast->photo }}" alt="{{ $cast->name }}">
-                                    <p> {{ $cast->name }} </p>
-                                </div>
-                            @endif
+                    <h1 class="font-medium text-gray-500 text-4xl py-16">Main Casts</h1>
+                        @foreach($castings as $casting)
+                            @foreach($casting->celebs as $cast)
+                            <div class="flex w-full justify-between align-middle">
+                                @if ($cast->pivot->movie_id == $movie->id)
+                                        <div class="flex">
+                                            <img class="h-12 border rounded-sm my-4" src="{{ $cast->photo }}" alt="{{ $cast->name }}">
+                                            <p class="p-6"> {{ $cast->name }} </p>
+                                        </div>
+                                        <div class="flex">
+                                            <p class="p-6"> as {{ $cast->pivot->character_name }} </p>
+                                        </div>
+                                @endif
+                            </div>
+                            @endforeach
                         @endforeach
-                    @endforeach
                 </div>
                 <div class="w-full lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
                     <h1 class="font-medium text-gray-500 text-4xl">Recent Reviews</h1>
