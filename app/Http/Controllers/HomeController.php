@@ -14,8 +14,7 @@ class HomeController extends Controller
         $top_rated= Review::with(['movie.genres'])
                             ->selectRaw('AVG(rating) as average_rating, movie_id')
                             ->groupBy('movie_id')
-                            ->orderByDesc('average_rating')
-                            ->first();
+                            ->get();
         $movies = App\Models\Movie::all();
         return view('home')->with('movies', $movies)->with('top_rated', $top_rated);
     }
