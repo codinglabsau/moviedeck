@@ -11,7 +11,6 @@ class MovieController extends Controller
     public function index()
     {
         $movies = Movie::all()->sortBy('created_at');
-
         return view('movies.index', ['movies' => $movies]);
     }
 
