@@ -10,7 +10,8 @@ class MovieController extends Controller
 {
     public function index()
     {
-        $movies = Movie::all();
+        $movies = Movie::all()->sortBy('created_at');
+
         return view('movies.index', ['movies' => $movies]);
     }
 
@@ -26,7 +27,6 @@ class MovieController extends Controller
 
     public function show(Movie $movie)
     {
-
         $genres = Movie::with('genres')->get();
         $castings = Movie::with('celebs')->get();
         $reviews = Movie::with('reviews')->get();
