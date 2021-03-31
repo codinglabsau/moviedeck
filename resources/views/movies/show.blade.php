@@ -26,7 +26,14 @@
                             </span>
                             <span class="whitespace-nowrap font-normal">
                                 <span class="mx-4 whitespace-nowrap">|</span>
-                                Action, Comedy, Mystery </span>
+                                @foreach($genres as $genre)
+                                    @foreach($genre->genres as $tags)
+                                        @if ($tags->pivot->movie_id == $movie->id)
+                                            {{ ($tags->name) }}@if (!$loop->last),@endif
+                                        @endif
+                                    @endforeach
+                                @endforeach
+                            </span>
                         </div>
                     </div>
                     <div class="flex justify-center">
@@ -75,7 +82,17 @@
             </div>
             <div class="container mx-auto flex px-5 py-16 md:flex-row flex-col items-center">
                 <div class="w-full lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
-                    <h1 class="font-medium text-gray-500 text-4xl">Main Casts</h1>
+                    <h1 class="font-medium text-gray-500 text-4xl py-6">Main Casts</h1>
+                    @foreach($castings as $casting)
+                        @foreach($casting->celebs as $cast)
+                            @if ($cast->pivot->movie_id == $movie->id)
+                                <div class="flex justify-between">
+                                    <img class="h-20 border " src="{{ $cast->photo }}" alt="{{ $cast->name }}">
+                                    <p> {{ $cast->name }} </p>
+                                </div>
+                            @endif
+                        @endforeach
+                    @endforeach
                 </div>
                 <div class="w-full lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
                     <h1 class="font-medium text-gray-500 text-4xl">Recent Reviews</h1>

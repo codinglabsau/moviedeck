@@ -25,8 +25,10 @@ class MovieController extends Controller
 
     public function show(Movie $movie)
     {
+        $genres = Movie::with('genres')->get();
+        $castings = Movie::with('celebs')->get();
         $duration = explode('.', (string) round($movie->duration/60, 2));
-        return view('movies.show', ['movie' => $movie, 'duration' => $duration]);
+        return view('movies.show', ['movie' => $movie, 'duration' => $duration, 'castings' => $castings, 'genres' => $genres]);
     }
 
     public function edit($id)
