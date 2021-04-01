@@ -10,7 +10,7 @@
                 <div class="grid grid-flow-row sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-28">
                     @foreach($movies as $movie)
                         <div>
-                            <a href="{{ url()->current() }}/{{ $movie->id }}">
+                            <a href="{{ route('movies.show', $movie) }}">
                                 <img class="w-48" src="{{ $movie->poster }}" alt="{{ $movie->poster }}">
                             </a>
                             <div class="flex justify-between">

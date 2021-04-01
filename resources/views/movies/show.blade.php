@@ -21,8 +21,8 @@
                     <div class="flex justify-center mb-12">
                         <div class="flex items-center py-2 font-medium tracking-wide">
                             <span class="mx-2 whitespace-nowrap">
-                                {{ $duration[0] }} hrs
-                                {{ $duration[1] }} min
+                                {{ $movie->duration[0] }} hr
+                                {{ $movie->duration[1] }} min
                             </span>
                             <span class="whitespace-nowrap font-normal">
                                 <span class="mx-4 whitespace-nowrap">|</span>

@@ -27,10 +27,8 @@ class MovieController extends Controller
     public function show(Movie $movie)
     {
         $movie->with(['genres', 'celebs', 'reviews'])->get();
-        $duration = explode('.', (string) round($movie->duration/60, 2));
         return view('movies.show', [
-            'movie' => $movie,
-            'duration' => $duration,
+            'movie' => $movie
         ]);
     }
 
