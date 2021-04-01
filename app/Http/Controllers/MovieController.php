@@ -27,9 +27,7 @@ class MovieController extends Controller
     public function show(Movie $movie)
     {
         $movie->with(['genres', 'celebs', 'reviews'])->get();
-        return view('movies.show', [
-            'movie' => $movie
-        ]);
+        return view('movies.show', ['movie' => $movie]);
     }
 
     public function edit($id)
