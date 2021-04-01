@@ -43,12 +43,13 @@ class CelebController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Celeb  $celeb
+     * @param Celeb $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Celeb $celeb)
+    public function show(Celeb $id)
     {
-        //
+        $celeb = Celeb::find($id);
+        return view('single_celeb')->with('celeb', $celeb);
     }
 
     /**
