@@ -10,7 +10,7 @@ class MovieController extends Controller
 {
     public function index()
     {
-        $movies = Movie::all()->sortBy('created_at');
+        $movies = Movie::latest()->get();
         return view('movies.index', ['movies' => $movies]);
     }
 
@@ -26,16 +26,11 @@ class MovieController extends Controller
 
     public function show(Movie $movie)
     {
-        $genres = Movie::with('genres')->get();
-        $castings = Movie::with('celebs')->get();
-        $reviews = Movie::with('reviews')->get();
+        $movie->with(['genres', 'celebs', 'reviews'])->get();
         $duration = explode('.', (string) round($movie->duration/60, 2));
         return view('movies.show', [
             'movie' => $movie,
             'duration' => $duration,
-            'castings' => $castings,
-            'genres' => $genres,
-            'reviews' => $reviews,
         ]);
     }
 

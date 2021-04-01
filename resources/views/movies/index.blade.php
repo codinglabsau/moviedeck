@@ -14,7 +14,7 @@
                                 <img class="w-48" src="{{ $movie->poster }}" alt="{{ $movie->poster }}">
                             </a>
                             <div class="flex justify-between">
-                                <h3><a href="{{ url()->current() }}/{{ $movie->id }}"> {{ $movie->title }} </a></h3>
+                                <h3><a href="{{ route('movies.show', $movie) }}"> {{ $movie->title }} </a></h3>
                                 <h3> 4.8 </h3>
                             </div>
                         </div>
