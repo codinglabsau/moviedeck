@@ -14,3 +14,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/celebs', [\App\Http\Controllers\CelebController::class, 'index'])->name('celebs');
+Route::get('/celebs/{movie}', [\App\Http\Controllers\CelebController::class, 'show']);

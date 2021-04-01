@@ -14,7 +14,9 @@ class CelebController extends Controller
      */
     public function index()
     {
-        //
+        $celebs = Celeb::orderBy('name')
+                         ->paginate(20);
+        return view('celebs')->with('celebs', $celebs);
     }
 
     /**

@@ -1,30 +1,111 @@
 @extends('layouts/app')
 
 @section('content')
-    <div class="container px-6 py-2 mx-auto md:flex">
-        <section class="text-gray-600 body-font">
-            <div class="container mx-auto flex justify-between px-5 py-2 md:flex-row flex-col items-center">
-                <div class="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
-                    <div class="flex justify-center">
-                        <p class=inline-flex>{{$top_rated->movie->year}}</p>
-                        <p class=inline-flex>{{$top_rated->average_rating}}/10</p>
+    <div class="bg-gray-700 container px-6 py-3 mx-auto w-full">
+        <section class="text-gray-400 body-font">
+            {{--     Movie Summary Section       --}}
+            <div class="container mx-auto flex px-5 py-32 md:flex-row flex-col items-center">
+                <div class="w-full lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
+                    <div class="flex justify-center mb-6">
+                        <div class="flex items-center px-4 py-2 font-medium tracking-wide capitalize transition-colors duration-200 transform rounded-md border-2 border-gray-300">
+                            <span class="mx-2 whitespace-nowrap">{{ $rated[0]->movie->year }}</span>
+                        </div>
+                        <div class="flex items-center ml-5 px-4 py-2 font-medium text-white tracking-wide capitalize transition-colors duration-200 transform bg-blue-600 rounded-md focus:outline-none focus:bg-blue-500">
+                            <svg class="w-5 h-5 mx-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#fff">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                            </svg>
+                            <span class="whitespace-nowrap font-normal"> {{$rated[0]->average_rating}} / 10 </span>
+                        </div>
                     </div>
-                    <h1 class="title-font sm:text-4xl text-4xl mb-4 font-small text-gray-900">
-                        {{$top_rated->movie->title}}
-                    </h1>
-                    <p class="mb-8 leading-relaxed">{{intdiv($top_rated->movie->duration,60)}}hrs {{$top_rated->movie->duration%60}}min</p>
-                    @foreach($top_rated->movie->genres as $genre)
-                        <p>$genre->name</p>
-                    @endforeach
-                    <div class="flex justify-center">
-                        <button class="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">Watch Trailer</button>
-                        <button class="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">Add to Watchlist</button>
+                    <h1 class="title-font sm:text-6xl text-5xl mb-4 font-medium text-gray-100"> {{ $rated[0]->movie->title }}  </h1>
+                    <div class="flex justify-center mb-6">
+                        <div class="flex items-center py-2 font-medium tracking-wide">
+                            <span class="mx-2 text-gray-200 whitespace-nowrap">
+                                {{intdiv($rated[0]->movie->duration,60)}}@if (intdiv($rated[0]->movie->duration,60) > 1)hrs @else hr @endif
+                                {{$rated[0]->movie->duration%60}}min
+                            </span>
+                            <span class="whitespace-nowrap font-normal">
+                                <span class="mx-4 whitespace-nowrap">|</span>
+                                    @foreach($rated[0]->movie->genres as $genre)
+                                        {{$genre->name}}@if (!$loop->last),@endif
+                                    @endforeach
+                            </span>
+                        </div>
                     </div>
-                </div>
-                <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 flex items-center">
-                    <img class="object-cover object-center rounded" alt="hero" src="https://dummyimage.com/720x600">
+                    <div class="flex justify-center">
+                        <button class="flex items-center px-2 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
+                            <svg class="w-5 h-5 mx-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <a href="{{$rated[0]->movie->trailer }}"><span class="mx-2 whitespace-nowrap">Play Trailer</span></a>
+                        </button>
+                        <button class="flex items-center ml-5 px-2 py-2 font-medium tracking-wide capitalize transition-colors duration-200 transform bg-transparent rounded-md hover:bg-gray-600 focus:outline-none focus:bg-blue-500">
+                            <svg class="w-5 h-5 mx-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                            </svg>
+                            <a href="#"><span class="mx-2 whitespace-nowrap font-normal">Add to Watchlist</span></a>
+                        </button>
+                    </div>
                 </div>
             </div>
         </section>
+    </div>
+    <div>
+        <div class="container p-14 mx-auto">
+            <div class="flex justify-between">
+                <div class="flex items-center">
+                    <svg class="w-5 h-5 mx-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                    <span class="font-medium text-gray-800 whitespace-nowrap capitalize md:text-2xl">Popular Movies</span>
+                </div>
+                <div class="flex items-center px-4 py-2 font-medium tracking-wide capitalize transition-colors duration-200 transform rounded-md border-2 border-gray-300">
+                    <a href="#"><span class="mx-2 whitespace-nowrap">All movies</span></a>
+                </div>
+            </div>
+            <div class="flex items-baseline justify-center">
+                <div class="grid gap-8 mt-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                    @foreach ($rated as $movie)
+                        <div class="w-full max-w-xs text-center">
+                            <img class="object-cover object-center w-full h-80 mx-auto rounded-lg" src={{$movie->movie->poster}} alt="movie_poster"/>
+
+                            <div class="mt-2 flex justify-between">
+                                <span class="text-lg font-medium text-gray-700 ">{{$movie->movie->title}}</span>
+                                <span class="mt-1 font-medium text-gray-600">{{$movie->average_rating}}</span>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="container p-14 mx-auto">
+            <div class="flex justify-between">
+                <div class="flex items-center">
+                    <svg class="w-5 h-5 mx-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                    <span class="font-medium text-gray-800 whitespace-nowrap capitalize md:text-2xl">Trending Celebs</span>
+                </div>
+                <div class="flex items-center px-4 py-2 font-medium tracking-wide capitalize transition-colors duration-200 transform rounded-md border-2 border-gray-300">
+                    <a href="#"><span class="mx-2 whitespace-nowrap">All Celebs</span></a>
+                </div>
+            </div>
+            <div class="flex items-baseline justify-center">
+                <div class="grid gap-8 mt-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                    @foreach ($celebs as $celeb)
+                        <div class="w-full max-w-xs text-center">
+                            <img class="object-cover object-center w-full h-80 mx-auto rounded-lg" src={{$celeb->photo}} alt="movie_poster"/>
+
+                            <div class="mt-2 flex">
+                                <span class="text-lg font-medium text-gray-700 ">{{$celeb->name}}</span>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
