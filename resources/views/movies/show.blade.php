@@ -103,7 +103,7 @@
                                 </svg> {{ $review->rating }} <span class="font-normal text-sm">/ 10</span> </h1>
                             <h2 class="font-medium pt-2 text-md"> {{ $review->title }} </h2>
                             <span class="font-bold text-sm text-blue-500 mr-4"> {{ $review->user->name }} </span>
-                            <span class="font-normal text-sm"> {{ $review->created_at }} </span>
+                            <span class="font-normal text-sm"> {{ $review->created_at->diffForHumans() }} </span>
                             <p class="py-2"> {{ $review->content }} </p>
                         </div>
                     @endforeach
