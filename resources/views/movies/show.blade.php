@@ -20,9 +20,7 @@
                     <h1 class="title-font sm:text-6xl text-5xl mb-4 font-medium text-gray-900"> {{ $movie->title }}  </h1>
                     <div class="flex justify-center mb-12">
                         <div class="flex items-center py-2 font-medium tracking-wide">
-                            <span class="mx-2 whitespace-nowrap">
-                                {{ $movie->duration }}
-                            </span>
+                            <span class="mx-2 whitespace-nowrap"> {{ $movie->duration }} </span>
                             <span class="whitespace-nowrap font-normal">
                                 <span class="mx-4 whitespace-nowrap">|</span>
                                 @foreach($movie->genres as $genre)
