@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Carbon\CarbonInterval;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Movie extends Model
 {
@@ -27,7 +28,6 @@ class Movie extends Model
     }
 
     public function getDurationAttribute() {
-        $duration = number_format($this->attributes['duration']/60, 2, '.');
-        return explode('.', $duration);
+        return CarbonInterval::minutes($this->attributes['duration'])->cascade()->forHumans(['short' => true]);
     }
 }
