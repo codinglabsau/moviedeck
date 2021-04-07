@@ -16,7 +16,7 @@ class CelebController extends Controller
     {
         $celebs = Celeb::orderBy('name')
                          ->paginate(20);
-        return view('celebs')->with('celebs', $celebs);
+        return view('celebs/index', ['celebs' => $celebs]);
     }
 
     /**
@@ -43,13 +43,13 @@ class CelebController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Celeb $id
+     * @param Celeb $celeb
      * @return \Illuminate\Http\Response
      */
-    public function show(Celeb $id)
+    public function show(Celeb $celeb)
     {
-        $celeb = Celeb::find($id);
-        return view('single_celeb')->with('celeb', $celeb);
+        $single_celeb = Celeb::find($celeb);
+        return view('celebs/show', ['celeb' => $single_celeb]);
     }
 
     /**

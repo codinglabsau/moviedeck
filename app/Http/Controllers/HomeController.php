@@ -3,22 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Models\Celeb;
-use App\Models\Review;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Http\Request;
+use App\Models\Movie;
 use App;
-
 
 class HomeController extends Controller
 {
     public function index(){
-        $rated= Review::with(['movie.genres'])
-                            ->selectRaw('ROUND(AVG(rating),1) as average_rating, movie_id')
-                            ->groupBy('movie_id')
-                            ->take(4)
-                            ->get();
+        $movies = Movie::with(['reviews', 'genres'])
+            ->take(4)
+            ->get()
+            ->map(function ($movie) {
+                $movie->average_rating = round($movie->reviews->average('rating'),1);
+                return $movie;
+            })
+            ->sortByDesc('average_rating');
         $celebs= Celeb::take(4)
                         ->get();
-        return view('home')->with('rated', $rated)->with('celebs', $celebs);
+        return view('home', ['movies'=> $movies], ['celebs' => $celebs]);
     }
 }
