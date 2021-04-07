@@ -1,4 +1,4 @@
-@extends('layouts/app')
+@extends('layouts.main')
 
 @section('content')
     <div class="container px-6 py-3 mx-auto">
