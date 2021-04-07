@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('main');
 
 Route::get('/movies', [\App\Http\Controllers\MovieController::class, 'index'])->name('movies');
 Route::get('/movies/create', [\App\Http\Controllers\MovieController::class, 'create']);
@@ -22,3 +22,7 @@ Route::get('/movies/{movie}/edit', [\App\Http\Controllers\MovieController::class
 Route::post('/movies', [\App\Http\Controllers\MovieController::class, 'store']);
 Route::put('/movies/{movie}', [\App\Http\Controllers\MovieController::class, 'update']);
 Route::delete('/movies/{movie}', [\App\Http\Controllers\MovieController::class, 'destroy']);
+Auth::routes();
+
+Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
