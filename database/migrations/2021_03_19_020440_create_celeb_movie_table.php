@@ -16,6 +16,7 @@ class CreateCelebMovieTable extends Migration
         Schema::create('celeb_movie', function (Blueprint $table) {
             $table->unsignedinteger('celeb_id');
             $table->unsignedinteger('movie_id');
+            $table->string('character_name');
             $table->timestamps();
         });
     }
