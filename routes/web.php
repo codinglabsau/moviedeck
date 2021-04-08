@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 Auth::routes();
 Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::view('/', 'layouts.main')->name('main');
+Route::view('/', 'front')->name('front');
 
 Route::get('/movies', [\App\Http\Controllers\MovieController::class, 'index'])->name('movies.index');
 //Route::get('/movies/create', [\App\Http\Controllers\MovieController::class, 'create']);
