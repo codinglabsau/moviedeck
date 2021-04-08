@@ -26,6 +26,7 @@ class CelebMovieFactory extends Factory
         return [
             'celeb_id' => Celeb::all()->random()->id,
             'movie_id' => Movie::all()->random()->id,
+            'character_name' => $this->faker->name,
         ];
     }
 }
