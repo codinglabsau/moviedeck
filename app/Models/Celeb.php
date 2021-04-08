@@ -9,7 +9,12 @@ class Celeb extends Model
 {
     use HasFactory;
 
+    /**
+     * @var mixed
+     */
+
     public function movies() {
-        return $this->belongsToMany(Movie::class, 'celeb_movie');
+        return $this->belongsToMany(Movie::class, 'celeb_movie')
+            ->withPivot('character_name');
     }
 }

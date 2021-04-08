@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Celeb;
+use App\Models\Movie;
 use Illuminate\Http\Request;
 
 class CelebController extends Controller
@@ -48,8 +49,12 @@ class CelebController extends Controller
      */
     public function show(Celeb $celeb)
     {
-        $single_celeb = Celeb::find($celeb);
-        return view('celebs/show', ['celeb' => $single_celeb]);
+        //$titles = Movie::with('celebs')
+        //            ->select('poster', 'title')
+        //            ->where('id', $celeb->id)
+        //           ->get();
+        $celeb->with('movies');
+        return view('celebs/show', ['celeb' => $celeb]);
     }
 
     /**
