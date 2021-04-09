@@ -49,10 +49,8 @@ class CelebController extends Controller
      */
     public function show(Celeb $celeb)
     {
-        $titles = Celeb::with(['movies'])
-                    ->where('id', $celeb->id)
-                    ->get();
-        return view('celebs/show', ['celeb' => $celeb], ['titles' => $titles]);
+        $celeb->with('movies')->get();
+        return view('celebs/show', ['celeb' => $celeb]);
     }
 
     /**

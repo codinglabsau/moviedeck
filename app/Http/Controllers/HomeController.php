@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Celeb;
 use App\Models\Movie;
-use App;
 
 class HomeController extends Controller
 {
@@ -17,8 +16,13 @@ class HomeController extends Controller
                 return $movie;
             })
             ->sortByDesc('average_rating');
+
         $celebs= Celeb::take(4)
                         ->get();
-        return view('home', ['movies'=> $movies], ['celebs' => $celebs]);
+
+        return view('home', [
+            'movies'=> $movies,
+            'celebs' => $celebs
+        ]);
     }
 }
