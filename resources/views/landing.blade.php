@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="bg-gray-700 container px-6 py-3 mx-auto w-full">
+    <div class="bg-gray-700 px-12 py-3">
         <section class="text-gray-400 body-font">
             {{--     Movie Summary Section       --}}
             <div class="container mx-auto flex px-5 py-32 md:flex-row flex-col items-center">
