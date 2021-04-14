@@ -10,6 +10,8 @@ class Movie extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public function watchlists() {
         return $this->belongsToMany(Watchlist::class, 'movie_watchlist');
     }
