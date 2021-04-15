@@ -8,13 +8,15 @@
         <div class="flex items-baseline justify-center">
             <div class="grid gap-8 mt-0 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5">
                 @foreach ($celebs as $celeb)
-                    <div class="w-full max-w-xs text-center">
-                        <img class="object-cover object-center w-full h-80 mx-auto rounded-lg" src={{$celeb->photo}} alt="movie_poster"/>
+                    <a href={{ url("celebs/$celeb->id") }}>
+                        <div class="w-full max-w-xs text-center">
+                            <img class="object-cover object-center w-full h-80 mx-auto rounded-lg" src={{$celeb->photo}} alt="movie_poster"/>
 
-                        <div class="mt-2 flex">
-                            <span class="text-lg font-medium text-gray-700 ">{{$celeb->name}}</span>
+                            <div class="mt-2 flex">
+                                <span class="text-lg font-medium text-gray-700 ">{{$celeb->name}}</span>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 @endforeach
             </div>
         </div>
