@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\MovieWatchlist;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -18,7 +17,7 @@ class DatabaseSeeder extends Seeder
         \App\Models\User::factory(20)->create();
         \App\Models\Movie::factory(100)->create();
         \App\Models\Review::factory(300)->create();
-        \App\Models\Celeb::factory(20)->create();
+        \App\Models\Celeb::factory(100)->create();
         \App\Models\Watchlist::factory(15)->create();
         \App\Models\CelebMovie::factory(200)->create();
         \App\Models\GenreMovie::factory(200)->create();
