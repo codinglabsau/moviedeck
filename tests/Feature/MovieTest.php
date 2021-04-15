@@ -57,6 +57,11 @@ class MovieTest extends TestCase
                 'trailer' => 'http://www.goyette.biz/',
                 'duration' => '190',
             ])->assertOk();
+
+        $this->assertDatabaseHas('movies', [
+            'title' => 'Sample Movie',
+            'synopsis' => 'This is a Sample Synopsis',
+        ]);
     }
 
     /** @test */
@@ -92,12 +97,17 @@ class MovieTest extends TestCase
         $this->actingAs($admin)
             ->putJson("/movies/{$movie->id}", [
                 'title' => 'Sample Updated Movie',
-                'synopsis' => 'This is a Sample Synopsis',
+                'synopsis' => 'This is a Sample Updated Synopsis',
                 'year' => 2009,
                 'poster' => 'https://via.placeholder.com/600x750.png/00aa33?text=totam',
                 'trailer' => 'http://www.goyette.biz/',
                 'duration' => '190',
             ])->assertOk();
+
+        $this->assertDatabaseHas('movies', [
+            'title' => 'Sample Updated Movie',
+            'synopsis' => 'This is a Sample Updated Synopsis',
+        ]);
     }
 
     /** @test */
@@ -109,5 +119,9 @@ class MovieTest extends TestCase
         $this->actingAs($admin)
             ->delete("/movies/{$movie->id}")
                 ->assertOk();
+
+        $this->assertDatabaseMissing('movies', [
+            'id' => $movie->id,
+        ]);
     }
 }
