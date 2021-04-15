@@ -60,25 +60,27 @@ class MovieTest extends TestCase
     }
 
     /** @test */
+    public function an_admin_can_edit_a_movie()
+    {
+        $movie = Movie::factory()->create();
+        $admin = User::factory()->admin()->create();
+
+        $this->actingAs($admin)
+            ->get("/movies/{$movie->id}/edit")
+            ->assertOk();
+    }
+
+    /** @test */
     public function a_non_admin_cannot_edit_a_movie()
     {
+        $movie = Movie::factory()->create();
         $user = User::factory()->create([
             'is_admin' => false
         ]);
 
         $this->actingAs($user)
-            ->get('/movies/edit')
+            ->get("/movies/{$movie->id}/edit")
             ->assertStatus(403);
-    }
-
-    /** @test */
-    public function an_admin_can_edit_a_movie()
-    {
-        $admin = User::factory()->admin()->create();
-
-        $this->actingAs($admin)
-            ->get('/movies/edit')
-            ->assertOk();
     }
 
     /** @test */
