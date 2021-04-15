@@ -23,7 +23,7 @@ class RegisteredUserTest extends TestCase
 
         $response = $this->post('/register', $user);
 
-        $response->assertRedirect('/home');
+        $response->assertRedirect('/');
 
         $this->assertDatabaseHas('users', [
             'name' => 'Jaydel',
