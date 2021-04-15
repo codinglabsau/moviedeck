@@ -60,7 +60,7 @@
                     <span class="font-medium text-gray-800 whitespace-nowrap capitalize md:text-2xl">Popular Movies</span>
                 </div>
                 <div class="flex items-center px-4 py-2 font-medium tracking-wide capitalize transition-colors duration-200 transform rounded-md border-2 border-gray-300">
-                    <a href="#"><span class="mx-2 whitespace-nowrap">All movies</span></a>
+                    <a href="{{route('movies.index')}}"><span class="mx-2 whitespace-nowrap">All movies</span></a>
                 </div>
             </div>
             <div class="flex items-baseline justify-center">
@@ -89,7 +89,7 @@
                     <span class="font-medium text-gray-800 whitespace-nowrap capitalize md:text-2xl">Trending Celebs</span>
                 </div>
                 <div class="flex items-center px-4 py-2 font-medium tracking-wide capitalize transition-colors duration-200 transform rounded-md border-2 border-gray-300">
-                    <a href="#"><span class="mx-2 whitespace-nowrap">All Celebs</span></a>
+                    <a href="{{ route('celebs.index') }}"><span class="mx-2 whitespace-nowrap">All Celebs</span></a>
                 </div>
             </div>
             <div class="flex items-baseline justify-center">

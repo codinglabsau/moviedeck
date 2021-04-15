@@ -16,7 +16,6 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::view('/', 'front')->name('front');
 
 Route::get('/celebs', [\App\Http\Controllers\CelebController::class, 'index'])->name('celebs.index');
 Route::get('/celebs/{celeb}', [\App\Http\Controllers\CelebController::class, 'show'])->name('celeb.show');
