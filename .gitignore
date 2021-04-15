@@ -20,6 +20,7 @@ storage/*.key
 .env.backup
 /.idea
 .idea
+/.idea/*
 Homestead.yaml
 Homestead.json
 /.vagrant
