@@ -28,12 +28,19 @@ class MovieRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => ['required'],
-            'synopsis' => ['required'],
+            'title' => [
+                'required',
+                'string',
+                'min:5',
+                ],
+            'synopsis' => [
+                'required',
+                'string',
+                ],
             'year' => ['required'],
             'poster' => ['nullable'],
             'trailer' => ['nullable'],
-            'duration' => ['nullable'],
+            'duration' => ['required'],
         ];
     }
 }

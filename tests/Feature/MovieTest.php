@@ -46,8 +46,6 @@ class MovieTest extends TestCase
     /** @test */
     public function an_admin_can_add_a_movie()
     {
-//        $this->withoutMiddleware(\App\Http\Middleware\VerifyCsrfToken::class)
-
         $admin = User::factory()->admin()->create();
 
         $this->actingAs($admin)
@@ -62,36 +60,52 @@ class MovieTest extends TestCase
     }
 
     /** @test */
+    public function a_non_admin_cannot_edit_a_movie()
+    {
+        $user = User::factory()->create([
+            'is_admin' => false
+        ]);
+
+        $this->actingAs($user)
+            ->get('/movies/edit')
+            ->assertStatus(403);
+    }
+
+    /** @test */
+    public function an_admin_can_edit_a_movie()
+    {
+        $admin = User::factory()->admin()->create();
+
+        $this->actingAs($admin)
+            ->get('/movies/edit')
+            ->assertOk();
+    }
+
+    /** @test */
     public function an_admin_can_update_a_movie()
     {
-//        $this->withoutMiddleware(\App\Http\Middleware\VerifyCsrfToken::class);
-
-        $this->withoutExceptionHandling();
-
         $admin = User::factory()->admin()->create();
         $movie = Movie::factory()->create();
 
         $this->actingAs($admin)
-            ->putJson("/movies/{$movie->id}/update", [
-                'title' => 'Updated Movie Title',
-                'synopsis' => $movie->synopsis,
-                'year' => $movie->year,
-                'poster' => $movie->poster,
-                'trailer' => $movie->trailer,
-                'duration' => $movie->duration,
+            ->putJson("/movies/{$movie->id}", [
+                'title' => 'Sample Updated Movie',
+                'synopsis' => 'This is a Sample Synopsis',
+                'year' => 2009,
+                'poster' => 'https://via.placeholder.com/600x750.png/00aa33?text=totam',
+                'trailer' => 'http://www.goyette.biz/',
+                'duration' => '190',
             ])->assertOk();
     }
 
     /** @test */
     public function an_admin_can_delete_a_movie()
     {
-        $this->withoutMiddleware(\App\Http\Middleware\VerifyCsrfToken::class);
-
         $admin = User::factory()->admin()->create();
         $movie = Movie::factory()->create();
 
         $this->actingAs($admin)
-            ->delete("/movies/{$movie->id}/delete")
+            ->delete("/movies/{$movie->id}")
                 ->assertOk();
     }
 }
