@@ -52,7 +52,7 @@ class MovieTest extends TestCase
 
         $this->actingAs($user)
             ->get('/movies/create')
-            ->assertForbidden();
+            ->assertStatus(403);
     }
 
     /** @test */
@@ -95,7 +95,7 @@ class MovieTest extends TestCase
                 'poster' => 'https://via.placeholder.com/600x750.png/00aa33?text=totam',
                 'trailer' => 'http://www.goyette.biz/',
                 'duration' => '190',
-            ])->assertForbidden();
+            ])->assertStatus(403);
 
         $this->assertDatabaseMissing('movies', [
             'title' => 'Sample Movie',
@@ -128,7 +128,7 @@ class MovieTest extends TestCase
 
         $this->actingAs($user)
             ->get("/movies/{$movie->id}/edit")
-            ->assertForbidden();
+            ->assertStatus(403);
     }
 
     /** @test */
@@ -188,7 +188,7 @@ class MovieTest extends TestCase
                 'poster' => 'https://via.placeholder.com/600x750.png/00aa33?text=totam',
                 'trailer' => 'http://www.goyette.biz/',
                 'duration' => '160',
-            ])->assertForbidden();
+            ])->assertStatus(403);
 
         $this->assertDatabaseMissing('movies', [
             'title' => 'Sample Updated Movie Title',
@@ -226,7 +226,7 @@ class MovieTest extends TestCase
 
         $this->actingAs($user)
             ->delete("/movies/{$movie->id}")
-            ->assertForbidden();
+            ->assertStatus(403);
 
         $this->assertDatabaseHas('movies', [
             'id' => $movie->id,
