@@ -9,16 +9,17 @@ class HomeController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+//        $this->middleware('auth');
     }
 
     public function index()
     {
-        $movies = Movie::with(['reviews', 'genres'])
+        $movies = Movie::with(['genres'])
             ->take(4)
             ->get()
             ->map(function ($movie) {
-                $movie->average_rating = round($movie->reviews->average('rating'),1);
+//                $movie->average_rating = round($movie->reviews->average('rating'),1);
+                $movie->average_rating = round($movie->reviews()->average('rating'),1);
                 return $movie;
             })
             ->sortByDesc('average_rating');
