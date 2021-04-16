@@ -14,7 +14,7 @@ class HomeController extends Controller
 
     public function index()
     {
-        $movies = Movie::with(['reviews', 'genres'])
+        $movies = Movie::with(['genres'])
             ->take(4)
             ->get()
             ->map(function ($movie) {
