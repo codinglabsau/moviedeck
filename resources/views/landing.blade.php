@@ -25,7 +25,7 @@
                             </span>
                             <span class="whitespace-nowrap font-normal">
                                 <span class="mx-4 whitespace-nowrap">|</span>
-                                    @foreach($movies->first()->genres as $genre)
+                                @foreach($movies->first()->genres as $genre)
                                     {{$genre->name}}@if (!$loop->last),@endif
                                 @endforeach
                             </span>

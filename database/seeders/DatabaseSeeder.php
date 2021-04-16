@@ -15,6 +15,12 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(GenreSeeder::class);
         \App\Models\User::factory(20)->create();
+        \App\Models\User::factory()->create([
+            'name' => 'Kieran Lacey',
+            'email' => 'kieran.lacey@example.com',
+            'password' => 'password',
+            'is_admin' => true
+         ]);
         \App\Models\Movie::factory(100)->create();
         \App\Models\Review::factory(300)->create();
         \App\Models\Celeb::factory(100)->create();
