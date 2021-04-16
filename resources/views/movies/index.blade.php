@@ -9,7 +9,7 @@
                 <div class="flex items-center ml-5 pr-4 py-2 font-medium text-white tracking-wide capitalize">
                     <h1 class="font-medium text-gray-500 text-4xl whitespace-nowrap">Popular Movies</h1>
                 </div>
-                @if (auth()->check() && auth()->user()->is_admin == 1)
+                @if (auth()->check() && auth()->user()->is_admin)
                     <div class="flex items-center font-medium tracking-wide capitalize transition-colors duration-200 transform rounded-md border-2 border-gray-700 hover:border-gray-500">
                         <a href="{{ route('movies.create') }}" class="mx-2 px-4 whitespace-nowrap">Add Movie</a>
                     </div>
