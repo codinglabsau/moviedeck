@@ -40,11 +40,6 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    /**
-     * @var mixed
-     */
-    private $is_admin;
-
     public function watchlist()
     {
         return $this->hasOne(Watchlist::class);

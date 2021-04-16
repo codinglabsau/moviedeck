@@ -12,7 +12,7 @@ class MovieTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function an_admin_can_see_movies()
+    public function an_admin_can_see_movies_view()
     {
         $admin = User::factory()->admin()->create();
 
@@ -22,7 +22,19 @@ class MovieTest extends TestCase
     }
 
     /** @test */
-    public function an_admin_can_create_a_movie()
+    public function a_user_can_see_movies_view()
+    {
+        $user = User::factory()->create([
+            'is_admin' => false,
+        ]);
+
+        $this->actingAs($user)
+            ->get('/movies')
+            ->assertOk();
+    }
+
+    /** @test */
+    public function an_admin_can_access_create_movie_view()
     {
         $admin = User::factory()->admin()->create();
 
@@ -32,7 +44,7 @@ class MovieTest extends TestCase
     }
 
     /** @test */
-    public function a_non_admin_cannot_create_a_movie()
+    public function a_user_cannot_access_create_movie_view()
     {
         $user = User::factory()->create([
             'is_admin' => false
@@ -40,7 +52,7 @@ class MovieTest extends TestCase
 
         $this->actingAs($user)
             ->get('/movies/create')
-            ->assertStatus(403);
+            ->assertForbidden();
     }
 
     /** @test */
@@ -61,11 +73,42 @@ class MovieTest extends TestCase
         $this->assertDatabaseHas('movies', [
             'title' => 'Sample Movie',
             'synopsis' => 'This is a Sample Synopsis',
+            'year' => 2021,
+            'poster' => 'https://via.placeholder.com/600x750.png/00aa33?text=totam',
+            'trailer' => 'http://www.goyette.biz/',
+            'duration' => '190',
         ]);
     }
 
     /** @test */
-    public function an_admin_can_edit_a_movie()
+    public function a_user_cannot_add_a_movie()
+    {
+        $user = User::factory()->create([
+            'is_admin' => false
+        ]);
+
+        $this->actingAs($user)
+            ->postJson('/movies', [
+                'title' => 'Sample Movie',
+                'synopsis' => 'This is a Sample Synopsis',
+                'year' => 2021,
+                'poster' => 'https://via.placeholder.com/600x750.png/00aa33?text=totam',
+                'trailer' => 'http://www.goyette.biz/',
+                'duration' => '190',
+            ])->assertForbidden();
+
+        $this->assertDatabaseMissing('movies', [
+            'title' => 'Sample Movie',
+            'synopsis' => 'This is a Sample Synopsis',
+            'year' => 2021,
+            'poster' => 'https://via.placeholder.com/600x750.png/00aa33?text=totam',
+            'trailer' => 'http://www.goyette.biz/',
+            'duration' => '190',
+        ]);
+    }
+
+    /** @test */
+    public function an_admin_can_see_edit_movie_view()
     {
         $movie = Movie::factory()->create();
         $admin = User::factory()->admin()->create();
@@ -76,7 +119,7 @@ class MovieTest extends TestCase
     }
 
     /** @test */
-    public function a_non_admin_cannot_edit_a_movie()
+    public function a_user_cannot_see_edit_movie_view()
     {
         $movie = Movie::factory()->create();
         $user = User::factory()->create([
@@ -85,28 +128,75 @@ class MovieTest extends TestCase
 
         $this->actingAs($user)
             ->get("/movies/{$movie->id}/edit")
-            ->assertStatus(403);
+            ->assertForbidden();
     }
 
     /** @test */
     public function an_admin_can_update_a_movie()
     {
         $admin = User::factory()->admin()->create();
-        $movie = Movie::factory()->create();
+        $movie = Movie::factory()->create([
+            'title' => 'Epic Movie Title',
+            'synopsis' => 'This is the synopsis of the epic movie.',
+            'year' => 2021,
+            'poster' => 'https://via.placeholder.com/600x750.png/00aa33?text=totam',
+            'trailer' => 'http://www.goyette.biz/',
+            'duration' => '160',
+        ]);
 
         $this->actingAs($admin)
             ->putJson("/movies/{$movie->id}", [
-                'title' => 'Sample Updated Movie',
-                'synopsis' => 'This is a Sample Updated Synopsis',
-                'year' => 2009,
+                'title' => 'Sample Updated Movie Title',
+                'synopsis' => 'This is a Sample Updated Synopsis of epic movie',
+                'year' => 2021,
                 'poster' => 'https://via.placeholder.com/600x750.png/00aa33?text=totam',
                 'trailer' => 'http://www.goyette.biz/',
-                'duration' => '190',
+                'duration' => '160',
             ])->assertOk();
 
         $this->assertDatabaseHas('movies', [
-            'title' => 'Sample Updated Movie',
-            'synopsis' => 'This is a Sample Updated Synopsis',
+            'title' => 'Sample Updated Movie Title',
+            'synopsis' => 'This is a Sample Updated Synopsis of epic movie',
+            'year' => 2021,
+            'poster' => 'https://via.placeholder.com/600x750.png/00aa33?text=totam',
+            'trailer' => 'http://www.goyette.biz/',
+            'duration' => '160',
+        ]);
+    }
+
+    /** @test */
+    public function a_user_cannot_update_a_movie()
+    {
+        $user = User::factory()->create([
+            'is_admin' => false
+        ]);
+
+        $movie = Movie::factory()->create([
+            'title' => 'Epic Movie Title',
+            'synopsis' => 'This is the synopsis of the epic movie.',
+            'year' => 2021,
+            'poster' => 'https://via.placeholder.com/600x750.png/00aa33?text=totam',
+            'trailer' => 'http://www.goyette.biz/',
+            'duration' => '160',
+        ]);
+
+        $this->actingAs($user)
+            ->putJson("/movies/{$movie->id}", [
+                'title' => 'Sample Updated Movie Title',
+                'synopsis' => 'This is a Sample Updated Synopsis of epic movie',
+                'year' => 2021,
+                'poster' => 'https://via.placeholder.com/600x750.png/00aa33?text=totam',
+                'trailer' => 'http://www.goyette.biz/',
+                'duration' => '160',
+            ])->assertForbidden();
+
+        $this->assertDatabaseMissing('movies', [
+            'title' => 'Sample Updated Movie Title',
+            'synopsis' => 'This is a Sample Updated Synopsis of epic movie',
+            'year' => 2021,
+            'poster' => 'https://via.placeholder.com/600x750.png/00aa33?text=totam',
+            'trailer' => 'http://www.goyette.biz/',
+            'duration' => '160',
         ]);
     }
 
@@ -121,6 +211,24 @@ class MovieTest extends TestCase
                 ->assertOk();
 
         $this->assertDatabaseMissing('movies', [
+            'id' => $movie->id,
+        ]);
+    }
+
+    /** @test */
+    public function a_user_cannot_delete_a_movie()
+    {
+        $user = User::factory()->create([
+            'is_admin' => false
+        ]);
+
+        $movie = Movie::factory()->create();
+
+        $this->actingAs($user)
+            ->delete("/movies/{$movie->id}")
+            ->assertForbidden();
+
+        $this->assertDatabaseHas('movies', [
             'id' => $movie->id,
         ]);
     }

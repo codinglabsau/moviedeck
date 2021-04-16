@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
 class MovieRequest extends FormRequest
@@ -14,10 +13,7 @@ class MovieRequest extends FormRequest
      */
     public function authorize()
     {
-        if (Auth::user()->is_admin === true) {
-            return true;
-        }
-        return false;
+        return auth()->user()->is_admin;
     }
 
     /**
