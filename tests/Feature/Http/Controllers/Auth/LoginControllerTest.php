@@ -22,6 +22,7 @@ class LoginControllerTest extends TestCase
     /** @test */
     public function login_displays_validation_errors()
     {
+        $this->withoutMiddleware();
         $response = $this->post('/login', []);
 
         $response->assertStatus(302);
