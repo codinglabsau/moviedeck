@@ -14,7 +14,9 @@
 
                 <div class="w-full p-6">
                     <h1>Test Form</h1>
-                    {{--form here--}}
+                    <form method="POST" action="route{{ 'movies.create' }}">
+                        @csrf
+                    </form>
                 </div>
             </section>
         </div>
