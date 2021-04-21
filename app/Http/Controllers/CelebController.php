@@ -19,7 +19,7 @@ class CelebController extends Controller
 
     public function create()
     {
-        //
+        return view('celebs/create');
     }
 
     public function store(Request $request)
@@ -38,7 +38,7 @@ class CelebController extends Controller
 
     public function edit(Celeb $celeb)
     {
-        //
+        return view('celebs/edit')->with('celeb', $celeb);
     }
 
     public function update(Request $request, Celeb $celeb)

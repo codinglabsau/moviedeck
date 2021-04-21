@@ -13,6 +13,7 @@
         "@tailwindcss/ui": "^0.3",
         "autoprefixer": "^10.2.5",
         "axios": "^0.21",
+        "chokidar": "^3.5.1",
         "laravel-mix": "^6.0.16",
         "lodash": "^4.17.19",
         "postcss": "^8.2.8",
