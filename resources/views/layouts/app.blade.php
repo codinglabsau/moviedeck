@@ -1,11 +1,19 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link href='../css/app.css' rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <title>@yield('title', 'MovieDeck | Best Movie Reviews')</title>
+
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
+
+    <!-- Styles -->
+    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 </head>
 <body class="bg-gray-100">
 
@@ -17,7 +25,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                           d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z"/>
                 </svg>
-                <a class="text-md font-bold uppercase text-gray-700 md:text-base hover:text-gray-600" href="{{ route('home') }}">Moviedeck</a>
+                <a class="text-md font-bold uppercase text-gray-700 md:text-base hover:text-gray-600" href="{{ route('landing') }}">Moviedeck</a>
 
                 <!-- Mobile menu button -->
                 <div class="flex md:hidden">
@@ -45,12 +53,24 @@
 
                     <input type="text" class="w-full py-3 pl-10 pr-4 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 focus:outline-none focus:ring" placeholder="Search">
 
-                    <button class="flex items-center ml-5 px-2 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
-                        <svg class="w-5 h-5 mx-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
-                        </svg>
-                        <span class="mx-2 whitespace-nowrap">Sign up</span>
-                    </button>
+                    @guest
+                        <button type="button" onclick="document.location='{{ route("login") }}'" class="flex items-center ml-5 px-2 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
+                            <svg class="w-5 h-5 mx-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                            </svg>
+                            <span class="mx-2 whitespace-nowrap">{{ __('Login') }}</span>
+                        </button>
+                    @else
+                        <span>{{ Auth::user()->name }}</span>
+
+                        <a href="{{ route('logout') }}"
+                           class="no-underline hover:underline"
+                           onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
+                            {{ csrf_field() }}
+                        </form>
+                    @endguest
                 </div>
 
             </div>
@@ -59,7 +79,7 @@
 
     @yield('content')
 
-    <footer class="bg-footer text-gray-300">
+    <footer class="bg-gray-700 text-gray-300">
         <div class="container px-6 py-6 mx-auto">
             <div class="lg:flex">
                 <div class="w-full lg:w-2/3">
