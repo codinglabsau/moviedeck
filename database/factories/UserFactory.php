@@ -46,11 +46,16 @@ class UserFactory extends Factory
         });
     }
 
+    /**
+     * Indicate that the user is an admin.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
     public function admin()
     {
         return $this->state(function (array $attributes) {
             return [
-                'is_admin' => 'true',
+                'is_admin' => true,
             ];
         });
     }
