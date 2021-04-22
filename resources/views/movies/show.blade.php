@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.app')
 
 @section('content')
     <div class="w-full bg-fixed bg-bottom bg-cover" style="background-image: linear-gradient(rgba(248, 248, 248, 0.2), rgba(28, 28, 28, 0.9)), url('{{ $movie->banner }}')">

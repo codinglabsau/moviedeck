@@ -7,13 +7,13 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title', 'MovieDeck | Best Movie Reviews')</title>
-
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
     <!-- Styles -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+
+    <title>@yield('title', 'MovieDeck | Best Movie Reviews')</title>
 </head>
 <body class="bg-gray-100">
 
@@ -25,7 +25,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                           d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z"/>
                 </svg>
-                <a class="text-md font-bold uppercase text-gray-700 md:text-base hover:text-gray-600" href="{{ route('landing') }}">Moviedeck</a>
+                <a class="text-md font-bold uppercase text-gray-700 md:text-base hover:text-gray-600" href="{{ route('home') }}">Moviedeck</a>
 
                 <!-- Mobile menu button -->
                 <div class="flex md:hidden">
@@ -61,15 +61,24 @@
                             <span class="mx-2 whitespace-nowrap">{{ __('Login') }}</span>
                         </button>
                     @else
-                        <span>{{ Auth::user()->name }}</span>
+                        <div class="flex items-center ml-5 px-2 py-2 font-medium tracking-wide text-gray-600 capitalize">
+                            <span class="mx-2 whitespace-nowrap">{{ Auth::user()->name }}</span>
+                        </div>
 
-                        <a href="{{ route('logout') }}"
-                           class="no-underline hover:underline"
-                           onclick="event.preventDefault();
-                            document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
-                            {{ csrf_field() }}
-                        </form>
+                        <button class="flex items-center ml-5 px-2 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mx-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                            </svg>
+                            <span class="mx-2 whitespace-nowrap">
+                            <a href="{{ route('logout') }}"
+                               class="no-underline hover:underline"
+                               onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
+                                {{ csrf_field() }}
+                            </form>
+                        </span>
+                        </button>
                     @endguest
                 </div>
 
