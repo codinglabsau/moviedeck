@@ -1,10 +1,12 @@
 <?php
 
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CelebController;
 use App\Http\Controllers\MovieController;
+use App\Http\Controllers\ReviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +32,10 @@ Route::get('/celebs/{celeb}', [CelebController::class, 'show'])->name('celebs.sh
 Route::get('/movies', [MovieController::class, 'index'])->name('movies.index');
 Route::get('/movies/{movie}', [MovieController::class, 'show'])->name('movies.show');
 
+/** Reviews */
+Route::get('/reviews', [ReviewController::class, 'index'])->name('reviews.index');
+Route::get('/reviews/{review}', [ReviewController::class, 'show'])->name('reviews.show');
+
 /** Middleware Admin */
 Route::group(['middleware'=>'admin'], function()
 {
@@ -48,3 +54,13 @@ Route::group(['middleware'=>'admin'], function()
     Route::delete('/celebs/{celeb}', [CelebController::class, 'destroy']);
 });
 
+/** Middleware Auth */
+Route::group(['middleware'=> 'auth'], function()
+{
+    /** Reviews */
+    Route::get('/reviews/create', [ReviewController::class, 'create'])->name('reviews.create');
+    Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
+    Route::get('/reviews/{review}/edit', [ReviewController::class, 'edit'])->name('reviews.edit');
+    Route::put('/reviews/{review}', [ReviewController::class, 'update']);
+    Route::delete('/reviews/{review}', [ReviewController::class, 'destroy']);
+});
