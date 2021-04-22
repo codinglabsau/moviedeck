@@ -4,9 +4,9 @@
 
 @section('content')
     <div class="container px-6 py-3 mx-auto md:flex">
-        <section class="text-gray-600 body-font">
+        <div class="text-gray-600 body-font">
             <div class="flex justify-between mb-12 pt-24">
-                <div class="flex items-center ml-5 pr-4 py-2 font-medium text-white tracking-wide capitalize">
+                <div class="flex pr-4 py-2 font-medium text-white tracking-wide capitalize">
                     <h1 class="font-medium text-gray-500 text-4xl whitespace-nowrap">Popular Movies</h1>
                 </div>
                 @if (auth()->check() && auth()->user()->is_admin)
@@ -15,25 +15,24 @@
                     </div>
                 @endif
             </div>
-
-            <div class="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
-                <div class="grid grid-flow-row sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-28">
+            <div class="flex items-baseline justify-center">
+                <div class="grid gap-12 mt-0 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
                     @foreach($movies as $movie)
                         <div>
                             <a href="{{ route('movies.show', $movie) }}">
-                                <img class="w-48" src="{{ $movie->poster }}" alt="{{ $movie->poster }}">
+                                <img class="object-cover w-60 h-full" src="{{ $movie->poster }}" alt="{{ $movie->poster }}">
                             </a>
                             <div class="flex justify-between">
-                                <h3><a href="{{ route('movies.show', $movie) }}"> {{ $movie->title }} </a></h3>
+                                <h3>{{ $movie->title }}</h3>
                                 <h3> 4.8 </h3>
                             </div>
                         </div>
                     @endforeach
                 </div>
             </div>
-            <div class="flex justify-center mb-10">
+            <div class="flex justify-center py-20">
                 {{ $movies->links() }}
             </div>
-        </section>
+        </div>
     </div>
 @endsection

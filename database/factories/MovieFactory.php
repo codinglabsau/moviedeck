@@ -25,8 +25,9 @@ class MovieFactory extends Factory
             'title' => $this->faker->realText(20),
             'synopsis' => $this->faker->paragraph(10),
             'year' => $this->faker->year,
-            'poster' => $this->faker->imageUrl(600, 750),
-            'trailer' => $this->faker->url,
+            'poster' => Movie::randomPoster(),
+            'banner' => Movie::randomBanner(),
+            'trailer' => Movie::randomTrailer(),
             'duration' => $this->faker->numberBetween($min = 50, $max = 300),
         ];
     }

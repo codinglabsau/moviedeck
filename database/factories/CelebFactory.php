@@ -24,7 +24,7 @@ class CelebFactory extends Factory
         return [
             'name' => $this->faker->name,
             'date_of_birth' => $this->faker->date(),
-            'photo' => $this->faker->imageUrl(600, 700, "person", true),
+            'photo' => Celeb::randomPhoto(),
         ];
     }
 }
