@@ -1,10 +1,10 @@
-@extends('layouts.main')
+@extends('layouts.app')
 
 @section('content')
-    <div class="bg-gray-700 container px-6 py-3 mx-auto w-full">
+    <div class="bg-gray-700 px-12 py-3">
         <section class="text-gray-400 body-font">
             {{--     Movie Summary Section       --}}
-            <div class="container mx-auto flex px-5 py-32 md:flex-row flex-col items-center">
+            <div class="container mx-auto flex px-10 py-32 md:flex-row flex-col items-center">
                 <div class="w-full lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
                     <div class="flex justify-center mb-6">
                         <div class="flex items-center px-4 py-2 font-medium tracking-wide capitalize transition-colors duration-200 transform rounded-md border-2 border-gray-300">
@@ -26,8 +26,8 @@
                             <span class="whitespace-nowrap font-normal">
                                 <span class="mx-4 whitespace-nowrap">|</span>
                                     @foreach($movies->first()->genres as $genre)
-                                        {{$genre->name}}@if (!$loop->last),@endif
-                                    @endforeach
+                                    {{$genre->name}}@if (!$loop->last),@endif
+                                @endforeach
                             </span>
                         </div>
                     </div>
@@ -60,20 +60,21 @@
                     <span class="font-medium text-gray-800 whitespace-nowrap capitalize md:text-2xl">Popular Movies</span>
                 </div>
                 <div class="flex items-center px-4 py-2 font-medium tracking-wide capitalize transition-colors duration-200 transform rounded-md border-2 border-gray-300">
-                    <a href="{{route('movies.index')}}"><span class="mx-2 whitespace-nowrap">All movies</span></a>
+                    <a href="{{ route('movies.index') }}"><span class="mx-2 whitespace-nowrap">All movies</span></a>
                 </div>
             </div>
             <div class="flex items-baseline justify-center">
                 <div class="grid gap-8 mt-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                     @foreach ($movies as $movie)
-                        <div class="w-full max-w-xs text-center">
-                            <img class="object-cover object-center w-full h-80 mx-auto rounded-lg" src={{$movie->poster}} alt="movie_poster"/>
-
-                            <div class="mt-2 flex justify-between">
-                                <span class="text-lg font-medium text-gray-700 ">{{$movie->title}}</span>
-                                <span class="mt-1 font-medium text-gray-600">{{$movie->average_rating}}</span>
+                        <a href={{ url("movies/$movie->id") }}>
+                            <div class="w-full max-w-xs text-center">
+                                <img class="object-cover object-center w-full h-80 mx-auto rounded-lg" src={{$movie->poster}} alt="movie_poster"/>
+                                <div class="mt-2 flex justify-between">
+                                    <span class="text-lg font-medium text-gray-700 ">{{$movie->title}}</span>
+                                    <span class="mt-1 font-medium text-gray-600">{{$movie->average_rating}}</span>
+                                </div>
                             </div>
-                        </div>
+                        </a>
                     @endforeach
                 </div>
             </div>
@@ -95,13 +96,14 @@
             <div class="flex items-baseline justify-center">
                 <div class="grid gap-8 mt-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                     @foreach ($celebs as $celeb)
-                        <div class="w-full max-w-xs text-center">
-                            <img class="object-cover object-center w-full h-80 mx-auto rounded-lg" src={{$celeb->photo}} alt="movie_poster"/>
-
-                            <div class="mt-2 flex">
-                                <span class="text-lg font-medium text-gray-700 ">{{$celeb->name}}</span>
+                        <a href={{ url("celebs/$celeb->id") }}>
+                            <div class="w-full max-w-xs text-center">
+                                <img class="object-cover object-center w-full h-80 mx-auto rounded-lg" src={{$celeb->photo}} alt="movie_poster"/>
+                                <div class="mt-2 flex">
+                                    <span class="text-lg font-medium text-gray-700 ">{{$celeb->name}}</span>
+                                </div>
                             </div>
-                        </div>
+                        </a>
                     @endforeach
                 </div>
             </div>
