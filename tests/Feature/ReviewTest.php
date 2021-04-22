@@ -44,6 +44,8 @@ class ReviewTest extends TestCase
     /** @test */
     public function an_admin_can_see_create_reviews_view()
     {
+        $this->withoutExceptionHandling();
+
         $admin = User::factory()->admin()->create();
 
         $this->actingAs($admin)
@@ -73,6 +75,7 @@ class ReviewTest extends TestCase
     /** @test */
     public function an_admin_can_add_a_review()
     {
+        $this->withoutExceptionHandling();
         $admin = User::factory()->admin()->create();
 
         $this->actingAs($admin)
