@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 Auth::routes();
 
-Route::get('/', [\App\Http\Controllers\LandingController::class, 'index'])->name('landing');
+Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::group(['middleware'=>'admin'], function()
 {
@@ -37,8 +37,4 @@ Route::get('/celebs/{celeb}', [\App\Http\Controllers\CelebController::class, 'sh
 
 Route::get('/movies', [\App\Http\Controllers\MovieController::class, 'index'])->name('movies.index');
 Route::get('/movies/{movie}', [\App\Http\Controllers\MovieController::class, 'show'])->name('movies.show');
-
-Auth::routes();
-
-Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
