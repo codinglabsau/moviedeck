@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.app')
 
 @section('title', 'MovieDeck | Give reviews to your fave movies!')
 
