@@ -25,11 +25,11 @@ Route::group(['middleware'=>'admin'], function()
     Route::put('/celebs/{celeb}', [\App\Http\Controllers\CelebController::class, 'update'])->name('celebs.update');
     Route::delete('/celebs/{celeb}', [\App\Http\Controllers\CelebController::class, 'destroy'])->name('celebs.destroy');
 
-    Route::get('/movies/create', [\App\Http\Controllers\MovieController::class, 'create']);
-    Route::post('/movies', [\App\Http\Controllers\MovieController::class, 'store']);
-    Route::get('/movies/{movie}/edit', [\App\Http\Controllers\MovieController::class, 'edit']);
-    Route::put('/movies/{movie}', [\App\Http\Controllers\MovieController::class, 'update']);
-    Route::delete('/movies/{movie}', [\App\Http\Controllers\MovieController::class, 'destroy']);
+    Route::get('/movies/create', [\App\Http\Controllers\MovieController::class, 'create'])->name('movies.create');
+    Route::post('/movies', [\App\Http\Controllers\MovieController::class, 'store'])->name('movies.store');
+    Route::get('/movies/{movie}/edit', [\App\Http\Controllers\MovieController::class, 'edit'])->name('movies.edit');
+    Route::put('/movies/{movie}', [\App\Http\Controllers\MovieController::class, 'update'])->name('movies.update');
+    Route::delete('/movies/{movie}', [\App\Http\Controllers\MovieController::class, 'destroy'])->name('movies.destroy');
 });
 
 Route::get('/celebs', [\App\Http\Controllers\CelebController::class, 'index'])->name('celebs.index');
