@@ -22,9 +22,10 @@ class CelebController extends Controller
         return view('celebs/create');
     }
 
-    public function store(Request $request)
+    public function store(CelebRequest $request)
     {
-        //
+        Celeb::create($request->validated());
+        return redirect('celebs');
     }
 
     public function show(Celeb $celeb)

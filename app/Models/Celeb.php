@@ -17,4 +17,9 @@ class Celeb extends Model
         return $this->belongsToMany(Movie::class, 'celeb_movie')
             ->withPivot('character_name');
     }
+
+    public function setCelebDobAttribute($value)
+    {
+        $this->attributes['date_of_birth'] = Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d');
+    }
 }
