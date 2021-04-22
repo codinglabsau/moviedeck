@@ -39,7 +39,7 @@ class LoginControllerTest extends TestCase
             'password' => 'password'
         ]);
 
-        $response->assertRedirect(route('home'));
+        $response->assertRedirect(route('landing'));
         $this->assertAuthenticatedAs($user);
     }
 }

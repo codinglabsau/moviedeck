@@ -14,7 +14,8 @@ class MovieTest extends TestCase
     /** @test */
     public function an_admin_can_see_movies_view()
     {
-        $admin = User::factory()->admin()->create();
+        $this->withoutExceptionHandling();
+        $admin = \App\Models\User::factory()->admin()->create();
 
         $this->actingAs($admin)
             ->get('/movies')
@@ -51,7 +52,7 @@ class MovieTest extends TestCase
         ]);
 
         $this->actingAs($user)
-            ->get('/movies/create')
+            ->get(route('movies.create'))
             ->assertRedirect();
     }
 
