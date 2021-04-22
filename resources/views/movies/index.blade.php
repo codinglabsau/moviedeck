@@ -31,6 +31,9 @@
                     @endforeach
                 </div>
             </div>
+            <div class="flex justify-center mb-10">
+                {{ $movies->links() }}
+            </div>
         </section>
     </div>
 @endsection
