@@ -66,9 +66,11 @@
                                 </h4>
                             </div>
                             <div class="my-6">
-                                <button class="px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-blue-600 rounded-md">
-                                    Read All Reviews
-                                </button>
+                                <a href="{{ route('reviews.create', ['movie' => $movie]) }}">
+                                    <button class="px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-blue-600 rounded-md">
+                                        Add Review
+                                    </button>
+                                </a>
                             </div>
                         </div>
                     </div>

@@ -6,10 +6,10 @@
     <div class="w-full px-6 py-3 mx-auto">
         <section class="text-gray-600 body-font">
             <div class="container mx-auto flex px-5 py-16 md:flex-row flex-col items-start align-top">
-                <div class="w-auto mr-20 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center bg-white p-12">
+                <div class="flex flex-col w-3/4 md:items-start md:text-left mr-20 mb-16 md:mb-0 items-center text-center bg-white p-12">
                     <h1 class="font-medium text-gray-500 text-4xl">A review of
                         <span class="text-blue-500">
-                            <a href="{{ route('movies.show', $review->movie) }}">{{ $review->movie->title }}</a>
+                            <a href="{{ route('movies.show', $review->movie) }}" target="_blank">{{ $review->movie->title }}</a>
                         </span>
                     </h1>
                     <span class="font-bold text-sm text-blue-500 mt-2"> {{ $review->user->name }} </span>
@@ -36,22 +36,38 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="w-full flex flex-col items-end mb-16 md:mb-0">
-                    <div class="flex-col pb-6">
-                        <a href="{{ route('movies.show', $review->movie) }}">
-                            <img class="flex w-80 border rounded-sm mb-4 align-middle justify-end" src="{{ $review->movie->poster }}" alt="{{ $review->movie->title }}">
-                        </a>
+                    <div class="flex flex-row">
+                        @if (isset(auth()->user()->id) && auth()->user()->id == $review->user_id)
+                            <a href="{{ route('reviews.edit', $review) }}">
+                                <button class="flex items-center px-2 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
+                                    <span class="mx-2 whitespace-nowrap">Edit</span>
+                                </button>
+                            </a>
+                            <div class="items-center align-middle px-4 py-2">
+                                <form method="POST" action="{{ route('reviews.delete', $review) }}">
+                                    @csrf
+                                    @method('delete')
+                                    <button class="text-gray-400 hover:text-gray-600" type="submit">
+                                        Delete
+                                    </button>
+                                </form>
+                            </div>
+                        @endif
                     </div>
-                    <div class="flex justify-center">
+                </div>
+                <div class="flex flex-col w-1/4 items-end mb-16 md:mb-0">
+                    <a href="{{ route('movies.show', $review->movie) }}" target="_blank">
+                        <img class="flex w-full border rounded-sm mb-4 align-middle items-center" src="{{ $review->movie->poster }}" alt="{{ $review->movie->title }}">
+                    </a>
+                    <div class="flex w-full justify-between">
                         <button class="flex items-center px-2 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
                             <svg class="w-5 h-5 mx-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
-                            <a href="{{ $review->movie->trailer }}"><span class="mx-2 whitespace-nowrap text-sm">Play Trailer</span></a>
+                            <a href="{{ $review->movie->trailer }}" target="_blank"><span class="mx-2 whitespace-nowrap text-sm">Play Trailer</span></a>
                         </button>
-                        <button class="flex items-center ml-5 px-2 py-2 font-medium tracking-wide capitalize rounded-md bg-gray-800 hover:bg-gray-600">
+                        <button class="flex items-center px-2 py-2 font-medium tracking-wide capitalize rounded-md bg-gray-800 hover:bg-gray-600">
                             <svg class="w-5 h-5 mx-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#f8f8f8">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
                             </svg>

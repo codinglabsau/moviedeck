@@ -5,20 +5,26 @@
 @section('content')
     <div class="container px-6 py-3 mx-auto md:flex">
         <div class="text-gray-600 body-font">
-            <div class="flex justify-between mb-12 pt-24">
+            <div class="flex flex-col mb-12 pt-24">
                 <div class="flex pr-4 py-2 font-medium text-white tracking-wide capitalize">
                     <h1 class="font-medium text-gray-500 text-4xl whitespace-nowrap">Latest Reviews</h1>
                 </div>
             </div>
-
             <div class="flex items-baseline justify-center">
                 <div class="w-full lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0">
+                    @if(session()->has('message'))
+                        <div class="w-full text-green-500 bg-green-100 border border-2 border-green-400 rounded rounded-md p-6 mb-12">
+                            {{ session()->get('message') }}
+                        </div>
+                    @endif
                     <div class="grid gap-12 mt-0 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-stretch">
                         @foreach($reviews as $review)
-                            <div class="bg-white p-4">
+                            <div class="bg-white rounded rounded-sm p-4">
                                 <div class="flex flex-col my-4 mx-auto items-center">
-                                    <img class="flex h-60 border rounded-sm" src="{{ $review->movie->poster }}" alt="{{ $review->movie->title }}">
-                                    <h1 class="text-sm font-semibold py-4">{{ $review->movie->title }}</h1>
+                                    <a href="{{ route('reviews.show', $review) }}">
+                                        <img class="flex h-60 border rounded-sm" src="{{ $review->movie->poster }}" alt="{{ $review->movie->title }}">
+                                        <h1 class="text-sm font-semibold py-4">{{ $review->movie->title }}</h1>
+                                    </a>
                                 </div>
                                 <div class="p-4">
                                     <a href="{{ route('reviews.show', $review) }}">
@@ -32,7 +38,7 @@
                                     </a>
                                     <span class="font-bold text-sm text-blue-500 mr-4"> {{ $review->user->name }} </span><br/>
                                     <span class="font-normal text-sm"> {{ $review->created_at->diffForHumans() }} </span>
-                                    <p class="py-2">
+                                    <p class="mt-6">
                                         {{ \Illuminate\Support\Str::limit($review->content, 200, '...') }}
                                         @if(strlen($review->content) > 200)
                                             <button><a class="flex flex-col text-sm text-blue-400 hover:text-blue-500" href="{{ route('reviews.show', $review) }}">Read More</a></button>
