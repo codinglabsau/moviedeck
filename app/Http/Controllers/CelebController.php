@@ -23,10 +23,11 @@ class CelebController extends Controller
         return view('celebs/create');
     }
 
-    public function store(CelebRequest $request, celeb $celeb)
+    public function store(CelebRequest $request)
     {
         Celeb::create($request->validated());
-        return redirect("celebs/$celeb->id");
+
+        return redirect('celebs');
     }
 
     public function show(Celeb $celeb)
@@ -45,11 +46,15 @@ class CelebController extends Controller
 
     public function update(CelebRequest $request, Celeb $celeb)
     {
-        //
+        $celeb->update($request->validated());
+
+        return redirect("celebs/$celeb->id");
     }
 
     public function destroy(Celeb $celeb)
     {
-        //
+        $celeb->delete();
+
+        return redirect('celebs');
     }
 }

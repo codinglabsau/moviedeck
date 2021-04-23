@@ -16,6 +16,13 @@
                     @endforeach
                 </div>
             </div>
+            <div class="">
+                @if(Auth::check() && Auth::user()->is_admin)
+                    <button type="button" onclick="document.location='{{ route("celebs.edit", $celeb->id) }}'" class="flex items-center mt-10 px-2 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
+                        <span class="mx-2 whitespace-nowrap">{{ __('Edit Celeb') }}</span>
+                    </button>
+                @endif
+            </div>
         </div>
         <div class="flex items-center justify-center w-full md:w-1/2">
             <img class="w-3/4 h-3/4 rounded-md" src="{{$celeb->photo}}" alt="actor photo">
