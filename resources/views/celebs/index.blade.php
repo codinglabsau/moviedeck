@@ -1,12 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container px-14 py-16 mt-4 mx-auto w-full">
-        <h1 class="text-xl font-bold text-gray-400">Favourite Celebs</h1>
-    </div>
-    <div class="px-16 mx-auto w-full">
+    <div class="container flex justify-between px-14 pt-16 pb-10 mt-4 mx-auto w-full">
+        <h1 class="font-medium text-gray-500 text-4xl whitespace-nowrap">Favourite Celebs</h1>
         @if(Auth::check() && Auth::user()->is_admin)
-            <button type="button" onclick="document.location='{{ route("celebs.create") }}'" class="flex items-center ml-5 px-2 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
+            <button type="button" onclick="document.location='{{ route("celebs.create") }}'" class="flex items-center font-medium tracking-wide capitalize transition-colors duration-200 transform rounded-md border-2 border-gray-700 hover:border-gray-500">
                 <span class="mx-2 whitespace-nowrap">{{ __('Create a new Celeb') }}</span>
             </button>
         @endif
@@ -17,7 +15,7 @@
                 @foreach ($celebs as $celeb)
                     <a href={{ url("celebs/$celeb->id") }}>
                         <div class="w-full max-w-xs text-center">
-                            <img class="object-cover object-center w-full h-80 mx-auto rounded-lg" src={{$celeb->photo}} alt="movie_poster"/>
+                            <img class="object-contain object-center w-full h-60 mx-auto rounded-lg" src={{$celeb->photo}} alt="celeb_photo"/>
 
                             <div class="mt-2 flex">
                                 <span class="text-lg font-medium text-gray-700 ">{{$celeb->name}}</span>

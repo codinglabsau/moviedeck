@@ -32,7 +32,7 @@ class CelebController extends Controller
 
     public function show(Celeb $celeb)
     {
-        $celeb->with('movies')->get();
+        $celeb->with('movies')->paginate(5);
 
         return view('celebs/show', [
             'celeb' => $celeb
