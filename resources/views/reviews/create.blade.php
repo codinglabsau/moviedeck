@@ -49,7 +49,7 @@
                                 <textarea name="content" cols="60" rows="10" class="outline-none border border-4 border-gray-200 text-gray-700 rounded rounded-md p-4 text-md font-light">{{ old('content') }}</textarea>
                                 <div class="flex flex-row mt-6 align-middle items-center">
                                     <button type="submit" class="flex w-max px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">Add</button>
-                                    <a class="text-gray-400 hover:text-gray-600 px-4 py-2" href="{{ route('reviews.index') }}">Cancel</a>
+                                    <a class="text-gray-400 hover:text-gray-600 px-4 py-2" href="{{ route('movies.show', $movie) }}">Cancel</a>
                                 </div>
                             </div>
                         </form>
