@@ -34,7 +34,16 @@ class MovieRequest extends FormRequest
                 'string',
                 ],
             'year' => ['required'],
-            'poster' => ['required'],
+            'poster' => [
+                'required',
+                'mimes:jpg,png,jpeg',
+                'max:5048'
+            ],
+            'banner' => [
+                'required',
+                'mimes:jpg,png,jpeg',
+                'max:5048'
+            ],
             'trailer' => ['required'],
             'duration' => ['required'],
         ];
