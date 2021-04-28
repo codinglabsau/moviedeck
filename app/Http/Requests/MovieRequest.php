@@ -27,13 +27,19 @@ class MovieRequest extends FormRequest
             'title' => [
                 'required',
                 'string',
-                'min:5',
+                'min:5'
                 ],
             'synopsis' => [
                 'required',
                 'string',
+                'min:30'
                 ],
-            'year' => ['required'],
+            'year' => [
+                'required',
+                'integer',
+                'min:'.date('Y'),
+                'size:4'
+            ],
             'poster' => [
                 'required',
                 'mimes:jpg,png,jpeg',
@@ -44,8 +50,15 @@ class MovieRequest extends FormRequest
                 'mimes:jpg,png,jpeg',
                 'max:5048'
             ],
-            'trailer' => ['required'],
-            'duration' => ['required'],
+            'trailer' => [
+                'required',
+                'url'
+            ],
+            'duration' => [
+                'required',
+                'integer',
+                'between:50,300'
+            ],
         ];
     }
 }

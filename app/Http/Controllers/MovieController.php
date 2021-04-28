@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Movie;
 use App\Http\Requests\MovieRequest;
-use Illuminate\Database\Eloquent\Builder;
 
 class MovieController extends Controller
 {
