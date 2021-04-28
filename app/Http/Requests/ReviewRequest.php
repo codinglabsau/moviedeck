@@ -24,11 +24,26 @@ class ReviewRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => 'required',
-            'movie_id' => 'required',
-            'title' => 'string|min:10|max:255|required',
-            'rating' => 'numeric|min:0.1|max:10|required',
-            'content' => 'string|min:30|required',
+            'user_id' => ['required'],
+            'movie_id' => ['required'],
+            'title' => [
+                'required',
+                'string',
+                'min:10',
+                'max:255'
+            ],
+            'rating' => [
+                'required',
+                'numeric',
+                'regex:/^[0-9]+(\.[0-9][0-9]?)?$/',
+                'min:0.1',
+                'max:10'
+            ],
+            'content' => [
+                'required',
+                'string',
+                'min:30'
+            ]
         ];
     }
 }
