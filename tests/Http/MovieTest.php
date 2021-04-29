@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Http;
 
 use Tests\TestCase;
 use App\Models\User;
@@ -210,7 +210,7 @@ class MovieTest extends TestCase
 
         $this->actingAs($admin)
             ->delete("/movies/{$movie->id}")
-                ->assertOk();
+            ->assertOk();
 
         $this->assertDatabaseMissing('movies', [
             'id' => $movie->id,

@@ -1,10 +1,9 @@
 <?php
 
-namespace Tests\Feature\Http\Middleware;
+namespace Tests\Http\Middleware;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class AdminCelebTest extends TestCase
 {

@@ -1,8 +1,7 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Http;
 
-use App\Http\Middleware\Authenticate;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\Movie;
