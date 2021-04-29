@@ -35,11 +35,12 @@ class CelebController extends Controller
     {
         $celeb->with('movies')
               ->get();
-        $movies = Movie::paginate(20);
+        $titles = Celeb::find($celeb->id)->movies()
+              ->paginate(4)->onEachSide(1);
 
         return view('celebs/show', [
             'celeb' => $celeb,
-            'movies' => $movies
+            'titles' => $titles
         ]);
     }
 

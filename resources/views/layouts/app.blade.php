@@ -81,7 +81,6 @@
                         </button>
                     @endguest
                 </div>
-
             </div>
         </div>
     </nav>

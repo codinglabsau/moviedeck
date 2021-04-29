@@ -14,7 +14,10 @@
             </button>
         @endif
     </div>
-    <div class="container p-14 mx-auto">
+    <div class="flex justify-center">
+        {{$celebs->links()}}
+    </div>
+    <div class="container px-14 pb-14 pt-5 mx-auto">
         <div class="flex items-baseline justify-center">
             <div class="grid gap-8 mt-0 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5">
                 @foreach ($celebs as $celeb)
