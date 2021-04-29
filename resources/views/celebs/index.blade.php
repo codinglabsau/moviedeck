@@ -4,8 +4,8 @@
     <div class="container flex justify-between px-14 pt-16 pb-10 mt-4 mx-auto w-full">
         <h1 class="font-medium text-gray-500 text-4xl whitespace-nowrap">Favourite Celebs</h1>
         @if(Auth::check() && Auth::user()->is_admin)
-            <button type="button" onclick="document.location='{{ route("celebs.create") }}'" class="flex items-center font-medium tracking-wide capitalize transition-colors duration-200 transform rounded-md border-2 border-gray-700 hover:border-gray-500">
-                <span class="mx-2 whitespace-nowrap">{{ __('Create a new Celeb') }}</span>
+            <button type="button" onclick="document.location='{{ route("celebs.create") }}'" class="flex text-gray-600 items-center font-medium tracking-wide capitalize transition-colors duration-200 transform rounded-md border-2 border-gray-700 hover:border-gray-500">
+                <span class="mx-2 px-4 py-3 whitespace-nowrap">{{ __('Add Celeb') }}</span>
             </button>
         @endif
     </div>
