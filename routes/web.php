@@ -32,6 +32,10 @@ Route::group(['middleware'=>'admin'], function()
     Route::delete('/movies/{movie}', [\App\Http\Controllers\MovieController::class, 'destroy'])->name('movies.destroy');
 });
 
+Route::get('/profile', [\App\Http\Controllers\ProfileController::class, 'dashboard'])->name('profile.dashboard');
+Route::get('/profile/reviews', [\App\Http\Controllers\ProfileController::class, 'reviews'])->name('profile.reviews');
+Route::get('/profile/watchlist', [\App\Http\Controllers\ProfileController::class, 'watchlist'])->name('profile.watchlist');
+
 Route::get('/celebs', [\App\Http\Controllers\CelebController::class, 'index'])->name('celebs.index');
 Route::get('/celebs/{celeb}', [\App\Http\Controllers\CelebController::class, 'show'])->name('celebs.show');
 
