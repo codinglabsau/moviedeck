@@ -21,16 +21,16 @@
                         <div class="flex py-6">
                             <div class="w-1/2">
                                 <label for="title"> Title: </label>
-                                <input type="text" name="title" class="w-auto mx-4 outline-none border border-4 border-gray-200 text-gray-700 rounded rounded-md p-2 text-md font-light">
+                                <input type="text" name="title" value="{{ old('title') }}" class="w-auto mx-4 outline-none border border-4 border-gray-200 text-gray-700 rounded rounded-md p-2 text-md font-light">
                             </div>
                             <div class="w-1/2">
                                 <label for="year"> Year: </label>
-                                <input type="text" name="year" class="w-auto mx-4 outline-none border border-4 border-gray-200 text-gray-700 rounded rounded-md p-2 text-md font-light">
+                                <input type="text" name="year" value="{{ old('year') }}" class="w-auto mx-4 outline-none border border-4 border-gray-200 text-gray-700 rounded rounded-md p-2 text-md font-light">
                             </div>
                         </div>
 
                         <label for="synopsis"> Synopsis: </label>
-                        <textarea type="text" name="synopsis" class="my-4 outline-none border border-4 border-gray-200 text-gray-700 rounded rounded-md p-2 text-md font-light"></textarea>
+                        <textarea type="text" name="synopsis" class="my-4 outline-none border border-4 border-gray-200 text-gray-700 rounded rounded-md p-2 text-md font-light">{{ old('synopsis') }}</textarea>
 
                         <div class="flex py-6">
                             <div class="w-1/2">
@@ -39,18 +39,20 @@
                             </div>
                             <div class="w-1/2">
                                 <label for="banner"> Banner: </label>
-                                <input type="file" name="banner" class="mx-4 outline-none border border-4 border-gray-200 text-gray-700 rounded rounded-md p-2 text-md font-light">
+{{--                                <input type="file" name="banner" class="mx-4 outline-none border border-4 border-gray-200 text-gray-700 rounded rounded-md p-2 text-md font-light">--}}
+                                <input type="text" name="banner" value="{{ old('banner') }}" class="mx-4 outline-none border border-4 border-gray-200 text-gray-700 rounded rounded-md p-2 text-md font-light">
                             </div>
                         </div>
 
                         <div class="flex py-6">
                             <div class="w-1/2">
                                 <label for="trailer"> Trailer: </label>
-                                <input type="text" name="trailer" class="mx-4 outline-none border border-4 border-gray-200 text-gray-700 rounded rounded-md p-2 text-md font-light">
+                                <input type="text" name="trailer" value="{{ old('trailer') }}" class="mx-4 outline-none border border-4 border-gray-200 text-gray-700 rounded rounded-md p-2 text-md font-light">
                             </div>
                             <div class="w-1/2">
                                 <label for="duration"> Duration: </label>
-                                <input type="text" name="duration" class="mx-4 outline-none border border-4 border-gray-200 text-gray-700 rounded rounded-md p-2 text-md font-light">
+                                <input type="text" name="duration" value="{{ old('duration') }}" class="mx-4 outline-none border border-4 border-gray-200 text-gray-700 rounded rounded-md p-2 text-md font-light">
+                                <span class="text-sm text-gray-500">minutes</span>
                             </div>
                         </div>
                     </div>

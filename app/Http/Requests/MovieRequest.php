@@ -37,18 +37,16 @@ class MovieRequest extends FormRequest
             'year' => [
                 'required',
                 'integer',
-                'min:'.date('Y'),
-                'size:4'
+                'min:1888',
+                'max:'.date('Y'),
             ],
             'poster' => [
                 'required',
                 'mimes:jpg,png,jpeg',
-                'max:5048'
+                'max:2048'
             ],
             'banner' => [
-                'required',
-                'mimes:jpg,png,jpeg',
-                'max:5048'
+                'required'
             ],
             'trailer' => [
                 'required',
