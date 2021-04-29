@@ -1,6 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
+    @if(session()->has('message'))
+        <div class="w-full text-green-500 bg-green-100 border border-2 border-green-400 p-6 mb-12">
+            {{ session()->get('message') }}
+        </div>
+    @endif
     <div class="container flex justify-between px-14 pt-16 pb-10 mt-4 mx-auto w-full">
         <h1 class="font-medium text-gray-500 text-4xl whitespace-nowrap">Favourite Celebs</h1>
         @if(Auth::check() && Auth::user()->is_admin)

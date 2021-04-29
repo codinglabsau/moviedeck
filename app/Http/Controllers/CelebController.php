@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Celeb;
-use Illuminate\Http\Request;
+use App\Models\Movie;
 use App\Http\Requests\CelebRequest;
 
 class CelebController extends Controller
@@ -27,34 +27,41 @@ class CelebController extends Controller
     {
         Celeb::create($request->validated());
 
-        return redirect('celebs');
+        return redirect('celebs')
+            ->with('message', 'Celeb Successfully Added');
     }
 
     public function show(Celeb $celeb)
     {
-        $celeb->with('movies')->paginate(5);
+        $celeb->with('movies')
+              ->get();
+        $movies = Movie::paginate(20);
 
         return view('celebs/show', [
-            'celeb' => $celeb
+            'celeb' => $celeb,
+            'movies' => $movies
         ]);
     }
 
     public function edit(Celeb $celeb)
     {
-        return view('celebs/edit')->with('celeb', $celeb);
+        return view('celebs/edit')
+            ->with('celeb', $celeb);
     }
 
     public function update(CelebRequest $request, Celeb $celeb)
     {
         $celeb->update($request->validated());
 
-        return redirect("celebs/$celeb->id");
+        return redirect("celebs/$celeb->id")
+            ->with('message', 'Celeb Successfully Updated');
     }
 
     public function destroy(Celeb $celeb)
     {
         $celeb->delete();
 
-        return redirect('celebs');
+        return redirect('celebs')
+            ->with('message', 'Celeb Successfully Deleted');
     }
 }

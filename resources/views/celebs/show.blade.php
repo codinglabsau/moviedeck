@@ -1,7 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-
+    @if(session()->has('message'))
+        <div class="w-full text-green-500 bg-green-100 border border-2 border-green-400 p-6 mb-12">
+            {{ session()->get('message') }}
+        </div>
+    @endif
     <div class="container flex justify-between px-6 py-10 mx-auto space-y-6 md:h-128 md:py-16 md:items-center md:space-x-6">
         <div class="max-w-lg w-full md:w-1/2 h-full flex flex-col">
             <h1 class="text-2xl flex items-start font-medium tracking-wide text-gray-800 md:text-4xl">Titles</h1>
@@ -14,9 +18,12 @@
                     </div>
                 @endforeach
             </div>
+            <div class="flex justify-center">
+                {{$movies->links()}}
+            </div>
             <div class="flex justify-bottom">
                 @if(Auth::check() && Auth::user()->is_admin)
-                    <button type="button" onclick="document.location='{{ route("celebs.edit", $celeb->id) }}'" class="flex items-center mt-16 mr-4 px-2 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
+                    <button type="button" onclick='document.location="{{ route('celebs.edit', $celeb->id) }}"' class="flex items-center mt-16 mr-4 px-2 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
                         <span class="mx-2 whitespace-nowrap">{{ __('Edit Celeb') }}</span>
                     </button>
                     <form method="POST" action="{{ route('celebs.destroy', $celeb->id) }}">
