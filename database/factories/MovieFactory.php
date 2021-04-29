@@ -9,6 +9,19 @@ class MovieFactory extends Factory
 {
     protected $model = Movie::class;
 
+    public function definition()
+    {
+        return [
+            'title' => $this->faker->realText(20),
+            'synopsis' => $this->faker->paragraph(10),
+            'year' => $this->faker->year,
+            'poster' => $this->randomPoster(),
+            'banner' => $this->randomBanner(),
+            'trailer' => $this->randomTrailer(),
+            'duration' => $this->faker->numberBetween($min = 50, $max = 300),
+        ];
+    }
+
     public function randomPoster()
     {
         $posters = Array(
@@ -121,18 +134,5 @@ class MovieFactory extends Factory
         ];
 
         return $banners[array_rand($banners)];
-    }
-
-    public function definition()
-    {
-        return [
-            'title' => $this->faker->realText(20),
-            'synopsis' => $this->faker->paragraph(10),
-            'year' => $this->faker->year,
-            'poster' => $this->randomPoster(),
-            'banner' => $this->randomBanner(),
-            'trailer' => $this->randomTrailer(),
-            'duration' => $this->faker->numberBetween($min = 50, $max = 300),
-        ];
     }
 }

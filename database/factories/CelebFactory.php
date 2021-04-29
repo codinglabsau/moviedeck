@@ -9,6 +9,15 @@ class CelebFactory extends Factory
 {
     protected $model = Celeb::class;
 
+    public function definition()
+    {
+        return [
+            'name' => $this->faker->name,
+            'date_of_birth' => $this->faker->date(),
+            'photo' => $this->randomPhoto()
+        ];
+    }
+
     public function randomPhoto()
     {
         $banners = [
@@ -35,14 +44,5 @@ class CelebFactory extends Factory
         ];
 
         return $banners[array_rand($banners)];
-    }
-
-    public function definition()
-    {
-        return [
-            'name' => $this->faker->name,
-            'date_of_birth' => $this->faker->date(),
-            'photo' => $this->randomPhoto()
-        ];
     }
 }
