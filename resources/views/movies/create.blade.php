@@ -15,17 +15,18 @@
                 </div>
             @endif
             <div class="flex w-full justify-between">
-                <form method="POST" action="{{ route('movies.store') }}" enctype="multipart/form-data" class="mx-auto w-full">
+                <form method="POST" action="{{ route('movies.store') }}" class="mx-auto w-full">
                     @csrf
                     <div class="flex flex-col">
                         <div class="flex py-6">
                             <div class="w-1/2">
                                 <label for="title"> Title: </label>
-                                <input type="text" name="title" value="{{ old('title') }}" class="w-auto mx-4 outline-none border border-4 border-gray-200 text-gray-700 rounded rounded-md p-2 text-md font-light">
+                                <input type="text" name="title" value="{{ old('title') }}" class="w-3/4 mx-4 outline-none border border-4 border-gray-200 text-gray-700 rounded rounded-md p-2 text-md font-light">
                             </div>
                             <div class="w-1/2">
                                 <label for="year"> Year: </label>
                                 <input type="text" name="year" value="{{ old('year') }}" class="w-auto mx-4 outline-none border border-4 border-gray-200 text-gray-700 rounded rounded-md p-2 text-md font-light">
+                                <span class="text-sm text-gray-400"> 4-digit format </span>
                             </div>
                         </div>
 
@@ -35,12 +36,13 @@
                         <div class="flex py-6">
                             <div class="w-1/2">
                                 <label for="poster"> Poster: </label>
-                                <input type="file" name="poster" class="mx-4 outline-none border border-4 border-gray-200 text-gray-700 rounded rounded-md p-2 text-md font-light">
+                                <input type="text" name="poster" value="{{ old('poster') }}" class="mx-4 outline-none border border-4 border-gray-200 text-gray-700 rounded rounded-md p-2 text-md font-light">
+                                <span class="text-sm text-gray-400"> Poster Photo URL </span>
                             </div>
                             <div class="w-1/2">
                                 <label for="banner"> Banner: </label>
-{{--                                <input type="file" name="banner" class="mx-4 outline-none border border-4 border-gray-200 text-gray-700 rounded rounded-md p-2 text-md font-light">--}}
                                 <input type="text" name="banner" value="{{ old('banner') }}" class="mx-4 outline-none border border-4 border-gray-200 text-gray-700 rounded rounded-md p-2 text-md font-light">
+                                <span class="text-sm text-gray-400"> Banner Photo URL </span>
                             </div>
                         </div>
 
@@ -48,11 +50,12 @@
                             <div class="w-1/2">
                                 <label for="trailer"> Trailer: </label>
                                 <input type="text" name="trailer" value="{{ old('trailer') }}" class="mx-4 outline-none border border-4 border-gray-200 text-gray-700 rounded rounded-md p-2 text-md font-light">
+                                <span class="text-sm text-gray-400">YouTube, Vimeo, etc. </span>
                             </div>
                             <div class="w-1/2">
                                 <label for="duration"> Duration: </label>
                                 <input type="text" name="duration" value="{{ old('duration') }}" class="mx-4 outline-none border border-4 border-gray-200 text-gray-700 rounded rounded-md p-2 text-md font-light">
-                                <span class="text-sm text-gray-500">minutes</span>
+                                <span class="text-sm text-gray-400">Minutes</span>
                             </div>
                         </div>
                     </div>

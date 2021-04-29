@@ -19,14 +19,44 @@
                             </div>
                         </div>
                         <h1 class="title-font sm:text-6xl text-5xl mb-4 font-medium text-white"> {{ $movie->title }}  </h1>
+                        <div class="flex flex-row">
+                            @if (auth()->check() && auth()->user()->is_admin)
+                                <div class="items-center align-bottom py-2">
+                                    <a href="{{ route('movies.edit', $movie) }}">
+                                        <button class="bg-blue-600 hover:bg-blue-500 rounded rounded-sm text-white">
+                                            <span class="mx-2 whitespace-nowrap">Edit</span>
+                                        </button>
+                                    </a>
+                                </div>
+                                <div class="items-center align-middle px-2 py-2">
+                                    <form method="POST" action="{{ route('movies.delete', $movie) }}">
+                                        @csrf
+                                        @method('delete')
+                                        <button class="bg-gray-300 rounded rounded-sm text-gray-500 hover:text-gray-600" type="submit">
+                                            <span class="mx-2 whitespace-nowrap">Delete</span>
+                                        </button>
+                                    </form>
+                                </div>
+                            @endif
+                        </div>
                         <div class="flex justify-center mb-12">
                             <div class="flex items-center py-2 font-medium tracking-wide">
                                 <span class="text-gray-300 mx-2 whitespace-nowrap"> {{ $movie->duration }} </span>
-                                <span class="whitespace-nowrap font-normal"><span class="text-gray-300 mx-4 whitespace-nowrap">|</span>
+                                <span class="whitespace-nowrap font-normal">
+                                    <span class="text-gray-300 mx-4 whitespace-nowrap">|</span>
+                                </span>
                                 @foreach($movie->genres as $genre)
-                                        <span class="text-gray-300">{{ ($genre->name) }}@if (!$loop->last),@endif</span>
-                                    @endforeach
-                            </span>
+                                    <span class="text-gray-300"> {{ $genre->name }}@if (!$loop->last),@endif&nbsp;</span>
+                                @endforeach
+                                @if (auth()->check() && auth()->user()->is_admin)
+                                    <div class="items-center align-bottom px-2 py-2">
+                                        <a href="#">
+                                            <button class="bg-blue-600 hover:bg-blue-500 rounded rounded-sm text-white">
+                                                <span class="mx-2 whitespace-nowrap">Manage Genres</span>
+                                            </button>
+                                        </a>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                         <div class="flex justify-center">
@@ -96,6 +126,15 @@
                             </div>
                         </div>
                     @endforeach
+                    @if (auth()->check() && auth()->user()->is_admin)
+                        <div class="items-center align-bottom py-2">
+                            <a href="#">
+                                <button class="bg-blue-600 hover:bg-blue-500 rounded rounded-sm text-white">
+                                    <span class="mx-2 whitespace-nowrap">Manage Celebs</span>
+                                </button>
+                            </a>
+                        </div>
+                    @endif
                 </div>
                 <div class="w-full lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
                     <h1 class="font-medium text-gray-500 text-4xl py-16">Recent Reviews</h1>

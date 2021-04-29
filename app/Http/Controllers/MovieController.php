@@ -23,25 +23,10 @@ class MovieController extends Controller
 
     public function store(MovieRequest $request)
     {
-//        if($request->has('poster') && $request->has('banner')) {
-//            $posterImage = time() . '-' . $request->poster->getClientOriginalName();
-//            $bannerImage = time() . '-' . $request->banner->getClientOriginalName();
-//
-//            $request->poster->move(public_path('images/movies/posters'), $posterImage);
-//            $request->banner->move(public_path('images/movies/banners'), $bannerImage);
-//
-//            dd($posterImage);
-//        }
-        if($request->has('poster')) {
-            $posterImage = time() . '-' . $request->poster->getClientOriginalName();
-
-            $request->poster->move(public_path('images/movies/posters'), $posterImage);
-        }
-
         Movie::create($request->validated());
 
         return redirect()->route('movies.index')
-                ->with(['message' => 'Your movie has been added.']);
+            ->with(['message' => 'Your movie has been added.']);
     }
 
     public function show(Movie $movie)
@@ -67,10 +52,16 @@ class MovieController extends Controller
     public function update(MovieRequest $request, Movie $movie)
     {
         $movie->update($request->validated());
+
+        return redirect()->route('movies.index')
+            ->with(['message' => 'Your movie has been updated.']);
     }
 
     public function destroy(Movie $movie)
     {
         $movie->delete();
+
+        return redirect()->route('movies.index')
+            ->with(['message' => 'Your movie has been deleted.']);
     }
 }

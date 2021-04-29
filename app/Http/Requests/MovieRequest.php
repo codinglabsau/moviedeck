@@ -42,11 +42,11 @@ class MovieRequest extends FormRequest
             ],
             'poster' => [
                 'required',
-                'mimes:jpg,png,jpeg',
-                'max:2048'
+                'url'
             ],
             'banner' => [
-                'required'
+                'required',
+                'url'
             ],
             'trailer' => [
                 'required',
