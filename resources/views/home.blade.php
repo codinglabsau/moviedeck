@@ -52,6 +52,11 @@
     </div>
     <div>
         <div class="container p-14 mx-auto">
+            @if(session('status'))
+                <div class="w-full text-indigo-500 bg-indigo-100 border border-2 border-indigo-400 rounded rounded-md p-6 mb-12">
+                    {{ session('status') }}
+                </div>
+            @endif
             <div class="flex justify-between">
                 <div class="flex items-center">
                     <svg class="w-5 h-5 mx-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">

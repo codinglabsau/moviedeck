@@ -10,8 +10,8 @@ class ReviewController extends Controller
 {
     public function index()
     {
-        $reviews = Review::with(['movie'])
-            ->latest()
+        $reviews = Review::with('movie:id,title,poster,trailer')
+            ->orderBy('id', 'DESC')
             ->paginate(20);
 
         return view('reviews.index', [
@@ -21,9 +21,7 @@ class ReviewController extends Controller
 
     public function show(Review $review)
     {
-        $review->with([
-            'movie'
-        ])->get();
+        $review->with('movie:id,title,poster,trailer')->get();
 
         return view('reviews.show', [
             'review' => $review
@@ -41,8 +39,7 @@ class ReviewController extends Controller
     {
         Review::create($request->validated());
 
-        return redirect()->route('reviews.index')
-                ->with(['message' => 'Your review has been added.']);
+        return redirect('/reviews')->with('status', 'Your review has been added.');
     }
 
     public function edit(Review $review)
@@ -56,15 +53,13 @@ class ReviewController extends Controller
     {
         $review->update($request->validated());
 
-        return redirect()->route('reviews.index')
-            ->with(['message' => 'Your review has been updated.']);
+        return redirect('/reviews')->with('status', 'Your review has been updated.');
     }
 
     public function destroy(Review $review)
     {
         $review->delete();
 
-        return redirect()->route('reviews.index')
-            ->with(['message' => 'Your review has been deleted.']);
+        return redirect('/reviews')->with('status', 'Your review has been deleted.');
     }
 }
