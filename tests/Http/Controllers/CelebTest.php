@@ -2,9 +2,8 @@
 
 namespace Tests\Http\Controllers;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CelebTest extends TestCase
 {
@@ -13,9 +12,7 @@ class CelebTest extends TestCase
     /** @test */
     public function admin_can_see_celebs_create_view()
     {
-        $admin = \App\Models\User::factory()->create([
-            'is_admin' => true
-        ]);
+        $admin = \App\Models\User::factory()->admin()->create();
 
         $this->actingAs($admin)
             ->getJson('celebs/create')
@@ -23,7 +20,7 @@ class CelebTest extends TestCase
     }
 
     /** @test */
-    public function normal_user_cannot_see_celebs_create_view()
+    public function user_cannot_see_celebs_create_view()
     {
         $user = \App\Models\User::factory()->create([
             'is_admin' => false
@@ -31,30 +28,63 @@ class CelebTest extends TestCase
 
         $this->actingAs($user)
             ->getJson('celebs/create')
-            ->assertStatus(403);
+            ->assertRedirect();
     }
 
     /** @test */
     public function guest_cannot_see_celebs_create_view()
     {
         $this->getJson('celebs/create')
-            ->assertStatus(403);
+            ->assertRedirect();
     }
 
     /** @test */
-    public function admin_can_access_celebs_store()
+    public function admin_can_create_a_new_celeb()
     {
-        $admin = \App\Models\User::factory()->create([
-            'is_admin' => true
-        ]);
+        $admin = \App\Models\User::factory()->admin()->create();
 
         $this->actingAs($admin)
-            ->postJson('celebs')
-            ->assertOk();
+            ->postJson('celebs', [
+                'name' => 'John Farnaby',
+                'date_of_birth' => '05/06/1988',
+                'photo' => 'https://generic/photo 700x600'
+            ])->assertSessionHasNoErrors();
+
+        $this->assertDatabaseHas('celebs', [
+            'name' => 'John Farnaby',
+            'date_of_birth' => '05/06/1988',
+            'photo' => 'https://generic/photo 700x600'
+        ]);
     }
 
     /** @test */
-    public function normal_user_cannot_access_celebs_store()
+    public function validation_produces_errors_when_admin_stores_celeb_with_one_invalid_data()
+    {
+        $admin = \App\Models\User::factory()->admin()->create();
+
+        $this->actingAs($admin)
+            ->post('celebs', [
+                'name' => 'James Weatherby',
+                'date_of_birth' => '14/05/1996',
+                'photo' => null
+            ])->assertSessionHasErrors(['photo']);
+    }
+
+    /** @test */
+    public function validation_produces_errors_when_admin_stores_celeb_with_all_invalid_data()
+    {
+        $admin = \App\Models\User::factory()->admin()->create();
+
+        $this->actingAs($admin)
+            ->post('celebs', [
+                'name' => null,
+                'date_of_birth' => null,
+                'photo' => null
+            ])->assertSessionHasErrors(['name', 'date_of_birth', 'photo']);
+    }
+
+    /** @test */
+    public function user_cannot_create_a_celeb()
     {
         $user = \App\Models\User::factory()->create([
             'is_admin' => false
@@ -62,23 +92,21 @@ class CelebTest extends TestCase
 
         $this->actingAs($user)
             ->postJson('celebs')
-            ->assertStatus(403);
+            ->assertRedirect();
     }
 
     /** @test */
-    public function guest_cannot_access_celebs_store()
+    public function guest_cannot_create_a_celeb()
     {
         $this->postJson('celebs')
-            ->assertStatus(403);
+            ->assertRedirect();
     }
 
     /** @test */
     public function admin_can_see_celebs_edit_view()
     {
         $celeb = \App\Models\Celeb::factory()->create();
-        $admin = \App\Models\User::factory()->create([
-            'is_admin' => true
-        ]);
+        $admin = \App\Models\User::factory()->admin()->create();
 
         $this->actingAs($admin)
             ->getJson("celebs/$celeb->id/edit")
@@ -86,7 +114,7 @@ class CelebTest extends TestCase
     }
 
     /** @test */
-    public function normal_user_cannot_see_celebs_edit_view()
+    public function user_cannot_see_celebs_edit_view()
     {
         $celeb = \App\Models\Celeb::factory()->create();
         $user = \App\Models\User::factory()->create([
@@ -95,7 +123,7 @@ class CelebTest extends TestCase
 
         $this->actingAs($user)
             ->getJson("celebs/$celeb->id/edit")
-            ->assertStatus(403);
+            ->assertRedirect();
     }
 
     /** @test */
@@ -103,24 +131,59 @@ class CelebTest extends TestCase
     {
         $celeb = \App\Models\Celeb::factory()->create();
         $this->getJson("celebs/$celeb->id/edit")
-            ->assertStatus(403);
+            ->assertRedirect();
     }
 
     /** @test */
-    public function admin_can_access_celebs_update()
+    public function admin_can_update_a_celeb()
     {
         $celeb = \App\Models\Celeb::factory()->create();
-        $admin = \App\Models\User::factory()->create([
-            'is_admin' => true
-        ]);
+        $admin = \App\Models\User::factory()->admin()->create();
 
         $this->actingAs($admin)
-            ->putJson("celebs/$celeb->id")
-            ->assertOk();
+            ->putJson("celebs/$celeb->id", [
+                'name' => 'Jennifer Jaxon',
+                'date_of_birth' => '27/11/1982',
+                'photo' => 'https://generic/photo1 700x600'
+            ])->assertSessionHasNoErrors();
+
+        $this->assertDatabaseHas('celebs', [
+            'name' => 'Jennifer Jaxon',
+            'date_of_birth' => '27/11/1982',
+            'photo' => 'https://generic/photo1 700x600'
+        ]);
     }
 
     /** @test */
-    public function normal_user_cannot_access_celebs_update()
+    public function validation_produces_errors_when_admin_updates_celeb_with_one_invalid_data()
+    {
+        $celeb = \App\Models\Celeb::factory()->create();
+        $admin = \App\Models\User::factory()->admin()->create();
+
+        $this->actingAs($admin)
+            ->put("celebs/$celeb->id", [
+                'name' => 'Olivia Plankton',
+                'date_of_birth' => '08/04/1994',
+                'photo' => null
+            ])->assertSessionHasErrors(['photo']);
+    }
+
+    /** @test */
+    public function validation_produces_errors_when_admin_updates_celeb_with_all_invalid_data()
+    {
+        $celeb = \App\Models\Celeb::factory()->create();
+        $admin = \App\Models\User::factory()->admin()->create();
+
+        $this->actingAs($admin)
+            ->put("celebs/$celeb->id", [
+                'name' => null,
+                'date_of_birth' => null,
+                'photo' => null
+            ])->assertSessionHasErrors(['name', 'date_of_birth', 'photo']);
+    }
+
+    /** @test */
+    public function user_cannot_update_celeb()
     {
         $celeb = \App\Models\Celeb::factory()->create();
         $user = \App\Models\User::factory()->create([
@@ -129,32 +192,34 @@ class CelebTest extends TestCase
 
         $this->actingAs($user)
             ->putJson("celebs/$celeb->id")
-            ->assertStatus(403);
+            ->assertRedirect();
     }
 
     /** @test */
-    public function guest_cannot_access_celebs_update()
+    public function guest_cannot_update_a_celeb()
     {
         $celeb = \App\Models\Celeb::factory()->create();
         $this->putJson("celebs/$celeb->id")
-            ->assertStatus(403);
+            ->assertRedirect();
     }
 
     /** @test */
-    public function admin_can_access_celebs_destroy()
+    public function admin_can_delete_a_celeb()
     {
+        $admin = \App\Models\User::factory()->admin()->create();
         $celeb = \App\Models\Celeb::factory()->create();
-        $admin = \App\Models\User::factory()->create([
-            'is_admin' => true
-        ]);
 
         $this->actingAs($admin)
             ->deleteJson("celebs/$celeb->id")
-            ->assertOk();
+            ->assertStatus(302);
+
+        $this->assertDatabaseMissing('celebs', [
+            'id' => $celeb->id,
+        ]);
     }
 
     /** @test */
-    public function normal_user_cannot_access_celebs_destroy()
+    public function user_cannot_delete_a_celeb()
     {
         $celeb = \App\Models\Celeb::factory()->create();
         $user = \App\Models\User::factory()->create([
@@ -163,14 +228,14 @@ class CelebTest extends TestCase
 
         $this->actingAs($user)
             ->deleteJson("celebs/$celeb->id")
-            ->assertStatus(403);
+            ->assertRedirect();
     }
 
     /** @test */
-    public function guest_cannot_access_celebs_destroy()
+    public function guest_cannot_delete_a_celeb()
     {
         $celeb = \App\Models\Celeb::factory()->create();
         $this->deleteJson("celebs/$celeb->id")
-            ->assertStatus(403);
+            ->assertRedirect();
     }
 }
