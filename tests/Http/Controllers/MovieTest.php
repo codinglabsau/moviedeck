@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Http;
+namespace Tests\Http\Controllers;
 
 use Tests\TestCase;
 use App\Models\User;
