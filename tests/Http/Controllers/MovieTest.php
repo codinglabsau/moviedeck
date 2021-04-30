@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Http;
+namespace Tests\Http\Controllers;
 
 use Tests\TestCase;
 use App\Models\User;
@@ -12,54 +12,8 @@ class MovieTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function an_admin_can_see_movies_view()
-    {
-        $admin = User::factory()->admin()->create();
-
-        $this->actingAs($admin)
-            ->get('/movies')
-            ->assertOk();
-    }
-
-    /** @test */
-    public function a_user_can_see_movies_view()
-    {
-        $user = User::factory()->create([
-            'is_admin' => false,
-        ]);
-
-        $this->actingAs($user)
-            ->get('/movies')
-            ->assertOk();
-    }
-
-    /** @test */
-    public function an_admin_can_access_create_movie_view()
-    {
-        $admin = User::factory()->admin()->create();
-
-        $this->actingAs($admin)
-            ->get('/movies/create')
-            ->assertOk();
-    }
-
-    /** @test */
-    public function a_user_cannot_access_create_movie_view()
-    {
-        $user = User::factory()->create([
-            'is_admin' => false
-        ]);
-
-        $this->actingAs($user)
-            ->get('/movies/create')
-            ->assertRedirect();
-    }
-
-    /** @test */
     public function an_admin_can_add_a_movie()
     {
-        $this->withoutExceptionHandling();
-
         $admin = User::factory()->admin()->create();
 
         $this->actingAs($admin)
@@ -68,6 +22,7 @@ class MovieTest extends TestCase
                 'synopsis' => 'This is a Sample Synopsis',
                 'year' => 2021,
                 'poster' => 'https://via.placeholder.com/600x750.png/00aa33?text=totam',
+                'banner' => 'https://via.placeholder.com/1200x1000.png',
                 'trailer' => 'http://www.goyette.biz/',
                 'duration' => '190',
             ])->assertOk();
@@ -77,6 +32,7 @@ class MovieTest extends TestCase
             'synopsis' => 'This is a Sample Synopsis',
             'year' => 2021,
             'poster' => 'https://via.placeholder.com/600x750.png/00aa33?text=totam',
+            'banner' => 'https://via.placeholder.com/1200x1000.png',
             'trailer' => 'http://www.goyette.biz/',
             'duration' => '190',
         ]);
@@ -95,6 +51,7 @@ class MovieTest extends TestCase
                 'synopsis' => 'This is a Sample Synopsis',
                 'year' => 2021,
                 'poster' => 'https://via.placeholder.com/600x750.png/00aa33?text=totam',
+                'banner' => 'https://via.placeholder.com/1200x1000.png',
                 'trailer' => 'http://www.goyette.biz/',
                 'duration' => '190',
             ])->assertRedirect();
@@ -104,33 +61,10 @@ class MovieTest extends TestCase
             'synopsis' => 'This is a Sample Synopsis',
             'year' => 2021,
             'poster' => 'https://via.placeholder.com/600x750.png/00aa33?text=totam',
+            'banner' => 'https://via.placeholder.com/1200x1000.png',
             'trailer' => 'http://www.goyette.biz/',
             'duration' => '190',
         ]);
-    }
-
-    /** @test */
-    public function an_admin_can_see_edit_movie_view()
-    {
-        $movie = Movie::factory()->create();
-        $admin = User::factory()->admin()->create();
-
-        $this->actingAs($admin)
-            ->get("/movies/{$movie->id}/edit")
-            ->assertOk();
-    }
-
-    /** @test */
-    public function a_user_cannot_see_edit_movie_view()
-    {
-        $movie = Movie::factory()->create();
-        $user = User::factory()->create([
-            'is_admin' => false
-        ]);
-
-        $this->actingAs($user)
-            ->get("/movies/{$movie->id}/edit")
-            ->assertRedirect();
     }
 
     /** @test */
@@ -142,6 +76,7 @@ class MovieTest extends TestCase
             'synopsis' => 'This is the synopsis of the epic movie.',
             'year' => 2021,
             'poster' => 'https://via.placeholder.com/600x750.png/00aa33?text=totam',
+            'banner' => 'https://via.placeholder.com/1200x1000.png',
             'trailer' => 'http://www.goyette.biz/',
             'duration' => '160',
         ]);
@@ -152,6 +87,7 @@ class MovieTest extends TestCase
                 'synopsis' => 'This is a Sample Updated Synopsis of epic movie',
                 'year' => 2021,
                 'poster' => 'https://via.placeholder.com/600x750.png/00aa33?text=totam',
+                'banner' => 'https://via.placeholder.com/1200x1000.png',
                 'trailer' => 'http://www.goyette.biz/',
                 'duration' => '160',
             ])->assertOk();
@@ -161,6 +97,7 @@ class MovieTest extends TestCase
             'synopsis' => 'This is a Sample Updated Synopsis of epic movie',
             'year' => 2021,
             'poster' => 'https://via.placeholder.com/600x750.png/00aa33?text=totam',
+            'banner' => 'https://via.placeholder.com/1200x1000.png',
             'trailer' => 'http://www.goyette.biz/',
             'duration' => '160',
         ]);
@@ -178,6 +115,7 @@ class MovieTest extends TestCase
             'synopsis' => 'This is the synopsis of the epic movie.',
             'year' => 2021,
             'poster' => 'https://via.placeholder.com/600x750.png/00aa33?text=totam',
+            'banner' => 'https://via.placeholder.com/1200x1000.png',
             'trailer' => 'http://www.goyette.biz/',
             'duration' => '160',
         ]);
@@ -188,6 +126,7 @@ class MovieTest extends TestCase
                 'synopsis' => 'This is a Sample Updated Synopsis of epic movie',
                 'year' => 2021,
                 'poster' => 'https://via.placeholder.com/600x750.png/00aa33?text=totam',
+                'banner' => 'https://via.placeholder.com/1200x1000.png',
                 'trailer' => 'http://www.goyette.biz/',
                 'duration' => '160',
             ])->assertRedirect();
@@ -197,6 +136,7 @@ class MovieTest extends TestCase
             'synopsis' => 'This is a Sample Updated Synopsis of epic movie',
             'year' => 2021,
             'poster' => 'https://via.placeholder.com/600x750.png/00aa33?text=totam',
+            'banner' => 'https://via.placeholder.com/1200x1000.png',
             'trailer' => 'http://www.goyette.biz/',
             'duration' => '160',
         ]);

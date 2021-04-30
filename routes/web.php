@@ -58,7 +58,6 @@ Route::group(['middleware'=> 'auth'], function()
     Route::delete('/reviews/{review}', [ReviewController::class, 'destroy'])->name('reviews.delete');
 });
 
-
 Route::get('/celebs/{celeb}', [CelebController::class, 'show'])->name('celebs.show');
 Route::get('/movies/{movie}', [MovieController::class, 'show'])->name('movies.show');
 Route::get('/reviews/{review}', [ReviewController::class, 'show'])->name('reviews.show');

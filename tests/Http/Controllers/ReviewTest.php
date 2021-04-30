@@ -206,7 +206,6 @@ class ReviewTest extends TestCase
                 Saepe occaecati id aut doloremque repellat. Maiores neque deserunt dolores numquam quia ab quam.'
         ]);
 
-
         $this->delete("/reviews/{$review->id}")
             ->assertRedirect();
 

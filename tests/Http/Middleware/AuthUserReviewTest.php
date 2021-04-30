@@ -13,7 +13,7 @@ class AuthUserReviewTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function an_auth_user_can_see_reviews_view()
+    public function an_auth_user_can_access_reviews_view()
     {
         $user = User::factory()->create();
 
@@ -23,14 +23,14 @@ class AuthUserReviewTest extends TestCase
     }
 
     /** @test */
-    public function a_guest_can_see_reviews_view()
+    public function a_guest_can_access_reviews_view()
     {
         $this->getJson('/reviews')
             ->assertOk();
     }
 
     /** @test */
-    public function any_auth_user_can_see_create_reviews_view()
+    public function any_auth_user_can_access_create_reviews_view()
     {
         $movie = Movie::factory()->create();
         $user = User::factory()->create();
@@ -93,7 +93,7 @@ class AuthUserReviewTest extends TestCase
     }
 
     /** @test */
-    public function a_guest_cannot_see_edit_review_view()
+    public function a_guest_cannot_access_edit_review_view()
     {
         $user = User::factory()->create();
         $movie = Movie::factory()->create();
