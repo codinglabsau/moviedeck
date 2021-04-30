@@ -6,44 +6,56 @@
             {{ session()->get('message') }}
         </div>
     @endif
-    <div class="container flex justify-between px-6 py-10 mx-auto space-y-6 md:h-128 md:py-16 md:items-center md:space-x-6">
-        <div class="max-w-lg w-full md:w-1/2 h-full flex flex-col">
-            <div class="flex justify-between">
-                <h1 class="text-2xl flex items-start font-medium tracking-wide text-gray-800 md:text-4xl">Titles</h1>
-                @if(Auth::check() && Auth::user()->is_admin)
-                    <button type="button" class="flex text-gray-600 items-center font-medium tracking-wide capitalize transition-colors duration-200 transform rounded-md border-2 border-gray-700 hover:border-gray-500">
-                        <span class="mx-2 px-4 whitespace-nowrap">{{ __('Add Title') }}</span>
-                    </button>
-                @endif
-            </div>
-            @foreach ($titles as $title)
-                <div class="flex items-center justify-between py-2 space-x-6 text-gray-800">
-                    <img class="object-fit w-16 h-20" src="{{$title->poster}}" alt="movie_poster">
-                    <span class="flex">{{$title->pivot->character_name}}</span>
-                    <span class="flex italic">{{$title->title}}</span>
-                </div>
-            @endforeach
-            <div>
-                <div class="flex justify-center mt-3">
-                    {{$titles->links()}}
-                </div>
-                @if(Auth::check() && Auth::user()->is_admin)
-                    <div class="flex justify-center">
-                        <button type="button" onclick="document.location='{{ route("celebs.edit", $celeb->id) }}'" class="flex items-center mt-16 mr-4 px-2 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
-                            <span class="mx-2 whitespace-nowrap">{{ __('Edit Celeb') }}</span>
-                        </button>
-                        <form method="POST" action="{{ route('celebs.destroy', $celeb->id) }}">
-                            @csrf
-                            @method('DELETE')
-                            <input type="submit" style="cursor:pointer" class="flex items-center mt-16 px-2 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:bg-blue-500" value="Delete Celeb">
-                        </form>
+    <div class="w-full px-6 py-3 mx-auto ml-10">
+        <section class="text-gray-600 body-font">
+            <div class="container mx-auto flex px-5 py-16 md:flex-row flex-col items-start align-top">
+                <div class="w-full lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
+                    <div class="w-full flex justify-between items-center">
+                        <div>
+                            <h1 class="font-medium text-gray-500 text-4xl my-10">Titles</h1>
+                        </div>
+                        @if (auth()->check() && auth()->user()->is_admin)
+                            <button type="button" class="h-8 flex text-gray-600 items-center font-medium tracking-wide capitalize transition-colors duration-200 transform rounded-md border-2 border-gray-700 hover:border-gray-500">
+                                <span class="mx-2 px-4 whitespace-nowrap">{{ __('Add Title') }}</span>
+                            </button>
+                        @endif
                     </div>
-                @endif
+                    @foreach ($titles as $title)
+                        <div class="flex w-full justify-between">
+                            <div class="flex">
+                                <a href="{{ route('movies.show', $title) }}"><img class="h-12 border rounded-sm my-4" src="{{ $title->poster }}" alt="{{ $title->title }}"></a>
+                                <span class="p-6 font-medium"> <a href="{{ route('movies.show', $title) }}">{{ $title->title }}</a> </span>
+                            </div>
+                            <div class="flex">
+                                <span class="p-6 font-light">
+                                    as {{ $title->pivot->character_name }}
+                                </span>
+                            </div>
+                        </div>
+                    @endforeach
+                    <div class="flex w-full justify-center mt-3">
+                        {{$titles->links()}}
+                    </div>
+                    @if(auth()->check() && auth()->user()->is_admin)
+                        <div class="flex">
+                            <button type="button" onclick="document.location='{{ route("celebs.edit", $celeb->id) }}'" class="flex items-center mt-16 mr-4 px-2 py-2 font-medium tracking-wide text-gray-600 capitalize transition-colors duration-200 transform rounded-md border-2 border-gray-700 hover:border-gray-500">
+                                <span class="mx-2 whitespace-nowrap">{{ __('Edit Celeb') }}</span>
+                            </button>
+                            <form method="POST" action="{{ route('celebs.destroy', $celeb->id) }}">
+                                @csrf
+                                @method('DELETE')
+                                <input type="submit" style="cursor:pointer" class="flex items-center mt-16 px-2 py-2 font-medium tracking-wide text-gray-600 capitalize transition-colors duration-200 transform rounded-md border-2 border-gray-700 hover:border-gray-500" value="Delete Celeb">
+                            </form>
+                        </div>
+                    @endif
+                </div>
+                <div class="w-full lg:pr-24 md:pr-16 flex flex-col items-end mb-16 md:mb-0">
+                    <div class="flex-col py-6">
+                        <img class="w-80 rounded-md" src="{{ $celeb->photo }}" alt="celeb_photo">
+                        <h2 class="font-medium text-gray-800 text-2xl py-4 text-center">{{ $celeb->name }}</h2>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="flex flex-col items-center justify-center w-full md:w-1/2">
-            <img class="w-3/4 h-3/4" src="{{$celeb->photo}}" alt="celeb_photo">
-            <p class="text-lg mt-3 md:text-2xl">{{$celeb->name}}</p>
-        </div>
+        </section>
     </div>
 @endsection
