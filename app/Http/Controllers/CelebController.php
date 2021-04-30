@@ -25,18 +25,17 @@ class CelebController extends Controller
 
     public function store(CelebRequest $request)
     {
-        Celeb::create($request->validated());
+        $celeb = Celeb::create($request->validated());
 
-        return redirect('celebs')
+        return redirect("celebs/$celeb->id")
             ->with('message', 'Celeb Successfully Added');
     }
 
     public function show(Celeb $celeb)
     {
-        $celeb->with('movies')
-              ->get();
-        $titles = Celeb::find($celeb->id)->movies()
-              ->paginate(4)->onEachSide(1);
+        $titles = $celeb->movies()
+                        ->paginate(4)
+                        ->onEachside(1);
 
         return view('celebs/show', [
             'celeb' => $celeb,
@@ -46,8 +45,9 @@ class CelebController extends Controller
 
     public function edit(Celeb $celeb)
     {
-        return view('celebs/edit')
-            ->with('celeb', $celeb);
+        return view('celebs/edit', [
+            'celeb' => $celeb
+        ]);
     }
 
     public function update(CelebRequest $request, Celeb $celeb)

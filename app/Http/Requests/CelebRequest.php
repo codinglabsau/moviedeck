@@ -27,8 +27,12 @@ class CelebRequest extends FormRequest
             'name' => [
                 'required',
                 'string',
+                'between:2,30'
             ],
-            'date_of_birth' => ['required'],
+            'date_of_birth' => [
+                'required',
+                'before:today'
+            ],
             'photo' => ['required'],
         ];
     }

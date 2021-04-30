@@ -59,8 +59,6 @@ class MovieTest extends TestCase
     /** @test */
     public function an_admin_can_add_a_movie()
     {
-        $this->withoutExceptionHandling();
-
         $admin = User::factory()->admin()->create();
 
         $this->actingAs($admin)
