@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\Http\Middleware;
+namespace Tests\Http;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class AdminCelebTest extends TestCase
+class CelebTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -20,7 +20,7 @@ class AdminCelebTest extends TestCase
     }
 
     /** @test */
-    public function normal_user_cannot_see_celebs_create_view()
+    public function user_cannot_see_celebs_create_view()
     {
         $user = \App\Models\User::factory()->create([
             'is_admin' => false
@@ -39,7 +39,7 @@ class AdminCelebTest extends TestCase
     }
 
     /** @test */
-    public function admin_can_access_celebs_store_to_store_a_new_celeb()
+    public function admin_can_create_a_new_celeb()
     {
         $admin = \App\Models\User::factory()->admin()->create();
 
@@ -84,7 +84,7 @@ class AdminCelebTest extends TestCase
     }
 
     /** @test */
-    public function normal_user_cannot_access_celebs_store()
+    public function user_cannot_create_a_celeb()
     {
         $user = \App\Models\User::factory()->create([
             'is_admin' => false
@@ -96,7 +96,7 @@ class AdminCelebTest extends TestCase
     }
 
     /** @test */
-    public function guest_cannot_access_celebs_store()
+    public function guest_cannot_create_a_celeb()
     {
         $this->postJson('celebs')
             ->assertRedirect();
@@ -114,7 +114,7 @@ class AdminCelebTest extends TestCase
     }
 
     /** @test */
-    public function normal_user_cannot_see_celebs_edit_view()
+    public function user_cannot_see_celebs_edit_view()
     {
         $celeb = \App\Models\Celeb::factory()->create();
         $user = \App\Models\User::factory()->create([
@@ -135,7 +135,7 @@ class AdminCelebTest extends TestCase
     }
 
     /** @test */
-    public function admin_can_access_celebs_update_to_update_a_celeb()
+    public function admin_can_update_a_celeb()
     {
         $celeb = \App\Models\Celeb::factory()->create();
         $admin = \App\Models\User::factory()->admin()->create();
@@ -183,7 +183,7 @@ class AdminCelebTest extends TestCase
     }
 
     /** @test */
-    public function normal_user_cannot_access_celebs_update()
+    public function user_cannot_update_celeb()
     {
         $celeb = \App\Models\Celeb::factory()->create();
         $user = \App\Models\User::factory()->create([
@@ -196,7 +196,7 @@ class AdminCelebTest extends TestCase
     }
 
     /** @test */
-    public function guest_cannot_access_celebs_update()
+    public function guest_cannot_update_a_celeb()
     {
         $celeb = \App\Models\Celeb::factory()->create();
         $this->putJson("celebs/$celeb->id")
@@ -204,7 +204,7 @@ class AdminCelebTest extends TestCase
     }
 
     /** @test */
-    public function admin_can_destroy_a_celeb()
+    public function admin_can_delete_a_celeb()
     {
         $admin = \App\Models\User::factory()->admin()->create();
         $celeb = \App\Models\Celeb::factory()->create();
@@ -219,7 +219,7 @@ class AdminCelebTest extends TestCase
     }
 
     /** @test */
-    public function normal_user_cannot_access_celebs_destroy()
+    public function user_cannot_delete_a_celeb()
     {
         $celeb = \App\Models\Celeb::factory()->create();
         $user = \App\Models\User::factory()->create([
@@ -232,7 +232,7 @@ class AdminCelebTest extends TestCase
     }
 
     /** @test */
-    public function guest_cannot_access_celebs_destroy()
+    public function guest_cannot_delete_a_celeb()
     {
         $celeb = \App\Models\Celeb::factory()->create();
         $this->deleteJson("celebs/$celeb->id")
