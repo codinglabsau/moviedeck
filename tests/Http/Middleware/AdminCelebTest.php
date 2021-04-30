@@ -2,8 +2,8 @@
 
 namespace Tests\Http\Middleware;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class AdminCelebTest extends TestCase
 {
@@ -28,14 +28,14 @@ class AdminCelebTest extends TestCase
 
         $this->actingAs($user)
              ->getJson('celebs/create')
-             ->assertForbidden();
+             ->assertRedirect();
     }
 
     /** @test */
     public function guest_cannot_see_celebs_create_view()
     {
         $this->getJson('celebs/create')
-             ->assertForbidden();
+             ->assertRedirect();
     }
 
     /** @test */
@@ -92,14 +92,14 @@ class AdminCelebTest extends TestCase
 
         $this->actingAs($user)
             ->postJson('celebs')
-            ->assertForbidden();
+            ->assertRedirect();
     }
 
     /** @test */
     public function guest_cannot_access_celebs_store()
     {
         $this->postJson('celebs')
-            ->assertForbidden();
+            ->assertRedirect();
     }
 
     /** @test */
@@ -123,7 +123,7 @@ class AdminCelebTest extends TestCase
 
         $this->actingAs($user)
             ->getJson("celebs/$celeb->id/edit")
-            ->assertForbidden();
+            ->assertRedirect();
     }
 
     /** @test */
@@ -131,7 +131,7 @@ class AdminCelebTest extends TestCase
     {
         $celeb = \App\Models\Celeb::factory()->create();
         $this->getJson("celebs/$celeb->id/edit")
-            ->assertForbidden();
+            ->assertRedirect();
     }
 
     /** @test */
@@ -192,7 +192,7 @@ class AdminCelebTest extends TestCase
 
         $this->actingAs($user)
             ->putJson("celebs/$celeb->id")
-            ->assertForbidden();
+            ->assertRedirect();
     }
 
     /** @test */
@@ -200,7 +200,7 @@ class AdminCelebTest extends TestCase
     {
         $celeb = \App\Models\Celeb::factory()->create();
         $this->putJson("celebs/$celeb->id")
-            ->assertForbidden();
+            ->assertRedirect();
     }
 
     /** @test */
@@ -228,7 +228,7 @@ class AdminCelebTest extends TestCase
 
         $this->actingAs($user)
             ->deleteJson("celebs/$celeb->id")
-            ->assertForbidden();
+            ->assertRedirect();
     }
 
     /** @test */
@@ -236,6 +236,6 @@ class AdminCelebTest extends TestCase
     {
         $celeb = \App\Models\Celeb::factory()->create();
         $this->deleteJson("celebs/$celeb->id")
-            ->assertForbidden();
+            ->assertRedirect();
     }
 }
