@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Http;
+namespace Tests\Http\Controllers;
 
 use Tests\TestCase;
 use App\Models\User;
@@ -14,7 +14,6 @@ class MovieTest extends TestCase
     /** @test */
     public function an_admin_can_see_movies_view()
     {
-        $this->withoutExceptionHandling();
         $admin = \App\Models\User::factory()->admin()->create();
 
         $this->actingAs($admin)

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Http;
+namespace Tests\Http\Controllers;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -27,15 +27,15 @@ class CelebTest extends TestCase
         ]);
 
         $this->actingAs($user)
-             ->getJson('celebs/create')
-             ->assertRedirect();
+            ->getJson('celebs/create')
+            ->assertRedirect();
     }
 
     /** @test */
     public function guest_cannot_see_celebs_create_view()
     {
         $this->getJson('celebs/create')
-             ->assertRedirect();
+            ->assertRedirect();
     }
 
     /** @test */
@@ -210,8 +210,8 @@ class CelebTest extends TestCase
         $celeb = \App\Models\Celeb::factory()->create();
 
         $this->actingAs($admin)
-             ->deleteJson("celebs/$celeb->id")
-             ->assertStatus(302);
+            ->deleteJson("celebs/$celeb->id")
+            ->assertStatus(302);
 
         $this->assertDatabaseMissing('celebs', [
             'id' => $celeb->id,
