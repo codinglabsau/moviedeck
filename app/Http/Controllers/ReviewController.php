@@ -39,27 +39,36 @@ class ReviewController extends Controller
     {
         Review::create($request->validated());
 
-        return redirect('/reviews')->with('status', 'Your review has been added.');
+        return redirect()->route('reviews.index')
+            ->with('status', 'Success! Review has been added.');
     }
 
     public function edit(Review $review)
     {
-        return view('reviews.edit', [
-            'review' => $review
-        ]);
+        if (isset(auth()->user()->id) && auth()->user()->id != $review->user_id)
+        {
+            return redirect()->route('reviews.show', $review)
+                    ->with('status', 'Oops! You do not have permission to edit this review.');
+        } else {
+            return view('reviews.edit', [
+                'review' => $review
+            ]);
+        }
     }
 
     public function update(ReviewRequest $request, Review $review)
     {
         $review->update($request->validated());
 
-        return redirect('/reviews')->with('status', 'Your review has been updated.');
+        return redirect()->route('reviews.show', $review)
+                ->with('status', 'Success! Review has been updated.');
     }
 
     public function destroy(Review $review)
     {
         $review->delete();
 
-        return redirect('/reviews')->with('status', 'Your review has been deleted.');
+        return redirect()->route('reviews.index')
+            ->with('status', 'Success! Review has been deleted.');
     }
 }

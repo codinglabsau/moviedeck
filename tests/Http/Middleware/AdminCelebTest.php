@@ -2,7 +2,9 @@
 
 namespace Tests\Http\Middleware;
 
+use App\Models\Celeb;
 use Tests\TestCase;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class AdminCelebTest extends TestCase
@@ -12,7 +14,7 @@ class AdminCelebTest extends TestCase
     /** @test */
     public function admin_can_see_celebs_create_view()
     {
-        $admin = \App\Models\User::factory()->create([
+        $admin = User::factory()->create([
             'is_admin' => true
         ]);
 
@@ -24,26 +26,26 @@ class AdminCelebTest extends TestCase
     /** @test */
     public function normal_user_cannot_see_celebs_create_view()
     {
-        $user = \App\Models\User::factory()->create([
+        $user = User::factory()->create([
             'is_admin' => false
         ]);
 
         $this->actingAs($user)
             ->getJson('celebs/create')
-            ->assertStatus(403);
+            ->assertRedirect();
     }
 
     /** @test */
     public function guest_cannot_see_celebs_create_view()
     {
         $this->getJson('celebs/create')
-            ->assertStatus(403);
+            ->assertRedirect();
     }
 
     /** @test */
     public function admin_can_access_celebs_store()
     {
-        $admin = \App\Models\User::factory()->create([
+        $admin = User::factory()->create([
             'is_admin' => true
         ]);
 
@@ -55,27 +57,27 @@ class AdminCelebTest extends TestCase
     /** @test */
     public function normal_user_cannot_access_celebs_store()
     {
-        $user = \App\Models\User::factory()->create([
+        $user = User::factory()->create([
             'is_admin' => false
         ]);
 
         $this->actingAs($user)
             ->postJson('celebs')
-            ->assertStatus(403);
+            ->assertRedirect();
     }
 
     /** @test */
     public function guest_cannot_access_celebs_store()
     {
         $this->postJson('celebs')
-            ->assertStatus(403);
+            ->assertRedirect();
     }
 
     /** @test */
     public function admin_can_see_celebs_edit_view()
     {
-        $celeb = \App\Models\Celeb::factory()->create();
-        $admin = \App\Models\User::factory()->create([
+        $celeb = Celeb::factory()->create();
+        $admin = User::factory()->create([
             'is_admin' => true
         ]);
 
@@ -87,29 +89,29 @@ class AdminCelebTest extends TestCase
     /** @test */
     public function normal_user_cannot_see_celebs_edit_view()
     {
-        $celeb = \App\Models\Celeb::factory()->create();
-        $user = \App\Models\User::factory()->create([
+        $celeb = Celeb::factory()->create();
+        $user = User::factory()->create([
             'is_admin' => false
         ]);
 
         $this->actingAs($user)
             ->getJson("celebs/$celeb->id/edit")
-            ->assertStatus(403);
+            ->assertRedirect();
     }
 
     /** @test */
     public function guest_cannot_see_celebs_edit_view()
     {
-        $celeb = \App\Models\Celeb::factory()->create();
+        $celeb = Celeb::factory()->create();
         $this->getJson("celebs/$celeb->id/edit")
-            ->assertStatus(403);
+            ->assertRedirect();
     }
 
     /** @test */
     public function admin_can_access_celebs_update()
     {
-        $celeb = \App\Models\Celeb::factory()->create();
-        $admin = \App\Models\User::factory()->create([
+        $celeb = Celeb::factory()->create();
+        $admin = User::factory()->create([
             'is_admin' => true
         ]);
 
@@ -121,14 +123,14 @@ class AdminCelebTest extends TestCase
     /** @test */
     public function normal_user_cannot_access_celebs_update()
     {
-        $celeb = \App\Models\Celeb::factory()->create();
-        $user = \App\Models\User::factory()->create([
+        $celeb = Celeb::factory()->create();
+        $user = User::factory()->create([
             'is_admin' => false
         ]);
 
         $this->actingAs($user)
             ->putJson("celebs/$celeb->id")
-            ->assertStatus(403);
+            ->assertRedirect();
     }
 
     /** @test */
@@ -136,14 +138,14 @@ class AdminCelebTest extends TestCase
     {
         $celeb = \App\Models\Celeb::factory()->create();
         $this->putJson("celebs/$celeb->id")
-            ->assertStatus(403);
+            ->assertRedirect();
     }
 
     /** @test */
     public function admin_can_access_celebs_destroy()
     {
-        $celeb = \App\Models\Celeb::factory()->create();
-        $admin = \App\Models\User::factory()->create([
+        $celeb = Celeb::factory()->create();
+        $admin = User::factory()->create([
             'is_admin' => true
         ]);
 
@@ -155,21 +157,21 @@ class AdminCelebTest extends TestCase
     /** @test */
     public function normal_user_cannot_access_celebs_destroy()
     {
-        $celeb = \App\Models\Celeb::factory()->create();
-        $user = \App\Models\User::factory()->create([
+        $celeb = Celeb::factory()->create();
+        $user = User::factory()->create([
             'is_admin' => false
         ]);
 
         $this->actingAs($user)
             ->deleteJson("celebs/$celeb->id")
-            ->assertStatus(403);
+            ->assertRedirect();
     }
 
     /** @test */
     public function guest_cannot_access_celebs_destroy()
     {
-        $celeb = \App\Models\Celeb::factory()->create();
+        $celeb = Celeb::factory()->create();
         $this->deleteJson("celebs/$celeb->id")
-            ->assertStatus(403);
+            ->assertRedirect();
     }
 }
