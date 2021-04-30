@@ -59,23 +59,27 @@ class MovieTest extends TestCase
     /** @test */
     public function an_admin_can_add_a_movie()
     {
+        $this->withoutExceptionHandling();
+
         $admin = User::factory()->admin()->create();
 
         $this->actingAs($admin)
-            ->postJson('/movies', [
-                'title' => 'Sample Movie',
-                'synopsis' => 'This is a Sample Synopsis',
-                'year' => 2021,
-                'poster' => 'https://via.placeholder.com/600x750.png/00aa33?text=totam',
-                'trailer' => 'http://www.goyette.biz/',
-                'duration' => '190',
-            ])->assertOk();
+             ->postJson('/movies', [
+                 'title' => 'Sample Movie',
+                 'synopsis' => 'This is a Sample Synopsis',
+                 'year' => 2021,
+                 'poster' => 'https://via.placeholder.com/600x750.png/00aa33?text=totam',
+                 'banner' => 'https://wallpapercave.com/wp/wp5223134.jpg',
+                 'trailer' => 'http://www.goyette.biz/',
+                 'duration' => '190',
+             ])->assertOk();
 
         $this->assertDatabaseHas('movies', [
             'title' => 'Sample Movie',
             'synopsis' => 'This is a Sample Synopsis',
             'year' => 2021,
             'poster' => 'https://via.placeholder.com/600x750.png/00aa33?text=totam',
+            'banner' => 'https://wallpapercave.com/wp/wp5223134.jpg',
             'trailer' => 'http://www.goyette.biz/',
             'duration' => '190',
         ]);
@@ -141,6 +145,7 @@ class MovieTest extends TestCase
             'synopsis' => 'This is the synopsis of the epic movie.',
             'year' => 2021,
             'poster' => 'https://via.placeholder.com/600x750.png/00aa33?text=totam',
+            'banner' => 'https://i.pinimg.com/originals/f0/3a/2b/f03a2bcaf5c64e81aa6c494ffe98be6e.jpg',
             'trailer' => 'http://www.goyette.biz/',
             'duration' => '160',
         ]);
@@ -151,6 +156,7 @@ class MovieTest extends TestCase
                 'synopsis' => 'This is a Sample Updated Synopsis of epic movie',
                 'year' => 2021,
                 'poster' => 'https://via.placeholder.com/600x750.png/00aa33?text=totam',
+                'banner' => 'https://i.pinimg.com/originals/f0/3a/2b/f03a2bcaf5c64e81aa6c494ffe98be6e.jpg',
                 'trailer' => 'http://www.goyette.biz/',
                 'duration' => '160',
             ])->assertOk();
@@ -160,6 +166,7 @@ class MovieTest extends TestCase
             'synopsis' => 'This is a Sample Updated Synopsis of epic movie',
             'year' => 2021,
             'poster' => 'https://via.placeholder.com/600x750.png/00aa33?text=totam',
+            'banner' => 'https://i.pinimg.com/originals/f0/3a/2b/f03a2bcaf5c64e81aa6c494ffe98be6e.jpg',
             'trailer' => 'http://www.goyette.biz/',
             'duration' => '160',
         ]);
