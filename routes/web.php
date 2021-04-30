@@ -19,17 +19,6 @@ use App\Http\Controllers\MovieController;
 /** Auth */
 Auth::routes();
 
-/** Home */
-Route::get('/', [HomeController::class, 'index'])->name('home');
-
-/** Celebs */
-Route::get('/celebs', [CelebController::class, 'index'])->name('celebs.index');
-Route::get('/celebs/{celeb}', [CelebController::class, 'show'])->name('celebs.show');
-
-/** Movies */
-Route::get('/movies', [MovieController::class, 'index'])->name('movies.index');
-Route::get('/movies/{movie}', [MovieController::class, 'show'])->name('movies.show');
-
 /** Middleware Admin */
 Route::group(['middleware'=>'admin'], function()
 {
@@ -47,4 +36,17 @@ Route::group(['middleware'=>'admin'], function()
     Route::put('/celebs/{celeb}', [CelebController::class, 'update']);
     Route::delete('/celebs/{celeb}', [CelebController::class, 'destroy']);
 });
+
+/** Home */
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
+/** Celebs */
+Route::get('/celebs', [CelebController::class, 'index'])->name('celebs.index');
+Route::get('/celebs/{celeb}', [CelebController::class, 'show'])->name('celebs.show');
+
+/** Movies */
+Route::get('/movies', [MovieController::class, 'index'])->name('movies.index');
+Route::get('/movies/{movie}', [MovieController::class, 'show'])->name('movies.show');
+
+
 
