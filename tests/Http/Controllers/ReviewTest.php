@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Http;
+namespace Tests\Http\Controllers;
 
 use Tests\TestCase;
 use App\Models\User;
@@ -11,70 +11,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 class ReviewTest extends TestCase
 {
     use RefreshDatabase;
-
-    /** @test */
-    public function an_admin_can_see_reviews_view()
-    {
-        $admin = User::factory()->admin()->create();
-
-        $this->actingAs($admin)
-            ->getJson('/reviews')
-            ->assertOk();
-    }
-
-    /** @test */
-    public function a_user_can_see_reviews_view()
-    {
-        $user = User::factory()->create([
-            'is_admin' => false
-        ]);
-
-        $this->actingAs($user)
-            ->getJson('/reviews')
-            ->assertOk();
-    }
-
-    /** @test */
-    public function a_guest_can_see_reviews_view()
-    {
-        $this->getJson('/reviews')
-            ->assertOk();
-    }
-
-    /** @test */
-    public function an_admin_can_see_create_reviews_view()
-    {
-        $this->withoutExceptionHandling();
-
-        $movie = Movie::factory()->create();
-        $admin = User::factory()->admin()->create();
-
-        $this->actingAs($admin)
-            ->getJson("/reviews/create/$movie->id")
-            ->assertOk();
-    }
-
-    /** @test */
-    public function a_user_can_see_create_reviews_view()
-    {
-        $movie = Movie::factory()->create();
-        $user = User::factory()->create([
-            'is_admin' => false
-        ]);
-
-        $this->actingAs($user)
-            ->getJson("/reviews/create/$movie->id")
-            ->assertOk();
-    }
-
-    /** @test */
-    public function a_guest_cannot_see_create_reviews_view()
-    {
-        $movie = Movie::factory()->create();
-
-        $this->getJson("/reviews/create/$movie->id")
-            ->assertUnauthorized();
-    }
 
     /** @test */
     public function an_admin_can_add_a_review()
@@ -95,7 +31,7 @@ class ReviewTest extends TestCase
                 Saepe occaecati id aut doloremque repellat. Maiores neque deserunt dolores numquam quia ab quam.'
             ])
                 ->assertRedirect('/reviews')
-                ->assertSessionHas('message');
+                ->assertSessionHas('status');
 
         $this->assertDatabaseHas('reviews', [
             'user_id' => $admin->id,
@@ -131,7 +67,7 @@ class ReviewTest extends TestCase
                 Saepe occaecati id aut doloremque repellat. Maiores neque deserunt dolores numquam quia ab quam.'
             ])
             ->assertRedirect('/reviews')
-            ->assertSessionHas('message');
+            ->assertSessionHas('status');
 
         $this->assertDatabaseHas('reviews', [
             'user_id' => $user->id,
@@ -149,10 +85,6 @@ class ReviewTest extends TestCase
     /** @test */
     public function a_guest_cannot_add_a_review()
     {
-        $this->withoutExceptionHandling();
-
-        $this->expectException('Illuminate\Auth\AuthenticationException');
-
         $user = User::factory()->create();
         $movie = Movie::factory()->create();
 
@@ -179,60 +111,6 @@ class ReviewTest extends TestCase
                 Necessitatibus voluptatem odit eaque repudiandae voluptatem qui. Ea et alias maiores sint aliquam qui veniam eaque.
                 Saepe occaecati id aut doloremque repellat. Maiores neque deserunt dolores numquam quia ab quam.'
         ]);
-    }
-
-    /** @test */
-    public function an_admin_can_see_edit_review_view()
-    {
-        $user = User::factory()->create();
-        $movie = Movie::factory()->create();
-        $review = Review::factory()->create([
-            'user_id' => $user->id,
-            'movie_id' => $movie->id,
-            'title' => 'Review Title Sample',
-            'rating' => 4.8,
-            'content' => 'Sample review content',
-        ]);
-        $admin = User::factory()->admin()->create();
-
-        $this->actingAs($admin)
-            ->get("/reviews/{$review->id}/edit")
-            ->assertOk();
-    }
-
-    /** @test */
-    public function a_user_can_see_edit_review_view()
-    {
-        $user = User::factory()->create();
-        $movie = Movie::factory()->create();
-        $review = Review::factory()->create([
-            'user_id' => $user->id,
-            'movie_id' => $movie->id,
-            'title' => 'Review Title Sample',
-            'rating' => 4.8,
-            'content' => 'Sample review content',
-        ]);
-
-        $this->actingAs($user)
-            ->get("/reviews/{$review->id}/edit")
-            ->assertOk();
-    }
-
-    /** @test */
-    public function a_guest_cannot_see_edit_review_view()
-    {
-        $user = User::factory()->create();
-        $movie = Movie::factory()->create();
-        $review = Review::factory()->create([
-            'user_id' => $user->id,
-            'movie_id' => $movie->id,
-            'title' => 'Review Title Sample',
-            'rating' => 4.8,
-            'content' => 'Sample review content',
-        ]);
-
-        $this->get("/reviews/{$review->id}/edit")
-            ->assertRedirect();
     }
 
     /** @test */
@@ -263,7 +141,7 @@ class ReviewTest extends TestCase
                 Saepe occaecati id aut doloremque repellat. Maiores neque deserunt dolores numquam quia ab quam.'
             ])
             ->assertRedirect('/reviews')
-            ->assertSessionHas('message');
+            ->assertSessionHas('status');
 
         $this->assertDatabaseHas('reviews', [
             'id' => $review->id,
@@ -306,7 +184,7 @@ class ReviewTest extends TestCase
                 Saepe occaecati id aut doloremque repellat. Maiores neque deserunt dolores numquam quia ab quam.'
             ])
             ->assertRedirect('/reviews')
-            ->assertSessionHas('message');
+            ->assertSessionHas('status');
 
         $this->assertDatabaseHas('reviews', [
             'id' => $review->id,
@@ -385,7 +263,7 @@ class ReviewTest extends TestCase
         $this->actingAs($admin)
             ->delete("/reviews/{$review->id}")
             ->assertRedirect('/reviews')
-            ->assertSessionHas('message');
+            ->assertSessionHas('status');
 
         $this->assertDatabaseMissing('reviews', [
             'id' => $review->id,
@@ -412,7 +290,7 @@ class ReviewTest extends TestCase
         $this->actingAs($user)
             ->delete("/reviews/{$review->id}")
             ->assertRedirect('/reviews')
-            ->assertSessionHas('message');
+            ->assertSessionHas('status');
 
         $this->assertDatabaseMissing('reviews', [
             'id' => $review->id,
