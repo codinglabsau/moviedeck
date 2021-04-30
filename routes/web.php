@@ -47,3 +47,4 @@ Route::get('/celebs/{celeb}', [CelebController::class, 'show'])->name('celebs.sh
 /** Movies */
 Route::get('/movies', [MovieController::class, 'index'])->name('movies.index');
 Route::get('/movies/{movie}', [MovieController::class, 'show'])->name('movies.show');
+
