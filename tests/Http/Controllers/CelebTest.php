@@ -1,13 +1,13 @@
 <?php
 
-namespace Tests\Http\Middleware;
+namespace Tests\Http\Controllers;
 
-use App\Models\Celeb;
 use Tests\TestCase;
 use App\Models\User;
+use App\Models\Celeb;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class AdminCelebTest extends TestCase
+class CelebTest extends TestCase
 {
     use RefreshDatabase;
 
