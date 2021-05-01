@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Celeb;
+use App\Models\Genre;
 use App\Models\Movie;
 use App\Http\Requests\MovieRequest;
 
@@ -18,12 +20,33 @@ class MovieController extends Controller
 
     public function create()
     {
-        return view('movies.create');
+        $genres = Genre::all();
+        $celebs = Celeb::orderBy('name', 'ASC')->get();
+
+        return view('movies.create', [
+            'genres' => $genres,
+            'celebs' => $celebs
+        ]);
     }
 
     public function store(MovieRequest $request)
     {
-        Movie::create($request->validated());
+        $movie = Movie::create($request->validated());
+
+        $genres = $request->input('genres');
+        $movie->genres()->sync($genres);
+
+        $celebs = $request->input('celebs');
+        $character = $request->input('character_name');
+
+        $movie->celebs()->sync($celebs, ['character_name' => $character]);
+
+//        $celebs = collect($request->input('celebs', []))
+//            ->map(function($celeb) {
+//                return ['character_name' => $celeb];
+//            });
+//
+//        $movie->celebs()->sync($celebs);
 
         return redirect()->route('movies.index')
             ->with(['message' => 'Your movie has been added.']);
@@ -46,7 +69,14 @@ class MovieController extends Controller
 
     public function edit(Movie $movie)
     {
-        return view('movies.edit', ['movie' => $movie]);
+        $genres = Genre::all();
+        $celebs = Celeb::orderBy('name', 'ASC')->get();
+
+        return view('movies.edit', [
+            'movie' => $movie,
+            'genres' => $genres,
+            'celebs' => $celebs
+        ]);
     }
 
     public function update(MovieRequest $request, Movie $movie)

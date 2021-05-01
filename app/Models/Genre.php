@@ -23,6 +23,7 @@ class Genre extends Model
     public const GENRE_THRILLER = 'Thriller';
 
     public function movies() {
-        return $this->belongsToMany(Movie::class, 'genre_movie');
+        return $this->belongsToMany(Movie::class, 'genre_movie')
+            ->withTimestamps();;
     }
 }
