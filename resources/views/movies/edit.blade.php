@@ -64,7 +64,7 @@
                             </div>
                             <div class="w-1/2">
                                 <label for="duration"> Duration:
-                                    <input type="text" name="duration" value="{{ $movie->duration }}" class="mt-1 block w-3/4 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                                    <input type="text" name="duration" value="{{ $movie->getRawDuration() }}" class="mt-1 block w-3/4 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                                     <span class="text-sm text-gray-400">in minutes</span>
                                 </label>
                             </div>
@@ -109,7 +109,7 @@
         </div>
         <div class="w-1/4 flex flex-col items-end mb-16 md:mb-0">
             <div class="flex-col pb-6">
-                <img class="flex w-80 border rounded-sm mb-4 align-middle justify-end" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkyo0R2Y_RzD6pxe6RaMnwClgH0yheiyio6mOEacCl8RbwEnvB9rXGAqxUYxs5KJpObaU&usqp=CAU" alt="movie_poster_placeholder">
+                <img class="flex w-80 border rounded-sm mb-4 align-middle justify-end" src="{{ $movie->poster }}" alt="{{ $movie->title }}">
             </div>
         </div>
     </div>
