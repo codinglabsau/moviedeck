@@ -14,7 +14,7 @@ class MovieTest extends TestCase
     /** @test */
     public function an_admin_can_see_movies_view()
     {
-        $admin = \App\Models\User::factory()->admin()->create();
+        $admin = User::factory()->admin()->create();
 
         $this->actingAs($admin)
             ->get('/movies')
@@ -58,8 +58,6 @@ class MovieTest extends TestCase
     /** @test */
     public function an_admin_can_add_a_movie()
     {
-        $this->withoutExceptionHandling();
-
         $admin = User::factory()->admin()->create();
 
         $this->actingAs($admin)
