@@ -74,8 +74,11 @@
                     <div class="h-auto grid grid-rows-3 grid-flow-col gap-2">
                         @foreach($genres as $genre)
                             <label class="inline-flex items-center mt-3">
-                                <input type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50" name="genres[]" value="{{ $genre->id }}">
-                                <span class="ml-2 text-gray-600 font-medium text-md">{{ $genre->name }}</span>
+                                    <input type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50" name="genres[]" value="{{ $genre->id }}
+                                    @foreach($movie->genres as $movieGenre)
+                                        @if($movieGenre->pivot->name == $genre->name) checked @endif
+                                    @endforeach">
+                                    <span class="ml-2 text-gray-600 font-medium text-md">{{ $genre->name }}</span>
                             </label>
                         @endforeach
                     </div>
@@ -87,7 +90,7 @@
                                     <input type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50" name="celebs[]" value="{{ $celeb->id }}">
                                     <span class="ml-2 text-gray-600 font-medium text-md">{{ $celeb->name }}</span>
                                 </label>
-                                <input type="text" name="character_name" placeholder="Character" class="mt-1 mx-2 align-middle w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                                <input type="text" name="character_name" placeholder="as character" class="mt-1 mx-2 align-middle w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                                 {{--                                <label class="flex flex-row justify-between align-middle mt-3">--}}
                                 {{--                                    <div>--}}
                                 {{--                                        <input type="checkbox" name="celebs[]" value="{{ $celeb->id }}"  class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50">--}}

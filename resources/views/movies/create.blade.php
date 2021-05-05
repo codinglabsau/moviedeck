@@ -82,7 +82,7 @@
                                     <input type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50" name="celebs[]" value="{{ $celeb->id }}">
                                     <span class="ml-2 text-gray-600 font-medium text-md">{{ $celeb->name }}</span>
                                 </label>
-                                <input type="text" name="character_name" placeholder="Character" class="mt-1 mx-2 align-middle w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                                <input type="text" name="character_name" placeholder="as character" class="mt-1 mx-2 align-middle w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
 {{--                                <label class="flex flex-row justify-between align-middle mt-3">--}}
 {{--                                    <div>--}}
 {{--                                        <input type="checkbox" name="celebs[]" value="{{ $celeb->id }}"  class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50">--}}
