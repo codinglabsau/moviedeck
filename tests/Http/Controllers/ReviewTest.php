@@ -88,8 +88,8 @@ class ReviewTest extends TestCase
 
         $this->actingAs($anotherUser)
             ->get("/reviews/{$review->id}/edit")
-            ->assertRedirect()
-            ->assertSessionHas('status');
+            ->assertRedirect("/reviews/{$review->id}")
+            ->assertSessionHas('status', 'Oops! You do not have permission to edit this review.');
     }
 
     /** @test */
@@ -106,7 +106,7 @@ class ReviewTest extends TestCase
         ]);
 
         $this->get("/reviews/{$review->id}/edit")
-            ->assertRedirect();
+            ->assertRedirect('/login');
     }
 
     /** @test */
@@ -128,7 +128,7 @@ class ReviewTest extends TestCase
                 Saepe occaecati id aut doloremque repellat. Maiores neque deserunt dolores numquam quia ab quam.'
             ])
             ->assertRedirect('/reviews')
-            ->assertSessionHas('status');
+            ->assertSessionHas('status', 'Success! Review has been added.');
 
         $this->assertDatabaseHas('reviews', [
             'user_id' => $user->id,
@@ -201,7 +201,7 @@ class ReviewTest extends TestCase
                 Saepe occaecati id aut doloremque repellat. Maiores neque deserunt dolores numquam quia ab quam.'
             ])
             ->assertRedirect("/reviews/{$review->id}")
-            ->assertSessionHas('status');
+            ->assertSessionHas('status', 'Success! Review has been updated.');
 
         $this->assertDatabaseHas('reviews', [
             'id' => $review->id,
@@ -215,6 +215,56 @@ class ReviewTest extends TestCase
                 Necessitatibus voluptatem odit eaque repudiandae voluptatem qui. Ea et alias maiores sint aliquam qui veniam eaque.
                 Saepe occaecati id aut doloremque repellat. Maiores neque deserunt dolores numquam quia ab quam.'
         ]);
+    }
+
+    /** @test */
+    public function any_auth_user_cannot_edit_a_review_they_did_not_create()
+    {
+        $user = User::factory()->create([
+            'id' => 1
+        ]);
+        $movie = Movie::factory()->create();
+        $review = Review::factory()->create([
+            'user_id' => $user->id,
+            'movie_id' => $movie->id,
+            'title' => 'Review Title Sample',
+            'rating' => 4.8,
+            'content' => 'Sample review content',
+        ]);
+
+        $anotherUser = User::factory()->create([
+            'id' => 2
+        ]);
+
+        $this->actingAs($anotherUser)
+            ->putJson("/reviews/{$review->id}", [
+                'id' => $review->id,
+                'user_id' => $user->id,
+                'movie_id' => $movie->id,
+                'title' => 'Mock Turtle, suddenly.',
+                'rating' => 4.8,
+                'content' =>
+                    'Officia perspiciatis est quam aperiam. Dolor voluptatibus nemo vel molestiae quia aut. Dolor reprehenderit autem dolor eaque.
+                Molestiae blanditiis veniam quis iure officiis explicabo. Rerum veniam et nam voluptatem itaque quaerat omnis.
+                Necessitatibus voluptatem odit eaque repudiandae voluptatem qui. Ea et alias maiores sint aliquam qui veniam eaque.
+                Saepe occaecati id aut doloremque repellat. Maiores neque deserunt dolores numquam quia ab quam.'
+            ])
+            ->assertRedirect("/reviews/{$review->id}")
+            ->assertSessionHas('status', 'Oops! You do not have permission to edit this review.');
+
+        $this->assertDatabaseMissing('reviews', [
+            'id' => $review->id,
+            'user_id' => $user->id,
+            'movie_id' => $movie->id,
+            'title' => 'Mock Turtle, suddenly.',
+            'rating' => 4.8,
+            'content' =>
+                'Officia perspiciatis est quam aperiam. Dolor voluptatibus nemo vel molestiae quia aut. Dolor reprehenderit autem dolor eaque.
+                Molestiae blanditiis veniam quis iure officiis explicabo. Rerum veniam et nam voluptatem itaque quaerat omnis.
+                Necessitatibus voluptatem odit eaque repudiandae voluptatem qui. Ea et alias maiores sint aliquam qui veniam eaque.
+                Saepe occaecati id aut doloremque repellat. Maiores neque deserunt dolores numquam quia ab quam.'
+        ]);
+
     }
 
     /** @test */
@@ -260,7 +310,7 @@ class ReviewTest extends TestCase
     }
 
     /** @test */
-    public function a_user_can_delete_the_review_they_created()
+    public function a_user_can_delete_a_review_they_created()
     {
         $user = User::factory()->create();
         $movie = Movie::factory()->create();
@@ -287,6 +337,38 @@ class ReviewTest extends TestCase
     }
 
     /** @test */
+    public function any_auth_user_cannot_delete_a_review_they_did_not_create()
+    {
+        $user = User::factory()->create([
+            'id' => 1
+        ]);
+        $movie = Movie::factory()->create();
+        $review = Review::factory()->create([
+            'user_id' => $user->id,
+            'movie_id' => $movie->id,
+            'title' => 'Mock Turtle, suddenly.',
+            'rating' => 4.8,
+            'content' =>
+                'Officia perspiciatis est quam aperiam. Dolor voluptatibus nemo vel molestiae quia aut. Dolor reprehenderit autem dolor eaque.
+                Molestiae blanditiis veniam quis iure officiis explicabo. Rerum veniam et nam voluptatem itaque quaerat omnis.
+                Necessitatibus voluptatem odit eaque repudiandae voluptatem qui. Ea et alias maiores sint aliquam qui veniam eaque.
+                Saepe occaecati id aut doloremque repellat. Maiores neque deserunt dolores numquam quia ab quam.'
+        ]);
+
+        $anotherUser = User::factory()->create([
+            'id' => 2
+        ]);
+
+        $this->actingAs($anotherUser)
+            ->delete("/reviews/{$review->id}")
+            ->assertRedirect('/reviews');
+
+        $this->assertDatabaseHas('reviews', [
+            'id' => $review->id,
+        ]);
+    }
+
+    /** @test */
     public function a_guest_cannot_delete_a_review()
     {
         $user = User::factory()->create();
@@ -304,7 +386,7 @@ class ReviewTest extends TestCase
         ]);
 
         $this->delete("/reviews/{$review->id}")
-            ->assertRedirect();
+            ->assertRedirect('login');
 
         $this->assertDatabaseHas('reviews', [
             'id' => $review->id,
@@ -327,12 +409,13 @@ class ReviewTest extends TestCase
                 Necessitatibus voluptatem odit eaque repudiandae voluptatem qui. Ea et alias maiores sint aliquam qui veniam eaque.
                 Saepe occaecati id aut doloremque repellat. Maiores neque deserunt dolores numquam quia ab quam.'
         ]);
+
         $admin = User::factory()->admin()->create();
 
         $this->actingAs($admin)
             ->delete("/reviews/{$review->id}")
             ->assertRedirect('/reviews')
-            ->assertSessionHas('status');
+            ->assertSessionHas('status', 'Success! Review has been deleted.');
 
         $this->assertDatabaseMissing('reviews', [
             'id' => $review->id,
