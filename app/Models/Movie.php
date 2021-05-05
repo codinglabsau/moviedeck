@@ -27,7 +27,8 @@ class Movie extends Model
 
     public function celebs() {
         return $this->belongsToMany(Celeb::class, 'celeb_movie')
-            ->withPivot('character_name');
+            ->withPivot('character_name')
+            ->withTimestamps();
     }
 
     public function getDurationAttribute() {

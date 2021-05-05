@@ -138,7 +138,7 @@
                 </div>
                 <div class="w-full lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
                     <h1 class="font-medium text-gray-500 text-4xl py-16">Recent Reviews</h1>
-                    @foreach($reviews as $review)
+                    @forelse($reviews as $review)
                         <div class="flex-col py-6">
                             <a href="{{ route('reviews.show', $review) }}">
                                 <h1 class="font-bold text-lg tracking-wide"> <svg class="w-5 h-5 inline-flex align-top" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" stroke="currentColor">
@@ -155,7 +155,14 @@
                                 @endif
                             </p>
                         </div>
-                    @endforeach
+                        @empty
+                        <div>
+                            <p>
+                                No reviews found.
+                                <a href="{{ route('reviews.create', $movie) }}" class="text-blue-500 font-semibold text-sm">Add a Review</a>
+                            </p>
+                        </div>
+                    @endforelse
                     <div class="py-6">
                         {{ $reviews->links() }}
                     </div>
