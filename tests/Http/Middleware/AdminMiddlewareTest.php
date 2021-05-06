@@ -31,12 +31,12 @@ class AdminMiddlewareTest extends TestCase
     }
 
     /** @test */
-    public function admin_are_redirected()
+    public function admin_are__not_redirected()
     {
         $user = User::factory()->admin()->create();
 
         $this->actingAs($user)
-            ->getJson(route('celebs.create'))
+            ->getJson('/admin-route')
             ->assertOk();
     }
 }
