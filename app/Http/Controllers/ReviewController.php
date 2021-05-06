@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Movie;
 use App\Models\Review;
-use App\Http\Requests\Review\CreateReviewRequest;
-use App\Http\Requests\Review\UpdateReviewRequest;
+use App\Http\Requests\Review\Store;
+use App\Http\Requests\Review\Update;
 
 class ReviewController extends Controller
 {
@@ -36,7 +36,7 @@ class ReviewController extends Controller
         ]);
     }
 
-    public function store(CreateReviewRequest $request)
+    public function store(Store $request)
     {
         Review::create($request->validated());
 
@@ -46,18 +46,18 @@ class ReviewController extends Controller
 
     public function edit(Review $review)
     {
-        if (isset(auth()->user()->id) && auth()->user()->id != $review->user_id)
+        if (auth()->id() === $review->user->id)
         {
-            return redirect()->route('reviews.show', $review)
-                    ->with('status', 'Oops! You do not have permission to edit this review.');
-        } else {
             return view('reviews.edit', [
                 'review' => $review
             ]);
         }
+
+        return redirect()->route('reviews.show', $review)
+            ->with('status', 'Oops! You do not have permission to edit this review.');
     }
 
-    public function update(UpdateReviewRequest $request, Review $review)
+    public function update(Update $request, Review $review)
     {
         $review->update($request->validated());
 
@@ -67,25 +67,15 @@ class ReviewController extends Controller
 
     public function destroy(Review $review)
     {
-        if (isset(auth()->user()->is_admin) && auth()->user()->is_admin)
+        if (auth()->id() === $review->user->id || auth()->user()->is_admin)
         {
-            return $this->allowDelete($review);
-        }
+            $review->delete();
 
-        if (isset(auth()->user()->id) && auth()->user()->id == $review->user_id)
-        {
-            return $this->allowDelete($review);
+            return redirect()->route('reviews.index')
+                ->with('status', 'Success! Review has been deleted.');
         }
 
         return redirect()->route('reviews.show', $review)
             ->with('status', 'Oops! You do not have permission to delete this review.');
-    }
-
-    public function allowDelete(Review $review): \Illuminate\Http\RedirectResponse
-    {
-        $review->delete();
-
-        return redirect()->route('reviews.index')
-            ->with('status', 'Success! Review has been deleted.');
     }
 }

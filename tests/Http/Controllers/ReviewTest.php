@@ -70,9 +70,7 @@ class ReviewTest extends TestCase
     /** @test */
     public function a_user_cannot_access_edit_view_of_a_review_they_did_not_create()
     {
-        $user = User::factory()->create([
-            'id' => 1
-        ]);
+        $user = User::factory()->create();
         $movie = Movie::factory()->create();
         $review = Review::factory()->create([
             'user_id' => $user->id,
@@ -82,9 +80,7 @@ class ReviewTest extends TestCase
             'content' => 'Sample review content',
         ]);
 
-        $anotherUser = User::factory()->create([
-            'id' => 2
-        ]);
+        $anotherUser = User::factory()->create();
 
         $this->actingAs($anotherUser)
             ->get("/reviews/{$review->id}/edit")
@@ -220,9 +216,7 @@ class ReviewTest extends TestCase
     /** @test */
     public function any_auth_user_cannot_edit_a_review_they_did_not_create()
     {
-        $user = User::factory()->create([
-            'id' => 1
-        ]);
+        $user = User::factory()->create();
         $movie = Movie::factory()->create();
         $review = Review::factory()->create([
             'user_id' => $user->id,
@@ -232,9 +226,7 @@ class ReviewTest extends TestCase
             'content' => 'Sample review content',
         ]);
 
-        $anotherUser = User::factory()->create([
-            'id' => 2
-        ]);
+        $anotherUser = User::factory()->create();
 
         $this->actingAs($anotherUser)
             ->putJson("/reviews/{$review->id}", [
@@ -328,7 +320,7 @@ class ReviewTest extends TestCase
         $this->actingAs($user)
             ->delete("/reviews/{$review->id}")
             ->assertRedirect('/reviews')
-            ->assertSessionHas('status');
+            ->assertSessionHas('status', 'Success! Review has been deleted.');
 
         $this->assertDatabaseMissing('reviews', [
             'id' => $review->id,
@@ -338,9 +330,7 @@ class ReviewTest extends TestCase
     /** @test */
     public function any_auth_user_cannot_delete_a_review_they_did_not_create()
     {
-        $user = User::factory()->create([
-            'id' => 1
-        ]);
+        $user = User::factory()->create();
         $movie = Movie::factory()->create();
         $review = Review::factory()->create([
             'user_id' => $user->id,
@@ -354,9 +344,7 @@ class ReviewTest extends TestCase
                 Saepe occaecati id aut doloremque repellat. Maiores neque deserunt dolores numquam quia ab quam.'
         ]);
 
-        $anotherUser = User::factory()->create([
-            'id' => 2
-        ]);
+        $anotherUser = User::factory()->create();
 
         $this->actingAs($anotherUser)
             ->delete("/reviews/{$review->id}")

@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests\Review;
 
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
+use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateReviewRequest extends FormRequest
+class Update extends FormRequest
 {
     public function authorize(Request $request)
     {
@@ -18,10 +18,9 @@ class UpdateReviewRequest extends FormRequest
 
             return false;
 
-        } else {
-
-            return true;
         }
+
+        return true;
     }
 
     public function rules()
