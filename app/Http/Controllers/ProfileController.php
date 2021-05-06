@@ -10,9 +10,11 @@ class ProfileController extends Controller
 {
     public function dashboard(User $user)
     {
-        $reviews = Review::orderBy('created_at')
-            ->with('movies', 'users')
-            ->take(4);
+        $reviews = Review::where('user_id', $user->id)
+            ->with(['movie', 'user'])
+            ->orderBy('created_at')
+            ->take(4)
+            ->get();
 
         return view('profile/dashboard', [
             'user' => $user,
