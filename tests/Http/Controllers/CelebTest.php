@@ -60,7 +60,7 @@ class CelebTest extends TestCase
     }
 
     /** @test */
-    public function validation_produces_errors_when_admin_stores_celeb_with_one_invalid_data()
+    public function validation_error_when_celeb_has_one_invalid_data()
     {
         $admin = User::factory()->admin()->create();
 
@@ -72,10 +72,16 @@ class CelebTest extends TestCase
             ])->assertSessionHasErrors([
                 'photo' => 'The photo field is required.'
             ]);
+
+        $this->assertDatabaseMissing('celebs', [
+            'name' => 'James Weatherby',
+            'date_of_birth' => '14/05/1996',
+            'photo' => null
+        ]);
     }
 
     /** @test */
-    public function validation_produces_errors_when_admin_stores_celeb_with_all_invalid_data()
+    public function validation_errors_when_celeb_has_all_invalid_data()
     {
         $admin = User::factory()->admin()->create();
 
@@ -88,10 +94,16 @@ class CelebTest extends TestCase
                 'name' => 'The name field is required.',
                 'date_of_birth' => 'The date of birth field is required.',
                 'photo' => 'The photo field is required.']);
+
+        $this->assertDatabaseMissing('celebs', [
+            'name' => null,
+            'date_of_birth' => null,
+            'photo' => null
+        ]);
     }
 
     /** @test */
-    public function validation_error_when_admin_stores_celeb_with_date_of_birth_after_todays_date()
+    public function validation_error_when_celeb_date_of_birth_is_after_todays_date()
     {
         $admin= User::factory()->admin()->create();
 
@@ -103,10 +115,16 @@ class CelebTest extends TestCase
              ])->assertSessionHasErrors([
                  'date_of_birth' => 'The date of birth must be a date before today.'
             ]);
+
+        $this->assertDatabaseMissing('celebs', [
+            'name' => 'William Invalid',
+            'date_of_birth' => '08/03/3000',
+            'photo' => 'https://genericPhoto2.com'
+        ]);
     }
 
     /** @test */
-    public function validation_error_when_admin_stores_celeb_with_name_being_too_short()
+    public function validation_error_when_celeb_name_is_too_short()
     {
         $admin= User::factory()->admin()->create();
 
@@ -118,10 +136,16 @@ class CelebTest extends TestCase
             ])->assertSessionHasErrors([
                 'name' => 'The name must be between 2 and 30 characters.'
             ]);
+
+        $this->assertDatabaseMissing('celebs', [
+            'name' => 'J',
+            'date_of_birth' => '08/03/2003',
+            'photo' => 'https://genericPhoto2.com'
+        ]);
     }
 
     /** @test */
-    public function validation_error_when_admin_stores_celeb_with_name_being_too_long()
+    public function validation_error_when_celeb_name_is_too_long()
     {
         $admin= User::factory()->admin()->create();
 
@@ -133,6 +157,12 @@ class CelebTest extends TestCase
             ])->assertSessionHasErrors([
                 'name' => 'The name must be between 2 and 30 characters.'
             ]);
+
+        $this->assertDatabaseMissing('celebs', [
+            'name' => 'Ronald Gibons-Hacksonford-James III',
+            'date_of_birth' => '08/03/2003',
+            'photo' => 'https://genericPhotos.com'
+        ]);
     }
 
     /** @test */
@@ -143,15 +173,33 @@ class CelebTest extends TestCase
         ]);
 
         $this->actingAs($user)
-            ->postJson('celebs')
-            ->assertRedirect();
+            ->postJson('celebs', [
+                'name' => 'Josie Jets',
+                'date_of_birth' => '10/11/1977',
+                'photo' => 'https://genericPhotos.com'
+            ])->assertRedirect();
+
+        $this->assertDatabaseMissing('celebs', [
+            'name' => 'Josie Jets',
+            'date_of_birth' => '10/11/1977',
+            'photo' => 'https://genericPhotos.com'
+        ]);
     }
 
     /** @test */
     public function guest_cannot_create_a_celeb()
     {
-        $this->postJson('celebs')
-            ->assertRedirect();
+        $this->postJson('celebs', [
+            'name' => 'Joe Generic',
+            'date_of_birth' => '01/01/2001',
+            'photo' => 'https://genericPhotos.com'
+        ])->assertRedirect();
+
+        $this->assertDatabaseMissing('celebs', [
+            'name' => 'Joe Generic',
+            'date_of_birth' => '01/01/2001',
+            'photo' => 'https://genericPhotos.com'
+        ]);
     }
 
     /** @test */
@@ -189,116 +237,68 @@ class CelebTest extends TestCase
     /** @test */
     public function admin_can_update_a_celeb()
     {
-        $celeb = Celeb::factory()->create();
+        $celeb = Celeb::factory()->create([
+            'name' => 'Jennifer Fallinbury',
+            'date_of_birth' => '27/11/1982',
+            'photo' => 'https://generic/photo1_700x600'
+        ]);
         $admin = User::factory()->admin()->create();
 
         $this->actingAs($admin)
             ->putJson("celebs/$celeb->id", [
                 'name' => 'Jennifer Jaxon',
                 'date_of_birth' => '27/11/1982',
-                'photo' => 'https://generic/photo1 700x600'
+                'photo' => 'https://generic/photo1_700x600'
             ])->assertSessionHasNoErrors();
 
+        $this->assertDatabaseMissing('celebs', [
+            'id' => $celeb->id,
+            'name' => 'Jennifer Fallinbury',
+            'date_of_birth' => '27/11/1982',
+            'photo' => 'https://generic/photo1_700x600'
+        ]);
+
         $this->assertDatabaseHas('celebs', [
+            'id' => $celeb->id,
             'name' => 'Jennifer Jaxon',
             'date_of_birth' => '27/11/1982',
-            'photo' => 'https://generic/photo1 700x600'
+            'photo' => 'https://generic/photo1_700x600'
         ]);
-    }
-
-    /** @test */
-    public function validation_produces_errors_when_admin_updates_celeb_with_one_data_being_empty()
-    {
-        $celeb = Celeb::factory()->create();
-        $admin = User::factory()->admin()->create();
-
-        $this->actingAs($admin)
-            ->put("celebs/$celeb->id", [
-                'name' => 'Olivia Plankton',
-                'date_of_birth' => '08/04/1994',
-                'photo' => null
-            ])->assertSessionHasErrors([
-                'photo' => 'The photo field is required.'
-            ]);
-    }
-
-    /** @test */
-    public function validation_produces_errors_when_admin_updates_celeb_with_all_data_being_empty()
-    {
-        $celeb = Celeb::factory()->create();
-        $admin = User::factory()->admin()->create();
-
-        $this->actingAs($admin)
-            ->put("celebs/$celeb->id", [
-                'name' => null,
-                'date_of_birth' => null,
-                'photo' => null
-            ])->assertSessionHasErrors([
-                'name' => 'The name field is required.',
-                'date_of_birth' => 'The date of birth field is required.',
-                'photo' => 'The photo field is required.'
-            ]);
-    }
-
-    /** @test */
-    public function validation_error_when_admin_updates_celeb_with_date_of_birth_after_todays_date()
-    {
-        $celeb = Celeb::factory()->create();
-        $admin = User::factory()->admin()->create();
-
-        $this->actingAs($admin)
-            ->put("celebs/$celeb->id", [
-                'name' => 'James Islington',
-                'date_of_birth' => '08/03/2999',
-                'photo' => 'https://genericPhotos.com'
-            ])->assertSessionHasErrors([
-                'date_of_birth' => 'The date of birth must be a date before today.'
-            ]);
-    }
-
-    /** @test */
-    public function validation_error_when_admin_updates_celeb_with_name_being_too_short()
-    {
-        $celeb = Celeb::factory()->create();
-        $admin = User::factory()->admin()->create();
-
-        $this->actingAs($admin)
-            ->put("celebs/$celeb->id", [
-                'name' => 'P',
-                'date_of_birth' => '08/03/2010',
-                'photo' => 'https://genericPhotos.com'
-            ])->assertSessionHasErrors([
-                'name' => 'The name must be between 2 and 30 characters.'
-            ]);
-    }
-
-    /** @test */
-    public function validation_error_when_admin_updates_celeb_with_name_being_too_long()
-    {
-        $celeb = Celeb::factory()->create();
-        $admin = User::factory()->admin()->create();
-
-        $this->actingAs($admin)
-            ->put("celebs/$celeb->id", [
-                'name' => 'Beauregard Ofter-Jarms-Vendersenderson',
-                'date_of_birth' => '08/03/1989',
-                'photo' => 'https://genericPhoto.com'
-            ])->assertSessionHasErrors([
-                'name' => 'The name must be between 2 and 30 characters.'
-            ]);
     }
 
     /** @test */
     public function user_cannot_update_celeb()
     {
-        $celeb = Celeb::factory()->create();
+        $celeb = Celeb::factory()->create([
+            'name' => 'Joe Generic',
+            'date_of_birth' => '01/01/2001',
+            'photo' => 'https://genericPhotos.com'
+        ]);
         $user = User::factory()->create([
             'is_admin' => false
         ]);
 
         $this->actingAs($user)
-            ->putJson("celebs/$celeb->id")
-            ->assertRedirect();
+            ->putJson("celebs/$celeb->id", [
+                'id' => $celeb->id,
+                'name' => 'Joe Invalid',
+                'date_of_birth' => '01/01/2001',
+                'photo' => 'https://genericPhotos.com'
+            ])->assertRedirect();
+
+        $this->assertDatabaseMissing('celebs', [
+            'id' => $celeb->id,
+            'name' => 'Joe Invalid',
+            'date_of_birth' => '01/01/2001',
+            'photo' => 'https://genericPhotos.com'
+        ]);
+
+        $this->assertDatabaseHas('celebs', [
+            'id' => $celeb->id,
+            'name' => 'Joe Generic',
+            'date_of_birth' => '01/01/2001',
+            'photo' => 'https://genericPhotos.com'
+        ]);
     }
 
     /** @test */
