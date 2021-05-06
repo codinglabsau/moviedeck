@@ -1,12 +1,12 @@
 <?php
 
-namespace Tests\Feature\Http\Middleware;
+namespace Tests\Http\Controllers;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class AdminCelebTest extends TestCase
+class CelebTest extends TestCase
 {
     use RefreshDatabase;
 
