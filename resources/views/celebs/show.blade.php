@@ -14,7 +14,7 @@
                         <div>
                             <h1 class="font-medium text-gray-500 text-4xl my-10">Titles</h1>
                         </div>
-                        @if (auth()->check() && auth()->user()->is_admin === true)
+                        @if (auth()->check() && auth()->user()->is_admin)
                             <button type="button" class="h-8 flex text-gray-600 items-center font-medium tracking-wide capitalize transition-colors duration-200 transform rounded-md border-2 border-gray-700 hover:border-gray-500">
                                 <span class="mx-2 px-4 whitespace-nowrap">{{ __('Add Title') }}</span>
                             </button>
@@ -36,7 +36,7 @@
                     <div class="flex w-full justify-center mt-3">
                         {{$titles->links()}}
                     </div>
-                    @if(auth()->check() && auth()->user()->is_admin === true)
+                    @if(auth()->check() && auth()->user()->is_admin)
                         <div class="flex">
                             <button type="button" onclick="document.location='{{ route("celebs.edit", $celeb->id) }}'" class="flex items-center mt-16 mr-4 px-2 py-2 font-medium tracking-wide text-gray-600 capitalize transition-colors duration-200 transform rounded-md border-2 border-gray-700 hover:border-gray-500">
                                 <span class="mx-2 whitespace-nowrap">{{ __('Edit Celeb') }}</span>
