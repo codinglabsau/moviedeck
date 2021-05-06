@@ -31,7 +31,7 @@ class AdminMiddlewareTest extends TestCase
     }
 
     /** @test */
-    public function admin_are__not_redirected()
+    public function admin_are_not_redirected()
     {
         $user = User::factory()->admin()->create();
 

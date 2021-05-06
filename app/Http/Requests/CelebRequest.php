@@ -13,7 +13,7 @@ class CelebRequest extends FormRequest
      */
     public function authorize()
     {
-        return auth()->check() && auth()->user()->is_admin;
+        return auth()->check() && auth()->user()->is_admin === true;
     }
 
     /**
