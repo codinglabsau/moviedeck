@@ -2,6 +2,7 @@
 
 namespace Tests\Http\Controllers;
 
+use Carbon\Carbon;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\Celeb;
@@ -10,6 +11,13 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 class CelebTest extends TestCase
 {
     use RefreshDatabase;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        Carbon::setTestNow(now());
+    }
 
     /** @test */
     public function admin_can_see_celebs_create_view()
@@ -46,15 +54,15 @@ class CelebTest extends TestCase
         $admin = User::factory()->admin()->create();
 
         $this->actingAs($admin)
-            ->postJson('celebs', [
+            ->post('celebs', [
                 'name' => 'John Farnaby',
-                'date_of_birth' => '05/06/1988',
+                'date_of_birth' => Carbon::now()->subYears(30),
                 'photo' => 'https://generic/photo_700x600'
             ])->assertSessionHasNoErrors();
 
         $this->assertDatabaseHas('celebs', [
             'name' => 'John Farnaby',
-            'date_of_birth' => '05/06/1988',
+            'date_of_birth' => Carbon::now()->subYears(30),
             'photo' => 'https://generic/photo_700x600'
         ]);
     }
@@ -67,7 +75,7 @@ class CelebTest extends TestCase
         $this->actingAs($admin)
             ->post('celebs', [
                 'name' => 'James Weatherby',
-                'date_of_birth' => '14/05/1996',
+                'date_of_birth' => Carbon::now()->subYears(30),
                 'photo' => null
             ])->assertSessionHasErrors([
                 'photo' => 'The photo field is required.'
@@ -75,7 +83,7 @@ class CelebTest extends TestCase
 
         $this->assertDatabaseMissing('celebs', [
             'name' => 'James Weatherby',
-            'date_of_birth' => '14/05/1996',
+            'date_of_birth' => Carbon::now()->subYears(30),
             'photo' => null
         ]);
     }
@@ -110,7 +118,7 @@ class CelebTest extends TestCase
         $this->actingAs($admin)
              ->post('celebs', [
                  'name' => 'William Invalid',
-                 'date_of_birth' => '08/03/3000',
+                 'date_of_birth' => Carbon::now()->addYears(5),
                  'photo' => 'https://genericPhoto2.com'
              ])->assertSessionHasErrors([
                  'date_of_birth' => 'The date of birth must be a date before today.'
@@ -118,7 +126,7 @@ class CelebTest extends TestCase
 
         $this->assertDatabaseMissing('celebs', [
             'name' => 'William Invalid',
-            'date_of_birth' => '08/03/3000',
+            'date_of_birth' => Carbon::now()->addYears(5),
             'photo' => 'https://genericPhoto2.com'
         ]);
     }
@@ -131,7 +139,7 @@ class CelebTest extends TestCase
         $this->actingAs($admin)
             ->post('celebs', [
                 'name' => 'J',
-                'date_of_birth' => '08/03/2003',
+                'date_of_birth' => Carbon::now()->subYears(30),
                 'photo' => 'https://genericPhoto2.com'
             ])->assertSessionHasErrors([
                 'name' => 'The name must be between 2 and 30 characters.'
@@ -139,7 +147,7 @@ class CelebTest extends TestCase
 
         $this->assertDatabaseMissing('celebs', [
             'name' => 'J',
-            'date_of_birth' => '08/03/2003',
+            'date_of_birth' => Carbon::now()->subYears(30),
             'photo' => 'https://genericPhoto2.com'
         ]);
     }
@@ -152,7 +160,7 @@ class CelebTest extends TestCase
         $this->actingAs($admin)
             ->post('celebs', [
                 'name' => 'Ronald Gibons-Hacksonford-James III',
-                'date_of_birth' => '08/03/2003',
+                'date_of_birth' => Carbon::now()->subYears(30),
                 'photo' => 'https://genericPhoto2.com'
             ])->assertSessionHasErrors([
                 'name' => 'The name must be between 2 and 30 characters.'
@@ -160,7 +168,7 @@ class CelebTest extends TestCase
 
         $this->assertDatabaseMissing('celebs', [
             'name' => 'Ronald Gibons-Hacksonford-James III',
-            'date_of_birth' => '08/03/2003',
+            'date_of_birth' => Carbon::now()->subYears(30),
             'photo' => 'https://genericPhotos.com'
         ]);
     }
@@ -175,13 +183,13 @@ class CelebTest extends TestCase
         $this->actingAs($user)
             ->postJson('celebs', [
                 'name' => 'Josie Jets',
-                'date_of_birth' => '10/11/1977',
+                'date_of_birth' => Carbon::now()->subYears(30),
                 'photo' => 'https://genericPhotos.com'
             ])->assertRedirect();
 
         $this->assertDatabaseMissing('celebs', [
             'name' => 'Josie Jets',
-            'date_of_birth' => '10/11/1977',
+            'date_of_birth' => Carbon::now()->subYears(30),
             'photo' => 'https://genericPhotos.com'
         ]);
     }
@@ -191,13 +199,13 @@ class CelebTest extends TestCase
     {
         $this->postJson('celebs', [
             'name' => 'Joe Generic',
-            'date_of_birth' => '01/01/2001',
+            'date_of_birth' => Carbon::now()->subYears(30),
             'photo' => 'https://genericPhotos.com'
         ])->assertRedirect();
 
         $this->assertDatabaseMissing('celebs', [
             'name' => 'Joe Generic',
-            'date_of_birth' => '01/01/2001',
+            'date_of_birth' => Carbon::now()->subYears(30),
             'photo' => 'https://genericPhotos.com'
         ]);
     }
@@ -239,29 +247,29 @@ class CelebTest extends TestCase
     {
         $celeb = Celeb::factory()->create([
             'name' => 'Jennifer Fallinbury',
-            'date_of_birth' => '27/11/1982',
+            'date_of_birth' => Carbon::now()->subYears(30),
             'photo' => 'https://generic/photo1_700x600'
         ]);
         $admin = User::factory()->admin()->create();
 
         $this->actingAs($admin)
-            ->putJson("celebs/$celeb->id", [
+            ->put("celebs/$celeb->id", [
                 'name' => 'Jennifer Jaxon',
-                'date_of_birth' => '27/11/1982',
+                'date_of_birth' => Carbon::now()->subYears(30),
                 'photo' => 'https://generic/photo1_700x600'
             ])->assertSessionHasNoErrors();
 
         $this->assertDatabaseMissing('celebs', [
             'id' => $celeb->id,
             'name' => 'Jennifer Fallinbury',
-            'date_of_birth' => '27/11/1982',
+            'date_of_birth' => Carbon::now()->subYears(30),
             'photo' => 'https://generic/photo1_700x600'
         ]);
 
         $this->assertDatabaseHas('celebs', [
             'id' => $celeb->id,
             'name' => 'Jennifer Jaxon',
-            'date_of_birth' => '27/11/1982',
+            'date_of_birth' => Carbon::now()->subYears(30),
             'photo' => 'https://generic/photo1_700x600'
         ]);
     }
@@ -271,7 +279,7 @@ class CelebTest extends TestCase
     {
         $celeb = Celeb::factory()->create([
             'name' => 'Joe Generic',
-            'date_of_birth' => '01/01/2001',
+            'date_of_birth' => Carbon::now()->subYears(30),
             'photo' => 'https://genericPhotos.com'
         ]);
         $user = User::factory()->create([
@@ -282,21 +290,21 @@ class CelebTest extends TestCase
             ->putJson("celebs/$celeb->id", [
                 'id' => $celeb->id,
                 'name' => 'Joe Invalid',
-                'date_of_birth' => '01/01/2001',
+                'date_of_birth' => Carbon::now()->subYears(30),
                 'photo' => 'https://genericPhotos.com'
             ])->assertRedirect();
 
         $this->assertDatabaseMissing('celebs', [
             'id' => $celeb->id,
             'name' => 'Joe Invalid',
-            'date_of_birth' => '01/01/2001',
+            'date_of_birth' => Carbon::now()->subYears(30),
             'photo' => 'https://genericPhotos.com'
         ]);
 
         $this->assertDatabaseHas('celebs', [
             'id' => $celeb->id,
             'name' => 'Joe Generic',
-            'date_of_birth' => '01/01/2001',
+            'date_of_birth' => Carbon::now()->subYears(30),
             'photo' => 'https://genericPhotos.com'
         ]);
     }
@@ -304,16 +312,50 @@ class CelebTest extends TestCase
     /** @test */
     public function guest_cannot_update_a_celeb()
     {
-        $celeb = Celeb::factory()->create();
-        $this->putJson("celebs/$celeb->id")
-            ->assertRedirect();
+        $celeb = Celeb::factory()->create([
+            'name' => 'Joe Generic',
+            'date_of_birth' => Carbon::now()->subYears(30),
+            'photo' => 'https://genericPhotos.com'
+        ]);
+
+        $this->putJson("celebs/$celeb->id", [
+            'id' => $celeb->id,
+            'name' => 'Joe Invalid',
+            'date_of_birth' => Carbon::now()->subYears(30),
+            'photo' => 'https://genericPhotos.com'
+        ])->assertRedirect();
+
+        $this->assertDatabaseMissing('celebs', [
+            'id' => $celeb->id,
+            'name' => 'Joe Invalid',
+            'date_of_birth' => Carbon::now()->subYears(30),
+            'photo' => 'https://genericPhotos.com'
+        ]);
+
+        $this->assertDatabaseHas('celebs', [
+            'id' => $celeb->id,
+            'name' => 'Joe Generic',
+            'date_of_birth' => Carbon::now()->subYears(30),
+            'photo' => 'https://genericPhotos.com'
+        ]);
     }
 
     /** @test */
     public function admin_can_delete_a_celeb()
     {
+        $celeb = Celeb::factory()->create([
+            'name' => 'Joe Generic',
+            'date_of_birth' => Carbon::now()->subYears(30),
+            'photo' => 'https://genericPhotos.com'
+        ]);
         $admin = User::factory()->admin()->create();
-        $celeb = Celeb::factory()->create();
+
+        $this->assertDatabaseHas('celebs', [
+            'id' => $celeb->id,
+            'name' => 'Joe Generic',
+            'date_of_birth' => Carbon::now()->subYears(30),
+            'photo' => 'https://genericPhotos.com'
+        ]);
 
         $this->actingAs($admin)
             ->deleteJson("celebs/$celeb->id")
@@ -321,13 +363,20 @@ class CelebTest extends TestCase
 
         $this->assertDatabaseMissing('celebs', [
             'id' => $celeb->id,
+            'name' => 'Joe Generic',
+            'date_of_birth' => Carbon::now()->subYears(30),
+            'photo' => 'https://genericPhotos.com'
         ]);
     }
 
     /** @test */
     public function user_cannot_delete_a_celeb()
     {
-        $celeb = Celeb::factory()->create();
+        $celeb = Celeb::factory()->create([
+            'name' => 'Joe Generic',
+            'date_of_birth' => Carbon::now()->subYears(30),
+            'photo' => 'https://genericPhotos.com'
+        ]);
         $user = User::factory()->create([
             'is_admin' => false
         ]);
@@ -335,13 +384,32 @@ class CelebTest extends TestCase
         $this->actingAs($user)
             ->deleteJson("celebs/$celeb->id")
             ->assertRedirect();
+
+        $this->assertDatabaseHas('celebs', [
+            'id' => $celeb->id,
+            'name' => 'Joe Generic',
+            'date_of_birth' => Carbon::now()->subYears(30),
+            'photo' => 'https://genericPhotos.com'
+        ]);
     }
 
     /** @test */
     public function guest_cannot_delete_a_celeb()
     {
-        $celeb = Celeb::factory()->create();
+        $celeb = Celeb::factory()->create([
+            'name' => 'Joe Generic',
+            'date_of_birth' => Carbon::now()->subYears(30),
+            'photo' => 'https://genericPhotos.com'
+        ]);
+
         $this->deleteJson("celebs/$celeb->id")
             ->assertRedirect();
+
+        $this->assertDatabaseHas('celebs', [
+            'id' => $celeb->id,
+            'name' => 'Joe Generic',
+            'date_of_birth' => Carbon::now()->subYears(30),
+            'photo' => 'https://genericPhotos.com'
+        ]);
     }
 }
