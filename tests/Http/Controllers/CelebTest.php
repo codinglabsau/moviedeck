@@ -14,7 +14,7 @@ class CelebTest extends TestCase
     /** @test */
     public function admin_can_see_celebs_create_view()
     {
-        $admin = \App\Models\User::factory()->admin()->create();
+        $admin = User::factory()->admin()->create();
 
         $this->actingAs($admin)
             ->getJson('celebs/create')
@@ -24,7 +24,7 @@ class CelebTest extends TestCase
     /** @test */
     public function user_cannot_see_celebs_create_view()
     {
-        $user = \App\Models\User::factory()->create([
+        $user = User::factory()->create([
             'is_admin' => false
         ]);
 
@@ -69,7 +69,9 @@ class CelebTest extends TestCase
                 'name' => 'James Weatherby',
                 'date_of_birth' => '14/05/1996',
                 'photo' => null
-            ])->assertSessionHasErrors(['photo']);
+            ])->assertSessionHasErrors([
+                'photo' => 'The photo field is required.'
+            ]);
     }
 
     /** @test */
@@ -89,7 +91,7 @@ class CelebTest extends TestCase
     }
 
     /** @test */
-    public function validation_error_on_date_of_birth_after_todays_date()
+    public function validation_error_when_admin_stores_celeb_with_date_of_birth_after_todays_date()
     {
         $admin= User::factory()->admin()->create();
 
@@ -103,7 +105,8 @@ class CelebTest extends TestCase
             ]);
     }
 
-    public function validation_error_on_name_being_too_short()
+    /** @test */
+    public function validation_error_when_admin_stores_celeb_with_name_being_too_short()
     {
         $admin= User::factory()->admin()->create();
 
@@ -117,7 +120,8 @@ class CelebTest extends TestCase
             ]);
     }
 
-    public function validation_error_on_name_being_too_long()
+    /** @test */
+    public function validation_error_when_admin_stores_celeb_with_name_being_too_long()
     {
         $admin= User::factory()->admin()->create();
 
@@ -134,7 +138,7 @@ class CelebTest extends TestCase
     /** @test */
     public function user_cannot_create_a_celeb()
     {
-        $user = \App\Models\User::factory()->create([
+        $user = User::factory()->create([
             'is_admin' => false
         ]);
 
@@ -153,8 +157,8 @@ class CelebTest extends TestCase
     /** @test */
     public function admin_can_see_celebs_edit_view()
     {
-        $celeb = \App\Models\Celeb::factory()->create();
-        $admin = \App\Models\User::factory()->admin()->create();
+        $celeb = Celeb::factory()->create();
+        $admin = User::factory()->admin()->create();
 
         $this->actingAs($admin)
             ->getJson("celebs/$celeb->id/edit")
@@ -164,8 +168,8 @@ class CelebTest extends TestCase
     /** @test */
     public function user_cannot_see_celebs_edit_view()
     {
-        $celeb = \App\Models\Celeb::factory()->create();
-        $user = \App\Models\User::factory()->create([
+        $celeb = Celeb::factory()->create();
+        $user = User::factory()->create([
             'is_admin' => false
         ]);
 
@@ -177,7 +181,7 @@ class CelebTest extends TestCase
     /** @test */
     public function guest_cannot_see_celebs_edit_view()
     {
-        $celeb = \App\Models\Celeb::factory()->create();
+        $celeb = Celeb::factory()->create();
         $this->getJson("celebs/$celeb->id/edit")
             ->assertRedirect();
     }
@@ -185,8 +189,8 @@ class CelebTest extends TestCase
     /** @test */
     public function admin_can_update_a_celeb()
     {
-        $celeb = \App\Models\Celeb::factory()->create();
-        $admin = \App\Models\User::factory()->admin()->create();
+        $celeb = Celeb::factory()->create();
+        $admin = User::factory()->admin()->create();
 
         $this->actingAs($admin)
             ->putJson("celebs/$celeb->id", [
@@ -203,38 +207,92 @@ class CelebTest extends TestCase
     }
 
     /** @test */
-    public function validation_produces_errors_when_admin_updates_celeb_with_one_invalid_data()
+    public function validation_produces_errors_when_admin_updates_celeb_with_one_data_being_empty()
     {
-        $celeb = \App\Models\Celeb::factory()->create();
-        $admin = \App\Models\User::factory()->admin()->create();
+        $celeb = Celeb::factory()->create();
+        $admin = User::factory()->admin()->create();
 
         $this->actingAs($admin)
             ->put("celebs/$celeb->id", [
                 'name' => 'Olivia Plankton',
                 'date_of_birth' => '08/04/1994',
                 'photo' => null
-            ])->assertSessionHasErrors(['photo']);
+            ])->assertSessionHasErrors([
+                'photo' => 'The photo field is required.'
+            ]);
     }
 
     /** @test */
-    public function validation_produces_errors_when_admin_updates_celeb_with_all_invalid_data()
+    public function validation_produces_errors_when_admin_updates_celeb_with_all_data_being_empty()
     {
-        $celeb = \App\Models\Celeb::factory()->create();
-        $admin = \App\Models\User::factory()->admin()->create();
+        $celeb = Celeb::factory()->create();
+        $admin = User::factory()->admin()->create();
 
         $this->actingAs($admin)
             ->put("celebs/$celeb->id", [
                 'name' => null,
                 'date_of_birth' => null,
                 'photo' => null
-            ])->assertSessionHasErrors(['name', 'date_of_birth', 'photo']);
+            ])->assertSessionHasErrors([
+                'name' => 'The name field is required.',
+                'date_of_birth' => 'The date of birth field is required.',
+                'photo' => 'The photo field is required.'
+            ]);
+    }
+
+    /** @test */
+    public function validation_error_when_admin_updates_celeb_with_date_of_birth_after_todays_date()
+    {
+        $celeb = Celeb::factory()->create();
+        $admin = User::factory()->admin()->create();
+
+        $this->actingAs($admin)
+            ->put("celebs/$celeb->id", [
+                'name' => 'James Islington',
+                'date_of_birth' => '08/03/2999',
+                'photo' => 'https://genericPhotos.com'
+            ])->assertSessionHasErrors([
+                'date_of_birth' => 'The date of birth must be a date before today.'
+            ]);
+    }
+
+    /** @test */
+    public function validation_error_when_admin_updates_celeb_with_name_being_too_short()
+    {
+        $celeb = Celeb::factory()->create();
+        $admin = User::factory()->admin()->create();
+
+        $this->actingAs($admin)
+            ->put("celebs/$celeb->id", [
+                'name' => 'P',
+                'date_of_birth' => '08/03/2010',
+                'photo' => 'https://genericPhotos.com'
+            ])->assertSessionHasErrors([
+                'name' => 'The name must be between 2 and 30 characters.'
+            ]);
+    }
+
+    /** @test */
+    public function validation_error_when_admin_updates_celeb_with_name_being_too_long()
+    {
+        $celeb = Celeb::factory()->create();
+        $admin = User::factory()->admin()->create();
+
+        $this->actingAs($admin)
+            ->put("celebs/$celeb->id", [
+                'name' => 'Beauregard Ofter-Jarms-Vendersenderson',
+                'date_of_birth' => '08/03/1989',
+                'photo' => 'https://genericPhoto.com'
+            ])->assertSessionHasErrors([
+                'name' => 'The name must be between 2 and 30 characters.'
+            ]);
     }
 
     /** @test */
     public function user_cannot_update_celeb()
     {
-        $celeb = \App\Models\Celeb::factory()->create();
-        $user = \App\Models\User::factory()->create([
+        $celeb = Celeb::factory()->create();
+        $user = User::factory()->create([
             'is_admin' => false
         ]);
 
@@ -246,7 +304,7 @@ class CelebTest extends TestCase
     /** @test */
     public function guest_cannot_update_a_celeb()
     {
-        $celeb = \App\Models\Celeb::factory()->create();
+        $celeb = Celeb::factory()->create();
         $this->putJson("celebs/$celeb->id")
             ->assertRedirect();
     }
@@ -254,8 +312,8 @@ class CelebTest extends TestCase
     /** @test */
     public function admin_can_delete_a_celeb()
     {
-        $admin = \App\Models\User::factory()->admin()->create();
-        $celeb = \App\Models\Celeb::factory()->create();
+        $admin = User::factory()->admin()->create();
+        $celeb = Celeb::factory()->create();
 
         $this->actingAs($admin)
             ->deleteJson("celebs/$celeb->id")
@@ -269,8 +327,8 @@ class CelebTest extends TestCase
     /** @test */
     public function user_cannot_delete_a_celeb()
     {
-        $celeb = \App\Models\Celeb::factory()->create();
-        $user = \App\Models\User::factory()->create([
+        $celeb = Celeb::factory()->create();
+        $user = User::factory()->create([
             'is_admin' => false
         ]);
 
@@ -282,7 +340,7 @@ class CelebTest extends TestCase
     /** @test */
     public function guest_cannot_delete_a_celeb()
     {
-        $celeb = \App\Models\Celeb::factory()->create();
+        $celeb = Celeb::factory()->create();
         $this->deleteJson("celebs/$celeb->id")
             ->assertRedirect();
     }
