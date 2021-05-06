@@ -42,9 +42,9 @@ Route::group(['middleware'=>'admin'], function()
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 /** User Profile */
-Route::get('/profile', [ProfileController::class, 'dashboard'])->name('profile.dashboard');
-Route::get('/profile/reviews', [ProfileController::class, 'reviews'])->name('profile.reviews');
-Route::get('/profile/watchlist', [ProfileController::class, 'watchlist'])->name('profile.watchlist');
+Route::get('/profile/{user}', [ProfileController::class, 'dashboard'])->name('profile.dashboard');
+Route::get('/profile/{user}/reviews', [ProfileController::class, 'reviews'])->name('profile.reviews');
+Route::get('/profile/{user}/watchlist', [ProfileController::class, 'watchlist'])->name('profile.watchlist');
 
 /** Celebs */
 Route::get('/celebs', [CelebController::class, 'index'])->name('celebs.index');
