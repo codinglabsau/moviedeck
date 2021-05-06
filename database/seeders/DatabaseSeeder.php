@@ -26,11 +26,6 @@ class DatabaseSeeder extends Seeder
         \App\Models\Celeb::factory(100)->create();
         \App\Models\Watchlist::factory(15)->create();
         \App\Models\CelebMovie::factory(500)->create();
-        \App\Models\CelebMovie::factory(100)->create([
-            'celeb_id' => 1,
-            'movie_id' => 1,
-            'character_name' => 'Kelsier'
-        ]);
         \App\Models\GenreMovie::factory(200)->create();
         \App\Models\MovieWatchlist::factory(100)->create();
     }

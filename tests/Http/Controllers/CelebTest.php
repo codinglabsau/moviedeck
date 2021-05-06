@@ -58,7 +58,7 @@ class CelebTest extends TestCase
                 'name' => 'John Farnaby',
                 'date_of_birth' => Carbon::now()->subYears(30),
                 'photo' => 'https://generic/photo_700x600'
-            ])->assertSessionHasNoErrors();
+            ])->assertStatus(302);
 
         $this->assertDatabaseHas('celebs', [
             'name' => 'John Farnaby',
@@ -80,12 +80,6 @@ class CelebTest extends TestCase
             ])->assertSessionHasErrors([
                 'photo' => 'The photo field is required.'
             ]);
-
-        $this->assertDatabaseMissing('celebs', [
-            'name' => 'James Weatherby',
-            'date_of_birth' => Carbon::now()->subYears(30),
-            'photo' => null
-        ]);
     }
 
     /** @test */
@@ -94,20 +88,12 @@ class CelebTest extends TestCase
         $admin = User::factory()->admin()->create();
 
         $this->actingAs($admin)
-            ->post('celebs', [
-                'name' => null,
-                'date_of_birth' => null,
-                'photo' => null
-            ])->assertSessionHasErrors([
+            ->post('celebs', [])
+            ->assertSessionHasErrors([
                 'name' => 'The name field is required.',
                 'date_of_birth' => 'The date of birth field is required.',
-                'photo' => 'The photo field is required.']);
-
-        $this->assertDatabaseMissing('celebs', [
-            'name' => null,
-            'date_of_birth' => null,
-            'photo' => null
-        ]);
+                'photo' => 'The photo field is required.'
+            ]);
     }
 
     /** @test */
@@ -123,12 +109,6 @@ class CelebTest extends TestCase
              ])->assertSessionHasErrors([
                  'date_of_birth' => 'The date of birth must be a date before today.'
             ]);
-
-        $this->assertDatabaseMissing('celebs', [
-            'name' => 'William Invalid',
-            'date_of_birth' => Carbon::now()->addYears(5),
-            'photo' => 'https://genericPhoto2.com'
-        ]);
     }
 
     /** @test */
@@ -144,12 +124,6 @@ class CelebTest extends TestCase
             ])->assertSessionHasErrors([
                 'name' => 'The name must be between 2 and 30 characters.'
             ]);
-
-        $this->assertDatabaseMissing('celebs', [
-            'name' => 'J',
-            'date_of_birth' => Carbon::now()->subYears(30),
-            'photo' => 'https://genericPhoto2.com'
-        ]);
     }
 
     /** @test */
@@ -165,12 +139,6 @@ class CelebTest extends TestCase
             ])->assertSessionHasErrors([
                 'name' => 'The name must be between 2 and 30 characters.'
             ]);
-
-        $this->assertDatabaseMissing('celebs', [
-            'name' => 'Ronald Gibons-Hacksonford-James III',
-            'date_of_birth' => Carbon::now()->subYears(30),
-            'photo' => 'https://genericPhotos.com'
-        ]);
     }
 
     /** @test */
@@ -257,14 +225,7 @@ class CelebTest extends TestCase
                 'name' => 'Jennifer Jaxon',
                 'date_of_birth' => Carbon::now()->subYears(30),
                 'photo' => 'https://generic/photo1_700x600'
-            ])->assertSessionHasNoErrors();
-
-        $this->assertDatabaseMissing('celebs', [
-            'id' => $celeb->id,
-            'name' => 'Jennifer Fallinbury',
-            'date_of_birth' => Carbon::now()->subYears(30),
-            'photo' => 'https://generic/photo1_700x600'
-        ]);
+            ])->assertStatus(302);
 
         $this->assertDatabaseHas('celebs', [
             'id' => $celeb->id,
@@ -294,13 +255,6 @@ class CelebTest extends TestCase
                 'photo' => 'https://genericPhotos.com'
             ])->assertRedirect();
 
-        $this->assertDatabaseMissing('celebs', [
-            'id' => $celeb->id,
-            'name' => 'Joe Invalid',
-            'date_of_birth' => Carbon::now()->subYears(30),
-            'photo' => 'https://genericPhotos.com'
-        ]);
-
         $this->assertDatabaseHas('celebs', [
             'id' => $celeb->id,
             'name' => 'Joe Generic',
@@ -324,13 +278,6 @@ class CelebTest extends TestCase
             'date_of_birth' => Carbon::now()->subYears(30),
             'photo' => 'https://genericPhotos.com'
         ])->assertRedirect();
-
-        $this->assertDatabaseMissing('celebs', [
-            'id' => $celeb->id,
-            'name' => 'Joe Invalid',
-            'date_of_birth' => Carbon::now()->subYears(30),
-            'photo' => 'https://genericPhotos.com'
-        ]);
 
         $this->assertDatabaseHas('celebs', [
             'id' => $celeb->id,
