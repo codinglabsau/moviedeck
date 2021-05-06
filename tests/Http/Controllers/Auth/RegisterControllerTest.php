@@ -31,16 +31,17 @@ class RegisterControllerTest extends TestCase
     }
 
     /** @test */
-    public function only_an_authenticated_user_can_see_home_view()
-    {
-
-        $this->getJson('home')
-             ->assertStatus(401);
-
-        $user = \App\Models\User::factory()->create();
-
-        $this->actingAs($user)
-             ->getJson('home')
-             ->assertOk();
-    }
+//    public function only_an_authenticated_user_can_see_profile_view()
+//    {
+//        $this->withoutExceptionHandling();
+//
+//        $this->getJson('home')
+//             ->assertStatus(401);
+//
+//        $user = \App\Models\User::factory()->create();
+//
+//        $this->actingAs($user)
+//             ->getJson('home')
+//             ->assertOk();
+//    }
 }
