@@ -23,7 +23,9 @@ class AdminMiddlewareTest extends TestCase
     /** @test */
     public function non_admin_are_redirected()
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create([
+            'is_admin' => false
+        ]);
 
         $this->actingAs($user)
             ->getJson('/admin-route')
@@ -31,11 +33,11 @@ class AdminMiddlewareTest extends TestCase
     }
 
     /** @test */
-    public function admin_are__not_redirected()
+    public function admin_are_not_redirected()
     {
-        $user = User::factory()->admin()->create();
+        $admin = User::factory()->admin()->create();
 
-        $this->actingAs($user)
+        $this->actingAs($admin)
             ->getJson('/admin-route')
             ->assertOk();
     }
