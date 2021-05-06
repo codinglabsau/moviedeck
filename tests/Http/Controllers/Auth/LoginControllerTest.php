@@ -13,20 +13,17 @@ class LoginControllerTest extends TestCase
     /** @test */
     public function login_displays_the_login_form()
     {
-        $response = $this->get(route('login'));
-
-        $response->assertStatus(200);
-        $response->assertViewIs('auth.login');
+        $this->get(route('login'))
+             ->assertOk()
+             ->assertViewIs('auth.login');
     }
 
     /** @test */
     public function login_displays_validation_errors()
     {
-        $this->withoutMiddleware();
-        $response = $this->post('/login', []);
-
-        $response->assertStatus(302);
-        $response->assertSessionHasErrors('email');
+        $this->post('/login', [])
+             ->assertStatus(302)
+             ->assertSessionHasErrors('email');
     }
 
     /** @test */
@@ -34,12 +31,11 @@ class LoginControllerTest extends TestCase
     {
         $user = \App\Models\User::factory()->create();
 
-        $response = $this->post(route('login'), [
+        $this->post(route('login'), [
             'email' => $user->email,
             'password' => 'password'
-        ]);
+        ])->assertRedirect(route('home'));;
 
-        $response->assertRedirect(route('home'));
         $this->assertAuthenticatedAs($user);
     }
 }

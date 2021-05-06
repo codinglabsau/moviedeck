@@ -3,6 +3,11 @@
 @section('title', 'MovieDeck | Find your favourite celebrities!')
 
 @section('content')
+    @if(session()->has('message'))
+        <div class="w-full text-green-500 bg-green-100 border border-2 border-green-400 p-6 mb-12">
+            {{ session()->get('message') }}
+        </div>
+    @endif
     <div class="container px-6 py-3 mx-auto md:flex">
         <div class="text-gray-600 body-font">
             <div class="flex justify-between mb-12 pt-24">
