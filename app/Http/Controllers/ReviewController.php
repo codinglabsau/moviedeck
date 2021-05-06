@@ -46,15 +46,15 @@ class ReviewController extends Controller
 
     public function edit(Review $review)
     {
-        if (isset(auth()->user()->id) && auth()->user()->id != $review->user_id)
+        if (auth()->id() === $review->user->id)
         {
-            return redirect()->route('reviews.show', $review)
-                    ->with('status', 'Oops! You do not have permission to edit this review.');
-        } else {
             return view('reviews.edit', [
                 'review' => $review
             ]);
         }
+
+        return redirect()->route('reviews.show', $review)
+            ->with('status', 'Oops! You do not have permission to edit this review.');
     }
 
     public function update(Update $request, Review $review)
@@ -67,15 +67,15 @@ class ReviewController extends Controller
 
     public function destroy(Review $review)
     {
-        if (!(auth()->user()->is_admin) || auth()->user()->id == $review->user_id)
+        if (auth()->id() === $review->user->id || auth()->user()->is_admin)
         {
-            return redirect()->route('reviews.show', $review)
-                ->with('status', 'Oops! You do not have permission to delete this review.');
-        } else {
             $review->delete();
 
             return redirect()->route('reviews.index')
                 ->with('status', 'Success! Review has been deleted.');
         }
+
+        return redirect()->route('reviews.show', $review)
+            ->with('status', 'Oops! You do not have permission to delete this review.');
     }
 }

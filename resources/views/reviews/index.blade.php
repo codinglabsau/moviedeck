@@ -47,7 +47,7 @@
                                 </div>
                                 @if (auth()->check())
                                     <div class="flex flex-row">
-                                        @if(auth()->user()->id == $review->user_id)
+                                        @if(auth()->id() === $review->user->id)
                                             <div class="items-center align-bottom py-2">
                                                 <a href="{{ route('reviews.edit', $review) }}">
                                                     <button class="bg-blue-600 hover:bg-blue-500 rounded rounded-sm text-white">
@@ -56,7 +56,7 @@
                                                 </a>
                                             </div>
                                         @endif
-                                        @if (auth()->user()->id == $review->user_id || auth()->user()->is_admin)
+                                        @if (auth()->id() === $review->user->id || auth()->user()->is_admin)
                                             <div class="items-center align-middle px-2 py-2">
                                                 <form method="POST" action="{{ route('reviews.delete', $review) }}">
                                                     @csrf
