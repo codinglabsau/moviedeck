@@ -76,7 +76,7 @@
                     </div>
                     <h1 class="font-medium text-gray-500 text-2xl my-6">Add Celebs</h1>
                     <div class="h-auto grid grid-cols-2 gap-y-2 gap-x-10">
-                        @foreach($celebs as $key=>$celeb)
+                        @foreach($celebs as $celeb)
                             <div>
                                 <!-- <label class="inline-flex items-center mt-3">
                                     <input type="checkbox" name="celebs[]" value="{{ $celeb->id }}" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50">
