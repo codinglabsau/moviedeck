@@ -45,8 +45,8 @@
                                         @endif
                                     </p>
                                 </div>
-                                <div class="flex flex-row">
-                                    @if (auth()->check())
+                                @if (auth()->check())
+                                    <div class="flex flex-row">
                                         @if(auth()->user()->id == $review->user_id)
                                             <div class="items-center align-bottom py-2">
                                                 <a href="{{ route('reviews.edit', $review) }}">
@@ -67,8 +67,8 @@
                                                 </form>
                                             </div>
                                         @endif
-                                    @endif
-                                </div>
+                                    </div>
+                                @endif
                             </div>
                         @endforeach
                     </div>

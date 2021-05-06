@@ -249,8 +249,7 @@ class ReviewTest extends TestCase
                 Necessitatibus voluptatem odit eaque repudiandae voluptatem qui. Ea et alias maiores sint aliquam qui veniam eaque.
                 Saepe occaecati id aut doloremque repellat. Maiores neque deserunt dolores numquam quia ab quam.'
             ])
-            ->assertRedirect("/reviews/{$review->id}")
-            ->assertSessionHas('status', 'Oops! You do not have permission to edit this review.');
+            ->assertForbidden();
 
         $this->assertDatabaseMissing('reviews', [
             'id' => $review->id,
@@ -361,7 +360,8 @@ class ReviewTest extends TestCase
 
         $this->actingAs($anotherUser)
             ->delete("/reviews/{$review->id}")
-            ->assertRedirect('/reviews');
+            ->assertRedirect("/reviews/{$review->id}")
+            ->assertSessionHas('status', 'Oops! You do not have permission to delete this review.');
 
         $this->assertDatabaseHas('reviews', [
             'id' => $review->id,

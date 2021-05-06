@@ -41,24 +41,30 @@
                             </div>
                         </div>
                     </div>
-                    <div class="flex flex-row">
-                        @if (isset(auth()->user()->id) && auth()->user()->id == $review->user_id)
-                            <a href="{{ route('reviews.edit', $review) }}">
-                                <button class="flex items-center px-2 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
-                                    <span class="mx-2 whitespace-nowrap">Edit</span>
-                                </button>
-                            </a>
-                            <div class="items-center align-middle px-4 py-2">
-                                <form method="POST" action="{{ route('reviews.delete', $review) }}">
-                                    @csrf
-                                    @method('delete')
-                                    <button class="text-gray-400 hover:text-gray-600" type="submit">
-                                        Delete
-                                    </button>
-                                </form>
-                            </div>
-                        @endif
-                    </div>
+                    @if (auth()->check())
+                        <div class="flex flex-row">
+                            @if(auth()->user()->id == $review->user_id)
+                                <div class="items-center align-bottom py-2">
+                                    <a href="{{ route('reviews.edit', $review) }}">
+                                        <button class="bg-blue-600 hover:bg-blue-500 rounded rounded-sm text-white">
+                                            <span class="mx-2 whitespace-nowrap">Edit</span>
+                                        </button>
+                                    </a>
+                                </div>
+                            @endif
+                            @if (auth()->user()->id == $review->user_id || auth()->user()->is_admin)
+                                <div class="items-center align-middle px-2 py-2">
+                                    <form method="POST" action="{{ route('reviews.delete', $review) }}">
+                                        @csrf
+                                        @method('delete')
+                                        <button class="bg-gray-300 rounded rounded-sm text-gray-500 hover:text-gray-600" type="submit">
+                                            <span class="mx-2 whitespace-nowrap">Delete</span>
+                                        </button>
+                                    </form>
+                                </div>
+                            @endif
+                        </div>
+                    @endif
                 </div>
                 <div class="flex flex-col w-1/4 items-end mb-16 md:mb-0">
                     <a href="{{ route('movies.show', $review->movie) }}">
