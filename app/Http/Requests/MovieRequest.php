@@ -35,7 +35,6 @@ class MovieRequest extends FormRequest
                 ],
             'year' => ['required'],
             'poster' => ['required'],
-            'banner' => ['required'],
             'trailer' => ['required'],
             'banner' => ['required'],
             'duration' => ['required'],
