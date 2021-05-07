@@ -8,8 +8,8 @@
             <div class="flex flex-col items-start justify-end bg-cover bg-center w-32 h-32 md:w-64 md:h-64" style="background-image: url({{$user->avatar}})">
                 <div class="flex justify-between w-full">
                     <div>
-                        <h4 class="z-10 mx-3 mt-2 font-medium text-gray-100">{{$user->name}}</h4>
-                        <p class="z-10 mx-3 mb-2 text-sm text-gray-400 ">{{$user->email}}</p>
+                        <h4 class="z-10 mx-3 mt-2 md:text-base text-sm font-medium text-gray-100">{{$user->name}}</h4>
+                        <p class="z-10 mx-3 mb-2 md:text-sm text-xs text-gray-400 ">{{$user->email}}</p>
                     </div>
                     @if (Auth::user()==$user)
                         <a href="#" class="text-gray-400 flex items-center justify-end mr-4 hover:text-gray-500">
@@ -97,29 +97,31 @@
                     </div>
                 </div>
             </div>
-            <div class="container w-full px-14 py-5 mx-auto">
-                <div class="flex justify-between">
-                    <span class="font-medium text-gray-800 whitespace-nowrap capitalize md:text-2xl">Watch Next</span>
-                    <div class="flex items-center px-4 py-2 font-medium tracking-wide capitalize transition-colors duration-200 transform rounded-md border-2 border-gray-300">
-                        <a href="#"><span class="mx-2 whitespace-nowrap">Manage List</span></a>
+            @if (Auth::user()==$user)
+                <div class="container w-full px-14 py-10 mx-auto">
+                    <div class="flex justify-between">
+                        <span class="font-medium text-gray-800 whitespace-nowrap capitalize md:text-2xl">Watch Next</span>
+                        <div class="flex items-center px-4 py-2 font-medium tracking-wide capitalize transition-colors duration-200 transform rounded-md border-2 border-gray-300">
+                            <a href="#"><span class="mx-2 whitespace-nowrap">{{$watchlist_count}} | Manage List</span></a>
+                        </div>
                     </div>
-                </div>
-                <div class="flex items-baseline justify-center">
-                    <div class="grid gap-8 mt-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                        @foreach($watchlist->first()->movies as $item)
-                            <a href="#">
-                                <div class="w-full max-w-xs text-center">
-                                    <img class="object-cover object-center w-full h-80 mx-auto" src={{$item->poster}} alt="movie_poster"/>
-                                    <div class="mt-2 flex justify-between">
-                                        <span class="text-lg font-medium text-gray-700 ">{{$item->title}}</span>
-                                        {{--<span class="mt-1 font-medium text-gray-600">{{$item->average_rating}}</span>--}}
+                    <div class="flex items-baseline justify-center">
+                        <div class="grid gap-8 mt-8 sm:grid-cols-1 md:grid-cols-3">
+                            @foreach($watchlist as $item)
+                                <a href="{{route('movies.show', $item->id)}}">
+                                    <div class="w-full max-w-xs text-center">
+                                        <img class="object-cover object-center w-full h-80 mx-auto" src={{$item->poster}} alt="movie_poster"/>
+                                        <div class="mt-2 flex justify-between">
+                                            <span class="text-lg font-medium text-gray-700 ">{{$item->title}}</span>
+                                            {{--<span class="mt-1 font-medium text-gray-600">{{$item->average_rating}}</span>--}}
+                                        </div>
                                     </div>
-                                </div>
-                            </a>
-                        @endforeach
+                                </a>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
-            </div>
+            @endif
         </div>
     </div>
 @endsection

@@ -24,9 +24,8 @@ class DatabaseSeeder extends Seeder
         \App\Models\Movie::factory(100)->create();
         \App\Models\Review::factory(300)->create();
         \App\Models\Celeb::factory(100)->create();
-        \App\Models\Watchlist::factory(15)->create();
         \App\Models\CelebMovie::factory(500)->create();
         \App\Models\GenreMovie::factory(200)->create();
-        \App\Models\MovieWatchlist::factory(100)->create();
+        \App\Models\MovieUser::factory(100)->create();
     }
 }

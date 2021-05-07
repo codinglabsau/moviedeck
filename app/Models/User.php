@@ -41,9 +41,9 @@ class User extends Authenticatable
         'is_admin' => 'boolean'
     ];
 
-    public function watchlist()
+    public function movies()
     {
-        return $this->hasOne(Watchlist::class);
+        return $this->belongsToMany(Movie::class, 'movie_user');
     }
 
     public function reviews()

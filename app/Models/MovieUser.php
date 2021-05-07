@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class MovieWatchlist extends Model
+class MovieUser extends Model
 {
     use HasFactory;
 
-    public $table = "movie_watchlist";
+    public $table = "movie_user";
 }
