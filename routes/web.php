@@ -31,7 +31,15 @@ Route::get('/reviews', [ReviewController::class, 'index'])->name('reviews.index'
 /** Middleware Admin */
 Route::group(['middleware'=>'admin'], function()
 {
+    /** Celebs */
+    Route::get('/celebs/create', [CelebController::class, 'create'])->name('celebs.create');
+    Route::post('/celebs', [CelebController::class, 'store'])->name('celebs.store');
+    Route::get('/celebs/{celeb}/edit', [CelebController::class, 'edit'])->name('celebs.edit');
+    Route::put('/celebs/{celeb}', [CelebController::class, 'update'])->name('celebs.update');
+    Route::delete('/celebs/{celeb}', [CelebController::class, 'destroy'])->name('celebs.destroy');
+
     /** Movies */
+    Route::get('/movies/create', [MovieController::class, 'create'])->name('movies.create');
     Route::post('/movies', [MovieController::class, 'store'])->name('movies.store');
     Route::get('/movies/{movie}/edit', [MovieController::class, 'edit'])->name('movies.edit');
     Route::get('/movies/create', [MovieController::class, 'create'])->name('movies.create');
@@ -57,6 +65,11 @@ Route::group(['middleware'=> 'auth'], function()
     Route::delete('/reviews/{review}', [ReviewController::class, 'destroy'])->name('reviews.delete');
 });
 
+/** Celebs */
+Route::get('/celebs', [CelebController::class, 'index'])->name('celebs.index');
 Route::get('/celebs/{celeb}', [CelebController::class, 'show'])->name('celebs.show');
+
+/** Movies */
+Route::get('/movies', [MovieController::class, 'index'])->name('movies.index');
 Route::get('/movies/{movie}', [MovieController::class, 'show'])->name('movies.show');
 Route::get('/reviews/{review}', [ReviewController::class, 'show'])->name('reviews.show');
