@@ -181,7 +181,6 @@ class CelebTest extends TestCase
     /** @test */
     public function admin_can_see_celebs_edit_view()
     {
-        $this->withoutExceptionHandling();
         $celeb = Celeb::factory()->create();
         $admin = User::factory()->admin()->create();
 

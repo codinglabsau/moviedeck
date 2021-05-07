@@ -39,7 +39,7 @@
                                     <span class="font-bold text-sm text-blue-500 mr-4"> {{ $review->user->name }} </span><br/>
                                     <span class="font-normal text-sm"> {{ $review->created_at->diffForHumans() }} </span>
                                     <p class="mt-6">
-                                        {{ \Illuminate\Support\Str::limit($review->content, 200, '...') }}
+                                        {{ $review->excerpt }}
                                         @if(strlen($review->content) > 200)
                                             <button><a class="flex flex-col text-sm text-blue-400 hover:text-blue-500" href="{{ route('reviews.show', ['movie' => $review->movie->id, 'review' => $review]) }}">Read More</a></button>
                                         @endif
