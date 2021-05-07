@@ -20,7 +20,7 @@ class CelebController extends Controller
 
     public function create()
     {
-        return view('celebs/create');
+        return view('celebs.create');
     }
 
     public function store(CelebRequest $request)

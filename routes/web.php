@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CelebController;
 use App\Http\Controllers\MovieController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ProfileController;
 
 /*
@@ -19,6 +20,22 @@ use App\Http\Controllers\ProfileController;
 */
 /** Auth */
 Auth::routes();
+
+/** Home */
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
+/** Celebs */
+Route::get('/celebs', [CelebController::class, 'index'])->name('celebs.index');
+Route::get('/celebs/{celeb}', [CelebController::class, 'show'])->name('celebs.show');
+
+/** Movies */
+Route::get('/movies', [MovieController::class, 'index'])->name('movies.index');
+Route::get('/movies/{movie}', [MovieController::class, 'show'])->name('movies.show');
+
+/** Reviews */
+Route::get('/reviews', [ReviewController::class, 'index'])->name('reviews.index');
+Route::get('/movies/{movie}/reviews/{review}', [ReviewController::class, 'show'])->name('reviews.show');
+
 
 /** Middleware Admin */
 Route::group(['middleware'=>'admin'], function()
@@ -38,19 +55,14 @@ Route::group(['middleware'=>'admin'], function()
     Route::delete('/movies/{movie}', [MovieController::class, 'destroy'])->name('movies.destroy');
 });
 
-/** Home */
-Route::get('/', [HomeController::class, 'index'])->name('home');
+/** Middleware Auth */
+Route::group(['middleware'=> 'auth'], function()
+{
+    /** Reviews */
+    Route::resource('movies/{movie}/reviews', ReviewController::class)->except(['index', 'show']);
 
-/** User Profile */
-Route::get('/profile/{user}', [ProfileController::class, 'dashboard'])->name('profile.dashboard');
-Route::get('/profile/{user}/reviews', [ProfileController::class, 'reviews'])->name('profile.reviews');
-Route::get('/profile/{user}/watchlist', [ProfileController::class, 'watchlist'])->name('profile.watchlist');
-
-/** Celebs */
-Route::get('/celebs', [CelebController::class, 'index'])->name('celebs.index');
-Route::get('/celebs/{celeb}', [CelebController::class, 'show'])->name('celebs.show');
-
-/** Movies */
-Route::get('/movies', [MovieController::class, 'index'])->name('movies.index');
-Route::get('/movies/{movie}', [MovieController::class, 'show'])->name('movies.show');
-
+    /** User Profile */
+    Route::get('/profile/{user}', [ProfileController::class, 'dashboard'])->name('profile.dashboard');
+    Route::get('/profile/{user}/reviews', [ProfileController::class, 'reviews'])->name('profile.reviews');
+    Route::get('/profile/{user}/watchlist', [ProfileController::class, 'watchlist'])->name('profile.watchlist');
+});

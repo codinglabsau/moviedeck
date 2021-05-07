@@ -28,7 +28,7 @@ class ReviewFactory extends Factory
             'movie_id' => Movie::all()->random()->id,
             'title' => $this->faker->realText(30),
             'rating' => $this->faker->randomFloat(1, 0, 10),
-            'content' => $this->faker->paragraph,
+            'content' => $this->faker->paragraph(rand(1, 30)),
         ];
     }
 }

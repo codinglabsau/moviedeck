@@ -13,7 +13,7 @@ class MovieFactory extends Factory
     {
         return [
             'title' => $this->faker->realText(20),
-            'synopsis' => $this->faker->paragraph(10),
+            'synopsis' => $this->faker->paragraph(rand(10, 20)),
             'year' => $this->faker->year,
             'poster' => $this->randomPoster(),
             'banner' => $this->randomBanner(),
