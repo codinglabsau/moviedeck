@@ -2,8 +2,9 @@
 
 namespace Tests\Http\Controllers\Auth;
 
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
+use Tests\TestCase;
 
 class RegisterControllerTest extends TestCase
 {
@@ -12,6 +13,8 @@ class RegisterControllerTest extends TestCase
     /** @test */
     public function user_is_created_when_they_register()
     {
+        $this->withoutExceptionHandling();
+
         $response = $this->postJson('/register', [
             'name' => 'Joseph Hand',
             'email' => 'joseph.hand@example.com',
@@ -26,4 +29,19 @@ class RegisterControllerTest extends TestCase
             'email' => 'joseph.hand@example.com'
         ]);
     }
+
+    /** @test */
+//    public function only_an_authenticated_user_can_see_profile_view()
+//    {
+//        $this->withoutExceptionHandling();
+//
+//        $this->getJson('home')
+//             ->assertStatus(401);
+//
+//        $user = \App\Models\User::factory()->create();
+//
+//        $this->actingAs($user)
+//             ->getJson('home')
+//             ->assertOk();
+//    }
 }

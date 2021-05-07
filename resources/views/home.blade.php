@@ -17,7 +17,9 @@
                             <span class="whitespace-nowrap font-normal"> {{$movies->first()->average_rating}} / 10 </span>
                         </div>
                     </div>
-                    <h1 class="title-font sm:text-6xl text-5xl mb-4 font-medium text-gray-100"> {{ $movies->first()->title }}  </h1>
+                    <a href={{ route("movies.show", $movies->first()->id) }}>
+                        <h1 class="title-font sm:text-6xl text-5xl mb-4 font-medium text-gray-100"> {{ $movies->first()->title }}  </h1>
+                    </a>
                     <div class="flex justify-center mb-6">
                         <div class="flex items-center py-2 font-medium tracking-wide">
                             <span class="mx-2 text-gray-200 whitespace-nowrap">
@@ -25,7 +27,7 @@
                             </span>
                             <span class="whitespace-nowrap font-normal">
                                 <span class="mx-4 whitespace-nowrap">|</span>
-                                    @foreach($movies->first()->genres as $genre)
+                                @foreach($movies->first()->genres as $genre)
                                     {{$genre->name}}@if (!$loop->last),@endif
                                 @endforeach
                             </span>
@@ -71,7 +73,7 @@
             <div class="flex items-baseline justify-center">
                 <div class="grid gap-8 mt-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                     @foreach ($movies as $movie)
-                        <a href={{ url("movies/$movie->id") }}>
+                        <a href={{ route("movies.show", $movie->id) }}>
                             <div class="w-full max-w-xs text-center">
                                 <img class="object-cover object-center w-full h-80 mx-auto rounded-lg" src={{$movie->poster}} alt="movie_poster"/>
                                 <div class="mt-2 flex justify-between">
@@ -101,7 +103,7 @@
             <div class="flex items-baseline justify-center">
                 <div class="grid gap-8 mt-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                     @foreach ($celebs as $celeb)
-                        <a href={{ url("celebs/$celeb->id") }}>
+                        <a href={{ route("celebs.show", $celeb->id) }}>
                             <div class="w-full max-w-xs text-center">
                                 <img class="object-cover object-center w-full h-80 mx-auto rounded-lg" src={{$celeb->photo}} alt="movie_poster"/>
                                 <div class="mt-2 flex">

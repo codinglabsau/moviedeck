@@ -12,7 +12,7 @@ class MovieTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function an_admin_can_access_movies_view()
+    public function an_admin_can_see_movies_view()
     {
         $admin = User::factory()->admin()->create();
 
@@ -22,19 +22,7 @@ class MovieTest extends TestCase
     }
 
     /** @test */
-    public function a_user_can_access_movies_view()
-    {
-        $user = User::factory()->create([
-            'is_admin' => false,
-        ]);
-
-        $this->actingAs($user)
-            ->get('/movies')
-            ->assertOk();
-    }
-
-    /** @test */
-    public function a_guest_can_access_movies_view()
+    public function a_user_can_see_movies_view()
     {
         $user = User::factory()->create([
             'is_admin' => false,
@@ -63,47 +51,7 @@ class MovieTest extends TestCase
         ]);
 
         $this->actingAs($user)
-            ->get('/movies/create')
-            ->assertRedirect();
-    }
-
-    /** @test */
-    public function a_guest_cannot_access_create_movie_view()
-    {
-        $this->get('/movies/create')
-            ->assertRedirect();
-    }
-
-    /** @test */
-    public function an_admin_can_access_edit_movie_view()
-    {
-        $movie = Movie::factory()->create();
-        $admin = User::factory()->admin()->create();
-
-        $this->actingAs($admin)
-            ->get("/movies/{$movie->id}/edit")
-            ->assertOk();
-    }
-
-    /** @test */
-    public function a_user_cannot_access_edit_movie_view()
-    {
-        $movie = Movie::factory()->create();
-        $user = User::factory()->create([
-            'is_admin' => false
-        ]);
-
-        $this->actingAs($user)
-            ->get("/movies/{$movie->id}/edit")
-            ->assertRedirect();
-    }
-
-    /** @test */
-    public function a_guest_cannot_access_edit_movie_view()
-    {
-        $movie = Movie::factory()->create();
-
-        $this->get("/movies/{$movie->id}/edit")
+            ->get(route('movies.create'))
             ->assertRedirect();
     }
 
@@ -113,22 +61,22 @@ class MovieTest extends TestCase
         $admin = User::factory()->admin()->create();
 
         $this->actingAs($admin)
-            ->postJson('/movies', [
-                'title' => 'Sample Movie',
-                'synopsis' => 'This is a Sample Synopsis',
-                'year' => 2021,
-                'poster' => 'https://via.placeholder.com/600x750.png/00aa33?text=totam',
-                'banner' => 'https://via.placeholder.com/1200x1000.png',
-                'trailer' => 'http://www.goyette.biz/',
-                'duration' => '190',
-            ])->assertOk();
+             ->postJson('/movies', [
+                 'title' => 'Sample Movie',
+                 'synopsis' => 'This is a Sample Synopsis',
+                 'year' => 2021,
+                 'poster' => 'https://via.placeholder.com/600x750.png/00aa33?text=totam',
+                 'banner' => 'https://wallpapercave.com/wp/wp5223134.jpg',
+                 'trailer' => 'http://www.goyette.biz/',
+                 'duration' => '190',
+             ])->assertOk();
 
         $this->assertDatabaseHas('movies', [
             'title' => 'Sample Movie',
             'synopsis' => 'This is a Sample Synopsis',
             'year' => 2021,
             'poster' => 'https://via.placeholder.com/600x750.png/00aa33?text=totam',
-            'banner' => 'https://via.placeholder.com/1200x1000.png',
+            'banner' => 'https://wallpapercave.com/wp/wp5223134.jpg',
             'trailer' => 'http://www.goyette.biz/',
             'duration' => '190',
         ]);
@@ -147,7 +95,6 @@ class MovieTest extends TestCase
                 'synopsis' => 'This is a Sample Synopsis',
                 'year' => 2021,
                 'poster' => 'https://via.placeholder.com/600x750.png/00aa33?text=totam',
-                'banner' => 'https://via.placeholder.com/1200x1000.png',
                 'trailer' => 'http://www.goyette.biz/',
                 'duration' => '190',
             ])->assertRedirect();
@@ -157,10 +104,33 @@ class MovieTest extends TestCase
             'synopsis' => 'This is a Sample Synopsis',
             'year' => 2021,
             'poster' => 'https://via.placeholder.com/600x750.png/00aa33?text=totam',
-            'banner' => 'https://via.placeholder.com/1200x1000.png',
             'trailer' => 'http://www.goyette.biz/',
             'duration' => '190',
         ]);
+    }
+
+    /** @test */
+    public function an_admin_can_see_edit_movie_view()
+    {
+        $movie = Movie::factory()->create();
+        $admin = User::factory()->admin()->create();
+
+        $this->actingAs($admin)
+            ->get("/movies/{$movie->id}/edit")
+            ->assertOk();
+    }
+
+    /** @test */
+    public function a_user_cannot_see_edit_movie_view()
+    {
+        $movie = Movie::factory()->create();
+        $user = User::factory()->create([
+            'is_admin' => false
+        ]);
+
+        $this->actingAs($user)
+            ->get("/movies/{$movie->id}/edit")
+            ->assertRedirect();
     }
 
     /** @test */
@@ -172,7 +142,7 @@ class MovieTest extends TestCase
             'synopsis' => 'This is the synopsis of the epic movie.',
             'year' => 2021,
             'poster' => 'https://via.placeholder.com/600x750.png/00aa33?text=totam',
-            'banner' => 'https://via.placeholder.com/1200x1000.png',
+            'banner' => 'https://i.pinimg.com/originals/f0/3a/2b/f03a2bcaf5c64e81aa6c494ffe98be6e.jpg',
             'trailer' => 'http://www.goyette.biz/',
             'duration' => '160',
         ]);
@@ -183,7 +153,7 @@ class MovieTest extends TestCase
                 'synopsis' => 'This is a Sample Updated Synopsis of epic movie',
                 'year' => 2021,
                 'poster' => 'https://via.placeholder.com/600x750.png/00aa33?text=totam',
-                'banner' => 'https://via.placeholder.com/1200x1000.png',
+                'banner' => 'https://i.pinimg.com/originals/f0/3a/2b/f03a2bcaf5c64e81aa6c494ffe98be6e.jpg',
                 'trailer' => 'http://www.goyette.biz/',
                 'duration' => '160',
             ])->assertOk();
@@ -193,7 +163,7 @@ class MovieTest extends TestCase
             'synopsis' => 'This is a Sample Updated Synopsis of epic movie',
             'year' => 2021,
             'poster' => 'https://via.placeholder.com/600x750.png/00aa33?text=totam',
-            'banner' => 'https://via.placeholder.com/1200x1000.png',
+            'banner' => 'https://i.pinimg.com/originals/f0/3a/2b/f03a2bcaf5c64e81aa6c494ffe98be6e.jpg',
             'trailer' => 'http://www.goyette.biz/',
             'duration' => '160',
         ]);
@@ -211,7 +181,6 @@ class MovieTest extends TestCase
             'synopsis' => 'This is the synopsis of the epic movie.',
             'year' => 2021,
             'poster' => 'https://via.placeholder.com/600x750.png/00aa33?text=totam',
-            'banner' => 'https://via.placeholder.com/1200x1000.png',
             'trailer' => 'http://www.goyette.biz/',
             'duration' => '160',
         ]);
@@ -222,7 +191,6 @@ class MovieTest extends TestCase
                 'synopsis' => 'This is a Sample Updated Synopsis of epic movie',
                 'year' => 2021,
                 'poster' => 'https://via.placeholder.com/600x750.png/00aa33?text=totam',
-                'banner' => 'https://via.placeholder.com/1200x1000.png',
                 'trailer' => 'http://www.goyette.biz/',
                 'duration' => '160',
             ])->assertRedirect();
@@ -232,7 +200,6 @@ class MovieTest extends TestCase
             'synopsis' => 'This is a Sample Updated Synopsis of epic movie',
             'year' => 2021,
             'poster' => 'https://via.placeholder.com/600x750.png/00aa33?text=totam',
-            'banner' => 'https://via.placeholder.com/1200x1000.png',
             'trailer' => 'http://www.goyette.biz/',
             'duration' => '160',
         ]);
@@ -246,7 +213,7 @@ class MovieTest extends TestCase
 
         $this->actingAs($admin)
             ->delete("/movies/{$movie->id}")
-            ->assertOk();
+                ->assertOk();
 
         $this->assertDatabaseMissing('movies', [
             'id' => $movie->id,
