@@ -57,6 +57,17 @@ class MovieRequest extends FormRequest
                 'integer',
                 'between:50,300'
             ],
+            'celebs' => [
+                'nullable',
+            ],
+//            'celebs.*' => [
+//                'nullable',
+//                'string',
+//            ],
+//            'celebs' => [
+//                'required',
+//                'array',
+//            ],
         ];
     }
 }

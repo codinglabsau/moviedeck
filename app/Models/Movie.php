@@ -35,7 +35,7 @@ class Movie extends Model
         return CarbonInterval::minutes($this->attributes['duration'])->cascade()->forHumans(['short' => true]);
     }
 
-    public function getRawDuration() {
+    public function getRawDurationAttribute() {
         return $this->attributes['duration'];
     }
 }

@@ -69,7 +69,8 @@
                     <div class="h-auto grid grid-rows-3 grid-flow-col gap-2">
                         @foreach($genres as $genre)
                             <label class="inline-flex items-center mt-3">
-                                <input type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50" name="genres[]" value="{{ $genre->id }}">
+                                <input type="checkbox" name="genres[]" value="{{ $genre->id }}"
+                                       class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50">
                                 <span class="ml-2 text-gray-600 font-medium text-md">{{ $genre->name }}</span>
                             </label>
                         @endforeach
@@ -78,11 +79,6 @@
                     <div class="h-auto grid grid-cols-2 gap-y-2 gap-x-10">
                         @foreach($celebs as $celeb)
                             <div>
-{{--                                <label class="inline-flex items-center mt-3">--}}
-{{--                                    <input type="checkbox" name="celebs[]" value="{{ $celeb->id }}" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50">--}}
-{{--                                    <span class="ml-2 text-gray-600 font-medium text-md">{{ $celeb->name }}</span>--}}
-{{--                                </label>--}}
-{{--                                <input type="text" placeholder="as character" class="mt-1 mx-2 align-middle w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">--}}
                                 <label class="flex flex-row justify-between align-middle mt-3">
                                     <div>
                                         <input type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50">
@@ -91,9 +87,6 @@
                                     <input type="text" name="celebs[{{ $celeb->id }}]" placeholder="as character"
                                     class="mt-1 mx-2 align-middle w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                                 </label>
-{{--                                <input {{ $celeb->value ? 'checked' : null }} data-id="{{ $celeb->id }}" type="checkbox" class="celeb-enable">--}}
-{{--                                {{ $celeb->name }}--}}
-{{--                                <input value="{{ $celeb->value ?? null }}" {{ $celeb->value ? null : 'disabled' }} data-id="{{ $celeb->id }}" name="celebs[{{ $celeb->id }}]" type="text" class="character-name form-control" placeholder="as character">--}}
                             </div>
                         @endforeach
                     </div>
@@ -113,15 +106,3 @@
         </div>
     </div>
 @endsection
-{{--@section('scripts')--}}
-{{--    <script>--}}
-{{--        $('document').ready(function () {--}}
-{{--            $('.celeb-enable').on('click', function () {--}}
-{{--                let id = $(this).attr('data-id')--}}
-{{--                let enabled = $(this).is(":checked")--}}
-{{--                $('.character-name[data-id="' + id + '"]').attr('disabled', !enabled)--}}
-{{--                $('.character-name[data-id="' + id + '"]').val(null)--}}
-{{--            })--}}
-{{--        });--}}
-{{--    </script>--}}
-{{--@endsection--}}

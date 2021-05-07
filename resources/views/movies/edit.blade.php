@@ -64,7 +64,7 @@
                             </div>
                             <div class="w-1/2">
                                 <label for="duration"> Duration:
-                                    <input type="text" name="duration" value="{{ $movie->getRawDuration() }}" class="mt-1 block w-3/4 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                                    <input type="text" name="duration" value="{{ $movie->raw_duration }}" class="mt-1 block w-3/4 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                                     <span class="text-sm text-gray-400">in minutes</span>
                                 </label>
                             </div>
@@ -74,11 +74,11 @@
                     <div class="h-auto grid grid-rows-3 grid-flow-col gap-2">
                         @foreach($genres as $genre)
                             <label class="inline-flex items-center mt-3">
-                                    <input type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50" name="genres[]" value="{{ $genre->id }}
-                                    @foreach($movie->genres as $movieGenre)
-                                        @if($movieGenre->pivot->name == $genre->name) checked @endif
-                                    @endforeach">
-                                    <span class="ml-2 text-gray-600 font-medium text-md">{{ $genre->name }}</span>
+                                <input type="checkbox" name="genres[]" value="{{ $genre->id }}"
+                                       {{ $movie->genres->contains($genre->id) ? 'checked' : '' }}
+                                       @if(in_array($genre->id,old('genres',[]))) checked  @endif
+                                       class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50">
+                                <span class="ml-2 text-gray-600 font-medium text-md">{{ $genre->name }}</span>
                             </label>
                         @endforeach
                     </div>
@@ -86,18 +86,22 @@
                     <div class="h-auto grid grid-cols-2 gap-y-2 gap-x-10">
                         @foreach($celebs as $celeb)
                             <div>
-                                <label class="inline-flex items-center mt-3">
-                                    <input type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50" name="celebs[]" value="{{ $celeb->id }}">
-                                    <span class="ml-2 text-gray-600 font-medium text-md">{{ $celeb->name }}</span>
+                                <label class="flex flex-row justify-between align-middle mt-3">
+                                    <div>
+                                        <input type="checkbox"
+                                               {{ $movie->celebs->contains($celeb->id) ? 'checked' : '' }}
+                                               @if(in_array($celeb->id,old('celebs',[]))) checked  @endif
+                                               class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50">
+                                        <span class="ml-2 text-gray-600 font-medium text-md align-middle">{{ $celeb->name }}</span>
+                                    </div>
+                                    <input type="text" name="celebs[{{ $celeb->id }}]" placeholder="as character"
+                                           @if ($movie->celebs->contains($celeb->id))
+                                                @foreach($movie->celebs as $cast)
+                                                    value="{{ $cast->pivot->character_name }}"
+                                                @endforeach
+                                           @endif
+                                           class="mt-1 mx-2 align-middle w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                                 </label>
-                                <input type="text" name="character_name" placeholder="as character" class="mt-1 mx-2 align-middle w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                                {{--                                <label class="flex flex-row justify-between align-middle mt-3">--}}
-                                {{--                                    <div>--}}
-                                {{--                                        <input type="checkbox" name="celebs[]" value="{{ $celeb->id }}"  class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50">--}}
-                                {{--                                        <span class="ml-2 text-gray-600 font-medium text-md align-middle">{{ $celeb->name }}</span>--}}
-                                {{--                                    </div>--}}
-                                {{--                                    <input type="text" name="celebs[{{ $celeb->id }}]" data-id="{{ $celeb->id }}" placeholder="Character" class="mt-1 mx-2 align-middle w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">--}}
-                                {{--                                </label>--}}
                             </div>
                         @endforeach
                     </div>

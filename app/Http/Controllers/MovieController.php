@@ -33,23 +33,10 @@ class MovieController extends Controller
     {
         $movie = Movie::create($request->validated());
 
-        $genres = $request->input('genres');
-        $movie->genres()->sync($genres);
-
-        $celebs = $request->input('celebs', []);
-        $filteredCharacters = array_filter($celebs, function($value) {
-            return !is_null($value);
-        });
-
-        $casts = collect($filteredCharacters)
-           ->map(function($cast) {
-               return ['character_name' => $cast];
-           });
-
-        $movie->celebs()->sync($casts);
+        $this->genreCelebs($request, $movie);
 
         return redirect()->route('movies.index')
-            ->with(['message' => 'Your movie has been added.']);
+            ->with(['message' => 'Sucess! Movie has been added.']);
     }
 
     public function show(Movie $movie)
@@ -83,8 +70,10 @@ class MovieController extends Controller
     {
         $movie->update($request->validated());
 
+        $this->genreCelebs($request, $movie);
+
         return redirect()->route('movies.index')
-            ->with(['message' => 'Your movie has been updated.']);
+            ->with(['message' => 'Sucess! Movie has been updated.']);
     }
 
     public function destroy(Movie $movie)
@@ -92,6 +81,24 @@ class MovieController extends Controller
         $movie->delete();
 
         return redirect()->route('movies.index')
-            ->with(['message' => 'Your movie has been deleted.']);
+            ->with(['message' => 'Sucess! Movie has been deleted.']);
+    }
+
+    public function genreCelebs(MovieRequest $request, $movie)
+    {
+        $genres = $request->input('genres');
+        $movie->genres()->sync($genres);
+
+        $celebs = $request->input('celebs');
+        $filteredCharacters = array_filter($celebs, function ($value) {
+            return !is_null($value);
+        });
+
+        $casts = collect($filteredCharacters)
+            ->map(function ($cast) {
+                return ['character_name' => $cast];
+            });
+
+        $movie->celebs()->sync($casts);
     }
 }
