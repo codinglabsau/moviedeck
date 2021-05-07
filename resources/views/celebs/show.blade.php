@@ -8,7 +8,7 @@
     @endif
     <div class="w-full px-6 py-3 mx-auto ml-10">
         <section class="text-gray-600 body-font">
-            <div class="container mx-auto flex px-5 py-16 md:flex-row flex-col items-start align-top">
+            <div class="container mx-auto flex px-5 py-5 md:flex-row flex-col items-start align-top">
                 <div class="w-full lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
                     <div class="w-full flex justify-between items-center">
                         <div>

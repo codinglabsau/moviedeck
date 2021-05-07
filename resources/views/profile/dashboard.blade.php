@@ -52,38 +52,72 @@
                 </nav>
             </div>
         </div>
-        <div class="container w-full px-14 py-5 mx-auto">
-            <div class="flex justify-between">
-                <div class="flex items-center">
+        <div class="flex flex-col">
+            <div class="container w-full px-14 py-5 mx-auto">
+                <div class="flex justify-between">
                     <span class="font-medium text-gray-800 whitespace-nowrap capitalize md:text-2xl">Recent Reviews</span>
+                    @if (Auth::user()==$user)
+                        <div class="flex items-center px-4 py-2 font-medium tracking-wide capitalize transition-colors duration-200 transform rounded-md border-2 border-gray-300">
+                            <a href="#"><span class="mx-2 whitespace-nowrap">{{$review_count}} | Manage Reviews</span></a>
+                        </div>
+                    @endif
                 </div>
-                <div class="flex items-center px-4 py-2 font-medium tracking-wide capitalize transition-colors duration-200 transform rounded-md border-2 border-gray-300">
-                    <a href="#"><span class="mx-2 whitespace-nowrap">Manage Reviews</span></a>
+                <div class="flex items-baseline">
+                    <div class="grid gap-8 mt-8 sm:grid-cols-1 md:grid-cols-2">
+                        @foreach($reviews as $review)
+                            <div class="w-full max-w-xs flex justify-start text-center">
+                                <div class="flex flex-col">
+                                    <img class="object-cover object-center flex h-16 md:h-32 mx-auto justify-start" src={{$review->movie->poster}} alt="movie_poster"/>
+                                    <div class="text-lg flex font-medium leading-none text-gray-700 ">{{$review->movie->title}}</div>
+                                </div>
+                                <div class="mt-1 flex flex-col items-start">
+                                    <div class="flex">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 self-center" viewBox="0 0 20 20" fill="currentColor">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                        <span class="text-xl font-medium text-gray-600 self-start">{{$review->rating}}</span><span class="self-center text-sm text-gray-400">/10</span>
+                                    </div>
+                                    <a href="#" class="hover:text-gray-500 mt-2 text-lg font-medium text-left leading-none text-gray-600">
+                                       {{$review->title}}
+                                    </a>
+                                    <div class="flex mt-1 text-left leading-none justify-start">
+                                        <span class="font-medium text-blue-600">{{$review->user->name}}</span>
+                                        <span class="ml-3 text-gray-400">{{$review->created_at->format('M d')}}</span>
+                                    </div>
+                                    @if (Auth::user()==$user)
+                                        <div class="font-medium text-gray-600 mt-4">
+                                            <a href="#" class="hover:text-gray-500">Edit</a>
+                                            <span class="px-2">|</span>
+                                            <a href="#" class="hover:text-gray-500">Delete</a>
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
             </div>
-            <div class="flex items-baseline">
-                <div class="grid gap-8 mt-8 sm:grid-cols-1 md:grid-cols-2">
-                    @foreach($reviews as $review)
-                        <div class="w-full max-w-xs flex justify-start text-center">
-                            <div class="flex flex-col">
-                                <img class="object-cover object-center flex h-16 md:h-32 mx-auto justify-start" src={{$review->movie->poster}} alt="movie_poster"/>
-                                <div class="text-lg flex font-medium leading-none text-gray-700 ">{{$review->movie->title}}</div>
-                            </div>
-                            <div class="mt-2 flex flex-col items-start">
-                                <div class="flex">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 self-center" viewBox="0 0 20 20" fill="currentColor">
-                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                                    </svg>
-                                    <span class="text-xl font-medium text-gray-600 self-start">{{$review->rating}}</span><span class="self-center text-sm text-gray-400">/10</span>
+            <div class="container w-full px-14 py-5 mx-auto">
+                <div class="flex justify-between">
+                    <span class="font-medium text-gray-800 whitespace-nowrap capitalize md:text-2xl">Watch Next</span>
+                    <div class="flex items-center px-4 py-2 font-medium tracking-wide capitalize transition-colors duration-200 transform rounded-md border-2 border-gray-300">
+                        <a href="#"><span class="mx-2 whitespace-nowrap">Manage List</span></a>
+                    </div>
+                </div>
+                <div class="flex items-baseline justify-center">
+                    <div class="grid gap-8 mt-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                        @foreach($watchlist->first()->movies as $item)
+                            <a href="#">
+                                <div class="w-full max-w-xs text-center">
+                                    <img class="object-cover object-center w-full h-80 mx-auto" src={{$item->poster}} alt="movie_poster"/>
+                                    <div class="mt-2 flex justify-between">
+                                        <span class="text-lg font-medium text-gray-700 ">{{$item->title}}</span>
+                                        {{--<span class="mt-1 font-medium text-gray-600">{{$item->average_rating}}</span>--}}
+                                    </div>
                                 </div>
-                                <span class="mt-1 text-lg font-medium text-left leading-none text-gray-600">{{$review->title}}</span>
-                                <div class="flex items-start">
-                                    <span class="font-medium text-blue-600">{{$review->user->name}}</span>
-                                    <span class="ml-3 text-gray-400">{{$review->created_at->format('M d')}}</span>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
+                            </a>
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </div>

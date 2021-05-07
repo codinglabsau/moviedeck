@@ -9,7 +9,8 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $movies = Movie::with(['genres'])
+        $movies = Movie::select('id', 'title', 'year', 'poster', 'banner', 'trailer', 'duration')
+            ->with(['genres'])
             ->take(4)
             ->get()
             ->map(function ($movie) {
@@ -18,7 +19,8 @@ class HomeController extends Controller
             })
             ->sortByDesc('average_rating');
 
-        $celebs= Celeb::take(4)
+        $celebs= Celeb::select('id', 'name', 'photo')
+            ->take(4)
             ->get();
 
         return view('home', [
