@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Movie;
 use App\Http\Requests\MovieRequest;
+use Illuminate\Database\Eloquent\Builder;
 
 class MovieController extends Controller
 {
@@ -31,11 +32,13 @@ class MovieController extends Controller
         $movie->with([
             'genres',
             'celebs',
-            'reviews'
         ])->get();
+
+        $reviews = $movie->reviews()->paginate(2);
 
         return view('movies.show', [
             'movie' => $movie,
+            'reviews' => $reviews
         ]);
     }
 

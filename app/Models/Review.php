@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Review extends Model
 {
     use HasFactory;
+
+    protected $guarded = [];
 
     public function user() {
         return $this->belongsTo(User::class);
@@ -15,5 +18,9 @@ class Review extends Model
 
     public function movie() {
         return $this->belongsTo(Movie::class);
+    }
+
+    public function getExcerptAttribute() {
+        return Str::limit($this->attributes['content'], 200, '...');
     }
 }
