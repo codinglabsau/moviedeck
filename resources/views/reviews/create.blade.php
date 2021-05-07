@@ -20,7 +20,7 @@
                         </div>
                     @endif
                     <div class="flex w-full justify-between">
-                        <form method="POST" action="{{ route('reviews.store') }}" class="mx-auto w-full">
+                        <form method="POST" action="{{ route('reviews.store', $movie) }}" class="mx-auto w-full">
                             @csrf
                             <input type="hidden" name="user_id" value="{{ Illuminate\Support\Facades\Auth::id() }}">
                             <input type="hidden" name="movie_id" value="{{ $movie->id }}">

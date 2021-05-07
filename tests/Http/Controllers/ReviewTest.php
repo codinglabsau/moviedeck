@@ -36,7 +36,7 @@ class ReviewTest extends TestCase
         $user = User::factory()->create();
 
         $this->actingAs($user)
-            ->getJson("/reviews/create/$movie->id")
+            ->getJson("/movies/{$movie->id}/reviews/create")
             ->assertOk();
     }
 
@@ -45,7 +45,7 @@ class ReviewTest extends TestCase
     {
         $movie = Movie::factory()->create();
 
-        $this->getJson("/reviews/create/$movie->id")
+        $this->getJson("/movies/{$movie->id}/reviews/create")
             ->assertUnauthorized();
     }
 
@@ -63,7 +63,7 @@ class ReviewTest extends TestCase
         ]);
 
         $this->actingAs($user)
-            ->get("/reviews/{$review->id}/edit")
+            ->get("/movies/{$movie->id}/reviews/{$review->id}/edit")
             ->assertOk();
     }
 
@@ -83,8 +83,8 @@ class ReviewTest extends TestCase
         $anotherUser = User::factory()->create();
 
         $this->actingAs($anotherUser)
-            ->get("/reviews/{$review->id}/edit")
-            ->assertRedirect("/reviews/{$review->id}")
+            ->get("/movies/{$movie->id}/reviews/{$review->id}/edit")
+            ->assertRedirect("/movies/{$movie->id}/reviews/{$review->id}")
             ->assertSessionHas('status', 'Oops! You do not have permission to edit this review.');
     }
 
@@ -101,7 +101,7 @@ class ReviewTest extends TestCase
             'content' => 'Sample review content',
         ]);
 
-        $this->get("/reviews/{$review->id}/edit")
+        $this->get("/movies/{$movie->id}/reviews/{$review->id}/edit")
             ->assertRedirect('/login');
     }
 
@@ -112,7 +112,7 @@ class ReviewTest extends TestCase
         $user = User::factory()->create();
 
         $this->actingAs($user)
-            ->postJson('/reviews', [
+            ->postJson("/movies/{$movie->id}/reviews", [
                 'user_id' => $user->id,
                 'movie_id' => $movie->id,
                 'title' => 'Mock Turtle, suddenly.',
@@ -145,7 +145,7 @@ class ReviewTest extends TestCase
         $user = User::factory()->create();
         $movie = Movie::factory()->create();
 
-        $this->postJson('/reviews', [
+        $this->postJson("/movies/{$movie->id}/reviews", [
                 'user_id' => $user->id,
                 'movie_id' => $movie->id,
                 'title' => 'Mock Turtle, suddenly.',
@@ -184,7 +184,7 @@ class ReviewTest extends TestCase
         ]);
 
         $this->actingAs($user)
-            ->putJson("/reviews/{$review->id}", [
+            ->putJson("/movies/{$movie->id}/reviews/{$review->id}", [
                 'id' => $review->id,
                 'user_id' => $user->id,
                 'movie_id' => $movie->id,
@@ -196,7 +196,7 @@ class ReviewTest extends TestCase
                 Necessitatibus voluptatem odit eaque repudiandae voluptatem qui. Ea et alias maiores sint aliquam qui veniam eaque.
                 Saepe occaecati id aut doloremque repellat. Maiores neque deserunt dolores numquam quia ab quam.'
             ])
-            ->assertRedirect("/reviews/{$review->id}")
+            ->assertRedirect("/movies/{$movie->id}/reviews/{$review->id}")
             ->assertSessionHas('status', 'Success! Review has been updated.');
 
         $this->assertDatabaseHas('reviews', [
@@ -229,7 +229,7 @@ class ReviewTest extends TestCase
         $anotherUser = User::factory()->create();
 
         $this->actingAs($anotherUser)
-            ->putJson("/reviews/{$review->id}", [
+            ->putJson("/movies/{$movie->id}/reviews/{$review->id}", [
                 'id' => $review->id,
                 'user_id' => $user->id,
                 'movie_id' => $movie->id,
@@ -275,7 +275,7 @@ class ReviewTest extends TestCase
                 Saepe occaecati id aut doloremque repellat. Maiores neque deserunt dolores numquam quia ab quam.'
         ]);
 
-        $this->putJson("/reviews/{$review->id}", [
+        $this->putJson("/movies/{$movie->id}/reviews/{$review->id}", [
             'id' => $review->id,
             'user_id' => $user->id,
             'movie_id' => $movie->id,
@@ -318,7 +318,7 @@ class ReviewTest extends TestCase
         ]);
 
         $this->actingAs($user)
-            ->delete("/reviews/{$review->id}")
+            ->delete("/movies/{$movie->id}/reviews/{$review->id}")
             ->assertRedirect('/reviews')
             ->assertSessionHas('status', 'Success! Review has been deleted.');
 
@@ -347,8 +347,8 @@ class ReviewTest extends TestCase
         $anotherUser = User::factory()->create();
 
         $this->actingAs($anotherUser)
-            ->delete("/reviews/{$review->id}")
-            ->assertRedirect("/reviews/{$review->id}")
+            ->delete("/movies/{$movie->id}/reviews/{$review->id}")
+            ->assertRedirect("/movies/{$movie->id}/reviews/{$review->id}")
             ->assertSessionHas('status', 'Oops! You do not have permission to delete this review.');
 
         $this->assertDatabaseHas('reviews', [
@@ -373,8 +373,8 @@ class ReviewTest extends TestCase
                 Saepe occaecati id aut doloremque repellat. Maiores neque deserunt dolores numquam quia ab quam.'
         ]);
 
-        $this->delete("/reviews/{$review->id}")
-            ->assertRedirect('login');
+        $this->delete("/movies/{$movie->id}/reviews/{$review->id}")
+            ->assertRedirect('/login');
 
         $this->assertDatabaseHas('reviews', [
             'id' => $review->id,
@@ -401,7 +401,7 @@ class ReviewTest extends TestCase
         $admin = User::factory()->admin()->create();
 
         $this->actingAs($admin)
-            ->delete("/reviews/{$review->id}")
+            ->delete("/movies/{$movie->id}/reviews/{$review->id}")
             ->assertRedirect('/reviews')
             ->assertSessionHas('status', 'Success! Review has been deleted.');
 

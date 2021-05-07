@@ -49,14 +49,9 @@ Route::group(['middleware'=>'admin'], function()
 /** Middleware Auth */
 Route::group(['middleware'=> 'auth'], function()
 {
-    /** Reviews */
-    Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
-    Route::get('/reviews/{review}/edit', [ReviewController::class, 'edit'])->name('reviews.edit');
-    Route::get('/reviews/create/{movie}', [ReviewController::class, 'create'])->name('reviews.create');
-    Route::put('/reviews/{review}', [ReviewController::class, 'update'])->name('reviews.update');
-    Route::delete('/reviews/{review}', [ReviewController::class, 'destroy'])->name('reviews.delete');
+    Route::resource('movies/{movie}/reviews', ReviewController::class)->except(['index', 'show']);
 });
 
 Route::get('/celebs/{celeb}', [CelebController::class, 'show'])->name('celebs.show');
 Route::get('/movies/{movie}', [MovieController::class, 'show'])->name('movies.show');
-Route::get('/reviews/{review}', [ReviewController::class, 'show'])->name('reviews.show');
+Route::get('/movies/{movie}/reviews/{review}', [ReviewController::class, 'show'])->name('reviews.show');

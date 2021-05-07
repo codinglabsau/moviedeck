@@ -11,13 +11,12 @@ class Update extends FormRequest
     {
         $review = $request->route('review');
 
-        if (isset(auth()->user()->id) && auth()->user()->id != $review->user_id)
+        if (request()->user()->id !== $review->user->id)
         {
-            redirect()->route('reviews.show', $review->id)
+            redirect()->route('reviews.show', ['movie' => $review->movie_id, 'review' => $review->id])
                 ->with('status', 'Oops! You do not have permission to edit this review.');
 
             return false;
-
         }
 
         return true;
