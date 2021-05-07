@@ -31,7 +31,6 @@ class MovieController extends Controller
 
     public function store(MovieRequest $request)
     {
-        dd($request);
         $movie = Movie::create($request->validated());
 
         $genres = $request->input('genres');
