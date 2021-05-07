@@ -36,16 +36,17 @@ class MovieController extends Controller
         $genres = $request->input('genres');
         $movie->genres()->sync($genres);
 
-//        $celebs = $request->input('celebs');
-//        $character = $request->input('character_name');
-//        $movie->celebs()->sync($celebs, ['character_name' => $character]);
+        $celebs = $request->input('celebs', []);
+        $filteredCharacters = array_filter($celebs, function($value) {
+            return !is_null($value);
+        });
 
-       $celebs = collect($request->input('celebs', []))
-           ->map(function($celeb) {
-               return ['character_name' => $celeb];
+        $casts = collect($filteredCharacters)
+           ->map(function($cast) {
+               return ['character_name' => $cast];
            });
 
-       $movie->celebs()->sync($celebs);
+        $movie->celebs()->sync($casts);
 
         return redirect()->route('movies.index')
             ->with(['message' => 'Your movie has been added.']);
