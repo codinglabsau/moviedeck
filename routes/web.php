@@ -34,9 +34,8 @@ Route::group(['middleware'=>'admin'], function()
     /** Celebs */
     Route::post('/celebs', [CelebController::class, 'store'])->name('celebs.store');
     Route::get('/celebs/{celeb}/edit', [CelebController::class, 'edit'])->name('celebs.edit');
-    Route::get('/celebs/create', [CelebController::class, 'create'])->name('celebs.create');
-    Route::put('/celebs/{celeb}', [CelebController::class, 'update']);
-    Route::delete('/celebs/{celeb}', [CelebController::class, 'destroy']);
+    Route::put('/celebs/{celeb}', [CelebController::class, 'update'])->name('celebs.update');
+    Route::delete('/celebs/{celeb}', [CelebController::class, 'destroy'])->name('celebs.destroy');
 
     /** Movies */
     Route::post('/movies', [MovieController::class, 'store'])->name('movies.store');
