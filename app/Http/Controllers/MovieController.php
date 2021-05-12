@@ -43,14 +43,15 @@ class MovieController extends Controller
     {
         $movie->with([
             'genres',
-            'celebs',
         ])->get();
 
-        $reviews = $movie->reviews()->paginate(2);
+        $reviews = $movie->reviews()->paginate(3);
+        $celebs = $movie->celebs()->paginate(5);
 
         return view('movies.show', [
             'movie' => $movie,
-            'reviews' => $reviews
+            'reviews' => $reviews,
+            'celebs' => $celebs
         ]);
     }
 
@@ -72,7 +73,7 @@ class MovieController extends Controller
 
         $this->genreCelebs($request, $movie);
 
-        return redirect()->route('movies.index')
+        return redirect()->route('movies.show', $movie)
             ->with(['message' => 'Sucess! Movie has been updated.']);
     }
 

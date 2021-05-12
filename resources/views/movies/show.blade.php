@@ -50,7 +50,7 @@
                                 @endforeach
                                 @if (auth()->check() && auth()->user()->is_admin)
                                     <div class="items-center align-bottom px-2 py-2">
-                                        <a href="#">
+                                        <a href="{{ route('movies.edit', $movie) . "#genres" }}">
                                             <button class="bg-blue-600 hover:bg-blue-500 rounded rounded-sm text-white">
                                                 <span class="mx-2 whitespace-nowrap">Manage Genres</span>
                                             </button>
@@ -112,29 +112,45 @@
             </div>
             <div class="container mx-auto flex px-5 py-16 md:flex-row flex-col items-start align-top">
                 <div class="w-full lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
-                    <h1 class="font-medium text-gray-500 text-4xl py-16">Main Casts</h1>
-                    @foreach($movie->celebs as $cast)
+                    <div class="flex py-16">
+                        <div class="flex">
+                            <h1 class="font-medium text-gray-500 text-4xl">Main Casts</h1>
+                        </div>
+                        <div class="flex mx-6">
+                            @if (auth()->check() && auth()->user()->is_admin)
+                                <div class="items-center align-bottom py-2">
+                                    <a href="{{ route('movies.edit', $movie) . "#casts" }}">
+                                        <button class="bg-blue-600 hover:bg-blue-500 rounded rounded-sm text-white">
+                                            <span class="mx-2 whitespace-nowrap">Manage Casts</span>
+                                        </button>
+                                    </a>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                    @forelse($celebs as $celeb)
                         <div class="flex w-full justify-between">
                             <div class="flex">
-                                <a href="{{ route('celebs.show', $cast) }}"><img class="h-12 border rounded-sm my-4" src="{{ $cast->photo }}" alt="{{ $cast->name }}"></a>
-                                <span class="p-6 font-medium"> <a href="{{ route('celebs.show', $cast) }}">{{ $cast->name }}</a> </span>
+                                <a href="{{ route('celebs.show', $celeb) }}"><img class="h-12 border rounded-sm my-4" src="{{ $celeb->photo }}" alt="{{ $celeb->name }}"></a>
+                                <span class="p-6 font-medium"> <a href="{{ route('celebs.show', $celeb) }}">{{ $celeb->name }}</a> </span>
                             </div>
                             <div class="flex">
                                 <span class="p-6 font-light">
-                                    as {{ $cast->pivot->character_name }}
+                                    as {{ $celeb->pivot->character_name }}
                                 </span>
                             </div>
                         </div>
-                    @endforeach
-                    @if (auth()->check() && auth()->user()->is_admin)
-                        <div class="items-center align-bottom py-2">
-                            <a href="#">
-                                <button class="bg-blue-600 hover:bg-blue-500 rounded rounded-sm text-white">
-                                    <span class="mx-2 whitespace-nowrap">Manage Celebs</span>
-                                </button>
-                            </a>
+                    @empty
+                        <div>
+                            <p>
+                                No casts found.
+                                <a href="{{ route('movies.edit', $movie) . "#casts" }}" class="text-blue-500 font-semibold text-sm">Add a Cast</a>
+                            </p>
                         </div>
-                    @endif
+                    @endforelse
+                    <div class="py-6">
+                        {{ $celebs->links() }}
+                    </div>
                 </div>
                 <div class="w-full lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
                     <h1 class="font-medium text-gray-500 text-4xl py-16">Recent Reviews</h1>

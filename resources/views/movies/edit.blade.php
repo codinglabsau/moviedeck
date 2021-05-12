@@ -70,7 +70,7 @@
                             </div>
                         </div>
                     </div>
-                    <h1 class="font-medium text-gray-500 text-2xl my-6">Edit Genres</h1>
+                    <h1 class="font-medium text-gray-500 text-2xl my-6" id="genres">Genres</h1>
                     <div class="h-auto grid grid-rows-3 grid-flow-col gap-2">
                         @foreach($genres as $genre)
                             <label class="inline-flex items-center mt-3">
@@ -82,7 +82,7 @@
                             </label>
                         @endforeach
                     </div>
-                    <h1 class="font-medium text-gray-500 text-2xl my-6">Edit Celebs</h1>
+                    <h1 class="font-medium text-gray-500 text-2xl mt-12 mb-6" id="casts">Casts</h1>
                     <div class="h-auto grid grid-cols-2 gap-y-2 gap-x-10">
                         @foreach($celebs as $celeb)
                             <div>
@@ -95,10 +95,8 @@
                                         <span class="ml-2 text-gray-600 font-medium text-md align-middle">{{ $celeb->name }}</span>
                                     </div>
                                     <input type="text" name="celebs[{{ $celeb->id }}]" placeholder="as character"
-                                           @if ($movie->celebs->contains($celeb->id))
-                                                @foreach($movie->celebs as $cast)
-                                                    value="{{ $cast->pivot->character_name }}"
-                                                @endforeach
+                                           @if( $movie->celebs->contains($celeb->id) )
+                                               value="{{ $movie->celebs->find($celeb->id)->pivot->character_name }}"
                                            @endif
                                            class="mt-1 mx-2 align-middle w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                                 </label>
@@ -107,7 +105,7 @@
                     </div>
                     <div class="flex flex-col">
                         <div class="flex flex-row mt-6 align-middle items-center">
-                            <button type="submit" class="flex w-max px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">Add</button>
+                            <button type="submit" class="flex w-max px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">Update</button>
                             <a class="text-gray-400 hover:text-gray-600 px-4 py-2" href="{{ route('movies.show', $movie) }}">Cancel</a>
                         </div>
                     </div>

@@ -65,26 +65,29 @@
                             </div>
                         </div>
                     </div>
-                    <h1 class="font-medium text-gray-500 text-2xl my-6">Add Genres</h1>
+                    <h1 class="font-medium text-gray-500 text-2xl my-6">Genres</h1>
                     <div class="h-auto grid grid-rows-3 grid-flow-col gap-2">
                         @foreach($genres as $genre)
                             <label class="inline-flex items-center mt-3">
                                 <input type="checkbox" name="genres[]" value="{{ $genre->id }}"
+                                       @if(in_array($genre->id,old('genres',[]))) checked  @endif
                                        class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50">
                                 <span class="ml-2 text-gray-600 font-medium text-md">{{ $genre->name }}</span>
                             </label>
                         @endforeach
                     </div>
-                    <h1 class="font-medium text-gray-500 text-2xl my-6">Add Celebs</h1>
+                    <h1 class="font-medium text-gray-500 text-2xl mt-12 mb-6">Casts</h1>
                     <div class="h-auto grid grid-cols-2 gap-y-2 gap-x-10">
                         @foreach($celebs as $celeb)
                             <div>
                                 <label class="flex flex-row justify-between align-middle mt-3">
                                     <div>
-                                        <input type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50">
+                                        <input type="checkbox"
+                                               @if(in_array($celeb->id,old("celebs", []))) checked @endif
+                                               class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50">
                                         <span class="ml-2 text-gray-600 font-medium text-md align-middle">{{ $celeb->name }}</span>
                                     </div>
-                                    <input type="text" name="celebs[{{ $celeb->id }}]" placeholder="as character"
+                                    <input type="text" name="celebs[{{ $celeb->id }}]" value="{{ old("celebs.$celeb->id") }}" placeholder="as character"
                                     class="mt-1 mx-2 align-middle w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                                 </label>
                             </div>
