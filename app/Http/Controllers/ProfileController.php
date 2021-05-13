@@ -62,6 +62,7 @@ class ProfileController extends Controller
         if(auth()->user()->id == $user->id) {
             $watchlist = $user->movies()
                 ->select('id', 'title', 'poster')
+                ->orderBy('created_at')
                 ->paginate(15);
 
             return view('profile/watchlist',[
@@ -103,6 +104,7 @@ class ProfileController extends Controller
             'movie_id' => $movie->id
         ]);
 
-        return redirect("profile/$user->id/watchlist");
+        return redirect("profile/$user->id/watchlist")
+            ->with('message', 'Movie successfully added to your watchlist');
     }
 }

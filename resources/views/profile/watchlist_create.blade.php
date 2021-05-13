@@ -7,14 +7,18 @@
         <h1 class="flex justify-center w-full title-font sm:text-6xl text-5xl mb-4 font-medium text-gray-500">Search for a movie to add to your watchlist</h1>
         <form method="POST" action="{{ route('profile.watchlistCreate', $user->id) }}" class="w-5/6">
             @csrf
-            <input id="search" name="search" type="text" value="{{ old('search', $validated) }}" class="flex w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 focus:outline-none focus:ring" placeholder="Search">
+            <input id="search" name="search" type="text" value="{{ old('search', $validated) }}" class="@error('search') is-invalid @enderror flex w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 focus:outline-none focus:ring" placeholder="Search">
+            @error('search')
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">{{ $message }}</div>
+            @enderror
         </form>
     </div>
     <div class="container px-6 mx-auto md:flex">
         <div class="text-gray-600 body-font">
             <div class="flex justify-between mb-12">
-                <div class="flex pr-4 py-2 font-medium text-white tracking-wide capitalize">
+                <div class="flex flex-col pr-4 py-2 tracking-wide">
                     <h1 class="font-medium text-gray-400 text-4xl whitespace-nowrap">Movies with <i>{{$validated}}</i> in the title</h1>
+                    <p class="mt-3 text-gray-600">{{ count($output) }} Results</p>
                 </div>
             </div>
             <div class="flex items-baseline justify-center">
