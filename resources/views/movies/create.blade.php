@@ -65,7 +65,10 @@
                             </div>
                         </div>
                     </div>
-                    <h1 class="font-medium text-gray-500 text-2xl my-6">Genres</h1>
+                    <div class="flex flex-col mb-6 mt-16">
+                        <h1 class="font-medium text-gray-500 text-2xl">Genres</h1>
+                        <span class="text-sm text-gray-400 py-4"> Select one or more genre: </span>
+                    </div>
                     <div class="h-auto grid grid-rows-3 grid-flow-col gap-2">
                         @foreach($genres as $genre)
                             <label class="inline-flex items-center mt-3">
@@ -76,25 +79,30 @@
                             </label>
                         @endforeach
                     </div>
-                    <h1 class="font-medium text-gray-500 text-2xl mt-12 mb-6">Casts</h1>
-                    <div class="h-auto grid grid-cols-2 gap-y-2 gap-x-10">
-                        @foreach($celebs as $celeb)
-                            <div>
-                                <label class="flex flex-row justify-between align-middle mt-3">
-                                    <div>
-                                        <input type="checkbox"
-                                               @if(in_array($celeb->id,old("celebs", []))) checked @endif
-                                               class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50">
-                                        <span class="ml-2 text-gray-600 font-medium text-md align-middle">{{ $celeb->name }}</span>
-                                    </div>
-                                    <input type="text" name="celebs[{{ $celeb->id }}]" value="{{ old("celebs.$celeb->id") }}" placeholder="as character"
-                                    class="mt-1 mx-2 align-middle w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                                </label>
-                            </div>
-                        @endforeach
+                    <div class="flex flex-col mb-6 mt-16">
+                        <h1 class="font-medium text-gray-500 text-2xl">Casts</h1>
+                        <span class="text-sm text-gray-400 py-4"> Select from our list of celebrities: </span>
                     </div>
                     <div class="flex flex-col">
-                        <div class="flex flex-row mt-6 align-middle items-center">
+                        @for($i = 1; $i <= 10; $i++)
+                            <div class="flex flex-row">
+                                <span class="text-gray-400 py-4"> {{ $i."." }} </span>
+                                <select name="celebs[{{ $i }}]"
+                                        class="form-select ml-6 mr-3 h-12 w-1/3 mt-1 rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0">
+                                    <option value="">Select a celebrity</option>
+                                    @foreach($celebs as $celeb)
+                                        <option value="{{ $celeb->id }}" @if(old("celebs.$i") == $celeb->id) selected @endif>{{ $celeb->name }}</option>
+                                    @endforeach
+                                </select>
+                                <label class="flex flex-row justify-between align-middle h-12">
+                                    <input type="text" name="characters[{{ $i }}]" value="{{ old("characters.$i") }}" placeholder="as character"
+                                           class="mt-1 mx-2 align-middle w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                                </label>
+                            </div>
+                        @endfor
+                    </div>
+                    <div class="flex flex-col mt-10">
+                        <div class="flex flex-row align-middle items-center">
                             <button type="submit" class="flex w-max px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">Add</button>
                             <a class="text-gray-400 hover:text-gray-600 px-4 py-2" href="{{ route('movies.index') }}">Cancel</a>
                         </div>
@@ -104,7 +112,7 @@
         </div>
         <div class="w-1/4 flex flex-col items-end mb-16 md:mb-0">
             <div class="flex-col pb-6">
-                <img class="flex w-80 border rounded-sm mb-4 align-middle justify-end" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkyo0R2Y_RzD6pxe6RaMnwClgH0yheiyio6mOEacCl8RbwEnvB9rXGAqxUYxs5KJpObaU&usqp=CAU" alt="movie_poster_placeholder">
+                <img class="flex w-80 border rounded-sm mb-4 align-middle justify-end" src="https://everyfad.com/static/images/movie_poster_placeholder.29ca1c87.svg" alt="movie_poster_placeholder">
             </div>
         </div>
     </div>

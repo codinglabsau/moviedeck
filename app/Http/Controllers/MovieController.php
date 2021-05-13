@@ -33,7 +33,22 @@ class MovieController extends Controller
     {
         $movie = Movie::create($request->validated());
 
-        $this->genreCelebs($request, $movie);
+        $genres = $request->input('genres');
+        $movie->genres()->sync($genres);
+
+        $celebs = array_filter($request->input('celebs'), function ($value) {
+                return !is_null($value);
+            });
+
+        $characters = array_filter($request->input('characters'), function ($value) {
+            return !is_null($value);
+        });
+
+        for ($i = 1; $i <= count($celebs); $i++) {
+            $movie->celebs()->attach([
+                $celebs[$i] => ['character_name' => $characters[$i]]
+            ]);
+        }
 
         return redirect()->route('movies.index')
             ->with(['message' => 'Sucess! Movie has been added.']);
@@ -43,15 +58,14 @@ class MovieController extends Controller
     {
         $movie->with([
             'genres',
+            'celebs'
         ])->get();
 
         $reviews = $movie->reviews()->paginate(3);
-        $celebs = $movie->celebs()->paginate(5);
 
         return view('movies.show', [
             'movie' => $movie,
-            'reviews' => $reviews,
-            'celebs' => $celebs
+            'reviews' => $reviews
         ]);
     }
 
@@ -71,22 +85,6 @@ class MovieController extends Controller
     {
         $movie->update($request->validated());
 
-        $this->genreCelebs($request, $movie);
-
-        return redirect()->route('movies.show', $movie)
-            ->with(['message' => 'Sucess! Movie has been updated.']);
-    }
-
-    public function destroy(Movie $movie)
-    {
-        $movie->delete();
-
-        return redirect()->route('movies.index')
-            ->with(['message' => 'Sucess! Movie has been deleted.']);
-    }
-
-    public function genreCelebs(MovieRequest $request, $movie)
-    {
         $genres = $request->input('genres');
         $movie->genres()->sync($genres);
 
@@ -101,5 +99,16 @@ class MovieController extends Controller
             });
 
         $movie->celebs()->sync($casts);
+
+        return redirect()->route('movies.show', $movie)
+            ->with(['message' => 'Sucess! Movie has been updated.']);
+    }
+
+    public function destroy(Movie $movie)
+    {
+        $movie->delete();
+
+        return redirect()->route('movies.index')
+            ->with(['message' => 'Sucess! Movie has been deleted.']);
     }
 }

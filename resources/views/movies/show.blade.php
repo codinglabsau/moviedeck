@@ -128,7 +128,7 @@
                             @endif
                         </div>
                     </div>
-                    @forelse($celebs as $celeb)
+                    @forelse($movie->celebs as $celeb)
                         <div class="flex w-full justify-between">
                             <div class="flex">
                                 <a href="{{ route('celebs.show', $celeb) }}"><img class="h-12 border rounded-sm my-4" src="{{ $celeb->photo }}" alt="{{ $celeb->name }}"></a>
@@ -148,9 +148,6 @@
                             </p>
                         </div>
                     @endforelse
-                    <div class="py-6">
-                        {{ $celebs->links() }}
-                    </div>
                 </div>
                 <div class="w-full lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
                     <h1 class="font-medium text-gray-500 text-4xl py-16">Recent Reviews</h1>
