@@ -9,5 +9,7 @@ class MovieUser extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['user_id', 'movie_id'];
+
     public $table = "movie_user";
 }

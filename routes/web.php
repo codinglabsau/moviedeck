@@ -58,6 +58,9 @@ Route::group(['middleware'=> 'auth'], function()
     Route::get('/profile/{user}', [ProfileController::class, 'dashboard'])->name('profile.dashboard');
     Route::get('/profile/{user}/reviews', [ProfileController::class, 'reviews'])->name('profile.reviews');
     Route::get('/profile/{user}/watchlist', [ProfileController::class, 'watchlist'])->name('profile.watchlist');
+    Route::get('/profile/{user}/watchlistSearch', [ProfileController::class, 'watchlistSearch'])->name('profile.watchlistSearch');
+    Route::post('/profile/{user}/watchlistCreate', [ProfileController::class, 'watchlistCreate'])->name('profile.watchlistCreate');
+    Route::get('/profile/{user}/watchlistStore{movie}', [ProfileController::class, 'watchlistStore'])->name('profile.watchlistStore');
 });
 
 /** Celebs, Movies, Reviews | Show */

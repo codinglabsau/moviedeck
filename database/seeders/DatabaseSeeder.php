@@ -27,5 +27,9 @@ class DatabaseSeeder extends Seeder
         \App\Models\CelebMovie::factory(500)->create();
         \App\Models\GenreMovie::factory(200)->create();
         \App\Models\MovieUser::factory(100)->create();
+        \App\Models\MovieUser::factory(16)->create([
+            'user_id' => 1,
+            'movie_id' => 1
+        ]);
     }
 }
