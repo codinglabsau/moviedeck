@@ -31,16 +31,16 @@ class MovieController extends Controller
 
     public function store(MovieRequest $request)
     {
-        $movie = Movie::create($request->validated());
+        $movie = Movie::create($request->except('genres'));
 
         $genres = $request->input('genres');
         $movie->genres()->sync($genres);
 
-        $celebs = collect($request->input('celebs', []))
-            ->map(function($celeb) {
-                return ['character_name' => $celeb];
-            });
-        $movie->celebs()->sync($celebs);
+//        $celebs = collect($request->input('celebs', []))
+//            ->map(function($celeb) {
+//                return ['character_name' => $celeb];
+//            });
+//        $movie->celebs()->sync($celebs);
 
         return redirect()->route('movies.index')
             ->with(['message' => 'Sucess! Movie has been added.']);

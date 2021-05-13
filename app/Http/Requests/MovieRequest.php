@@ -61,14 +61,14 @@ class MovieRequest extends FormRequest
                 'required',
                 'array'
             ],
-            'celebs.*' => [
-                'string',
-                'max: 30'
-            ],
-            'celebs' => [
-                'required',
-                'array'
-            ],
+//            'celebs.*' => [
+//                'string',
+//                'max: 30'
+//            ],
+//            'celebs' => [
+//                'required',
+//                'array'
+//            ],
         ];
     }
 }

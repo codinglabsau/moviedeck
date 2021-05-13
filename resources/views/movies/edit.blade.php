@@ -85,30 +85,6 @@
                             </label>
                         @endforeach
                     </div>
-                    <div class="flex flex-col mb-6 mt-16">
-                        <h1 class="font-medium text-gray-500 text-2xl" id="casts">Casts</h1>
-                        <span class="text-sm text-gray-400 py-4"> Select from our list of celebrities: </span>
-                    </div>
-                    <div class="flex flex-col">
-                        @foreach($celebs as $celeb)
-                            <div>
-                                <label class="flex flex-row justify-between align-middle mt-3">
-                                    <div>
-                                        <input type="checkbox"
-                                               {{ $movie->celebs->contains($celeb->id) ? 'checked' : '' }}
-                                               @if(in_array($celeb->id,old('celebs',[]))) checked  @endif
-                                               class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50">
-                                        <span class="ml-2 text-gray-600 font-medium text-md align-middle">{{ $celeb->name }}</span>
-                                    </div>
-                                    <input type="text" name="celebs[{{ $celeb->id }}]" placeholder="as character"
-                                           @if( $movie->celebs->contains($celeb->id) )
-                                               value="{{ $movie->celebs->find($celeb->id)->pivot->character_name }}"
-                                           @endif
-                                           class="mt-1 mx-2 align-middle w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                                </label>
-                            </div>
-                        @endforeach
-                    </div>
                     <div class="flex flex-col">
                         <div class="flex flex-row mt-6 align-middle items-center">
                             <button type="submit" class="flex w-max px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">Update</button>

@@ -143,7 +143,7 @@
                     @empty
                         <div>
                             <p>
-                                No casts found.
+                                No casts added yet.
                                 <a href="{{ route('movies.edit', $movie) . "#casts" }}" class="text-blue-500 font-semibold text-sm">Add a Cast</a>
                             </p>
                         </div>
