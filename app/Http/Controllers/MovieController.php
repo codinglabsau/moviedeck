@@ -36,19 +36,11 @@ class MovieController extends Controller
         $genres = $request->input('genres');
         $movie->genres()->sync($genres);
 
-        $celebs = array_filter($request->input('celebs'), function ($value) {
-                return !is_null($value);
+        $celebs = collect($request->input('celebs', []))
+            ->map(function($celeb) {
+                return ['character_name' => $celeb];
             });
-
-        $characters = array_filter($request->input('characters'), function ($value) {
-            return !is_null($value);
-        });
-
-        for ($i = 1; $i <= count($celebs); $i++) {
-            $movie->celebs()->attach([
-                $celebs[$i] => ['character_name' => $characters[$i]]
-            ]);
-        }
+        $movie->celebs()->sync($celebs);
 
         return redirect()->route('movies.index')
             ->with(['message' => 'Sucess! Movie has been added.']);
@@ -88,17 +80,11 @@ class MovieController extends Controller
         $genres = $request->input('genres');
         $movie->genres()->sync($genres);
 
-        $celebs = $request->input('celebs');
-        $filteredCharacters = array_filter($celebs, function ($value) {
-            return !is_null($value);
-        });
-
-        $casts = collect($filteredCharacters)
-            ->map(function ($cast) {
-                return ['character_name' => $cast];
+        $celebs = collect($request->input('celebs', []))
+            ->map(function($celeb) {
+                return ['character_name' => $celeb];
             });
-
-        $movie->celebs()->sync($casts);
+        $movie->celebs()->sync($celebs);
 
         return redirect()->route('movies.show', $movie)
             ->with(['message' => 'Sucess! Movie has been updated.']);

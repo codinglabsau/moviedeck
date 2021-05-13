@@ -84,22 +84,20 @@
                         <span class="text-sm text-gray-400 py-4"> Select from our list of celebrities: </span>
                     </div>
                     <div class="flex flex-col">
-                        @for($i = 1; $i <= 10; $i++)
-                            <div class="flex flex-row">
-                                <span class="text-gray-400 py-4"> {{ $i."." }} </span>
-                                <select name="celebs[{{ $i }}]"
-                                        class="form-select ml-6 mr-3 h-12 w-1/3 mt-1 rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0">
-                                    <option value="">Select a celebrity</option>
-                                    @foreach($celebs as $celeb)
-                                        <option value="{{ $celeb->id }}" @if(old("celebs.$i") == $celeb->id) selected @endif>{{ $celeb->name }}</option>
-                                    @endforeach
-                                </select>
-                                <label class="flex flex-row justify-between align-middle h-12">
-                                    <input type="text" name="characters[{{ $i }}]" value="{{ old("characters.$i") }}" placeholder="as character"
-                                           class="mt-1 mx-2 align-middle w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                        @foreach($celebs as $celeb)
+                            <div>
+                                <label class="flex flex-row justify-between align-middle mt-3">
+                                    <div>
+                                        <input {{ $celeb->value ? 'checked' : null }}
+                                               data-id="{{ $celeb->id }}" type="checkbox"
+                                               class="celeb-enable rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50">
+                                        <span class="ml-2 text-gray-600 font-medium text-md align-middle">{{ $celeb->name }}</span>
+                                    </div>
+                                    <input value="{{ $celeb->value ?? null }}" {{ $celeb->value ? null : 'disabled' }} data-id="{{ $celeb->id }}" name="celebs[{{ $celeb->id }}]" type="text" placeholder="as character"
+                                           class="celeb-character form-control mt-1 mx-2 align-middle w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                                 </label>
                             </div>
-                        @endfor
+                        @endforeach
                     </div>
                     <div class="flex flex-col mt-10">
                         <div class="flex flex-row align-middle items-center">
@@ -116,4 +114,17 @@
             </div>
         </div>
     </div>
+@endsection
+@section('scripts')
+    @parent
+    <script>
+        $('document').ready(function () {
+            $('.celeb-enable').on('click', function () {
+                let id = $(this).attr('data-id')
+                let enabled = $(this).is(":checked")
+                $('.celeb-character[data-id="' + id + '"]').attr('disabled', !enabled)
+                $('.celeb-character[data-id="' + id + '"]').val(null)
+            })
+        });
+    </script>
 @endsection

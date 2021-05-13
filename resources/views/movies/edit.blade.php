@@ -71,7 +71,7 @@
                         </div>
                     </div>
                     <div class="flex flex-col mb-6 mt-16">
-                        <h1 class="font-medium text-gray-500 text-2xl">Genres</h1>
+                        <h1 class="font-medium text-gray-500 text-2xl" id="genres">Genres</h1>
                         <span class="text-sm text-gray-400 py-4"> Select one or more genre: </span>
                     </div>
                     <div class="h-auto grid grid-rows-3 grid-flow-col gap-2">
@@ -86,7 +86,7 @@
                         @endforeach
                     </div>
                     <div class="flex flex-col mb-6 mt-16">
-                        <h1 class="font-medium text-gray-500 text-2xl">Casts</h1>
+                        <h1 class="font-medium text-gray-500 text-2xl" id="casts">Casts</h1>
                         <span class="text-sm text-gray-400 py-4"> Select from our list of celebrities: </span>
                     </div>
                     <div class="flex flex-col">
