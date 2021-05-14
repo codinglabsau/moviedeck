@@ -21,7 +21,7 @@ use App\Http\Controllers\ReviewController;
 /** Auth */
 Auth::routes();
 
-<<<<<<<<< Temporary merge branch 1
+
 /** Home */
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -30,8 +30,6 @@ Route::get('/celebs', [CelebController::class, 'index'])->name('celebs.index');
 Route::get('/movies', [MovieController::class, 'index'])->name('movies.index');
 Route::get('/reviews', [ReviewController::class, 'index'])->name('reviews.index');
 
-=========
->>>>>>>>> Temporary merge branch 2
 /** Middleware Admin */
 Route::group(['middleware'=>'admin'], function()
 {
