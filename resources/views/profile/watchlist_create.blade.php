@@ -17,24 +17,24 @@
         <div class="text-gray-600 body-font">
             <div class="flex justify-between mb-12">
                 <div class="flex flex-col pr-4 py-2 tracking-wide">
-                    <h1 class="font-medium text-gray-400 text-4xl whitespace-nowrap">Movies with <i>{{$validated}}</i> in the title</h1>
-                    <p class="mt-3 text-gray-600">{{ count($output) }} Results</p>
+                    <h1 class="font-medium text-gray-400 text-4xl whitespace-nowrap">Movies with <i>{{$keyword}}</i> in the title</h1>
+                    <p class="mt-3 text-gray-600">{{ count($movies) }} Results</p>
                 </div>
             </div>
             <div class="flex items-baseline justify-center">
                 <div class="grid gap-12 mt-0 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-                    @foreach($output as $item)
+                    @foreach($movies as $movie)
                         <div>
-                            <a href="{{ route('profile.watchlistStore', ['user'=>$user->id, 'movie'=>$item->id]) }}">
-                                <img class="object-cover w-60 h-full" src="{{ $item->poster }}" alt="{{ $item->poster }}">
-                                <h3>{{ $item->title}}</h3>
+                            <a href="{{ route('profile.watchlist.store', ['user'=>$user->id, 'movie'=>$movie->id]) }}">
+                                <img class="object-cover w-60 h-full" src="{{ $movie->poster }}" alt="movie_poster">
+                                <h3>{{ $movie->title}}</h3>
                             </a>
                         </div>
                     @endforeach
                 </div>
             </div>
             <div class="flex justify-center py-20">
-                {{ $output->links() }}
+                {{ $movies->links() }}
             </div>
         </div>
     </div>

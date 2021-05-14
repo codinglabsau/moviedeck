@@ -10,6 +10,12 @@ class Movie extends Model
 {
     use HasFactory;
 
+    use Traits\Filterable;
+
+    private static $whiteListFilter = [
+        'title'
+    ];
+
     protected $guarded = [];
 
     public function users() {

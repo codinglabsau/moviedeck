@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Movie;
 use App\Models\Review;
 use App\Models\MovieUser;
+use App\Filters\MovieFilter;
 use App\Http\Requests\ProfileRequest;
 
 class ProfileController extends Controller
@@ -16,7 +17,7 @@ class ProfileController extends Controller
         $reviews = Review::select('id', 'rating', 'title', 'created_at', 'movie_id', 'user_id')
             ->where('user_id', $user->id)
             ->with(['movie:id,title,poster', 'user:id,name'])
-            ->orderBy('created_at')
+            ->latest()
             ->take(4)
             ->get();
 
@@ -62,7 +63,7 @@ class ProfileController extends Controller
         if(auth()->user()->id == $user->id) {
             $watchlist = $user->movies()
                 ->select('id', 'title', 'poster')
-                ->orderBy('created_at')
+                ->latest()
                 ->paginate(15);
 
             return view('profile/watchlist',[
@@ -75,7 +76,37 @@ class ProfileController extends Controller
         }
     }
 
-    public function watchlistSearch(User $user)
+    public function create(Request $request, MovieFilter $filters, User $user)
+    {
+        $movies = Movie::select('id', 'title', 'poster')
+            ->filter($filters)
+            ->latest()
+            ->paginate(10);
+
+        /*$input = implode($request->input());
+
+        if (!empty(request()->get('title'))) {
+            $output = Movie::ignoreRequest('perpage')
+                ->select('id', 'title', 'poster')
+                ->filter()
+                ->latest()
+                ->paginate(request()->get('perpage'),['*'],'page');
+        } else {
+            $output = Movie::filter(
+                ['title', 'like', '%'.$validated.'%']
+            )->select('id', 'title', 'poster')
+             ->latest()
+             ->paginate(10,['*'],'page');
+        }*/
+
+        return view('profile/watchlist_create', [
+            'keyword' => $request->input('title'),
+            'movies' => $movies,
+            'user' => $user
+        ]);
+    }
+
+    /*public function watchlistSearch(User $user)
     {
         return view('profile/watchlist_search', [
             'user' => $user
@@ -95,9 +126,9 @@ class ProfileController extends Controller
             'output' => $output,
             'user' => $user
         ]);
-    }
+    }*/
 
-    public function watchlistStore(User $user, Movie $movie)
+    public function store(User $user, Movie $movie)
     {
         MovieUser::create([
             'user_id' => $user->id,

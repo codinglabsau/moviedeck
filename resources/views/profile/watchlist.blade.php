@@ -57,7 +57,7 @@
                 <div class="flex justify-between">
                     <span class="font-medium text-gray-800 whitespace-nowrap capitalize md:text-2xl">Watchlist</span>
                     <div class="flex items-center px-4 py-2 font-medium tracking-wide capitalize transition-colors duration-200 transform rounded-md border-2 border-gray-300">
-                        <a href="{{ route('profile.watchlistSearch', $user->id) }}"><span class="mx-2 whitespace-nowrap">Add a Movie</span></a>
+                        <a href="{{ route('profile.watchlist.create', $user->id) }}"><span class="mx-2 whitespace-nowrap">Add a Movie</span></a>
                     </div>
                 </div>
                 <div class="flex items-baseline">
