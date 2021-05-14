@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="flex w-5/6 my-10 mx-auto bg-white shadow-md">
-        {{-- Side Nave Menu--}}
+        {{-- Side Nav Bar--}}
         <div class="flex flex-col w-32 md:w-64 h-screen pb-8 bg-white border-r">
             <div class="flex flex-col items-start justify-end bg-cover bg-center w-32 h-32 md:w-64 md:h-64" style="background-image: url({{$user->avatar}})">
                 <div class="flex justify-between w-full">
@@ -41,23 +41,28 @@
 
                         <span class="mx-4 font-medium">Reviews</span>
                     </a>
-                        <div class="flex items-center px-4 py-2 mt-5 text-gray-700 bg-gray-200">
-                            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M15 5V7M15 11V13M15 17V19M5 5C3.89543 5 3 5.89543 3 7V10C4.10457 10 5 10.8954 5 12C5 13.1046 4.10457 14 3 14V17C3 18.1046 3.89543 19 5 19H19C20.1046 19 21 18.1046 21 17V14C19.8954 14 19 13.1046 19 12C19 10.8954 19.8954 10 21 10V7C21 5.89543 20.1046 5 19 5H5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
+                    <div class="flex items-center px-4 py-2 mt-5 text-gray-700 bg-gray-200">
+                        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15 5V7M15 11V13M15 17V19M5 5C3.89543 5 3 5.89543 3 7V10C4.10457 10 5 10.8954 5 12C5 13.1046 4.10457 14 3 14V17C3 18.1046 3.89543 19 5 19H19C20.1046 19 21 18.1046 21 17V14C19.8954 14 19 13.1046 19 12C19 10.8954 19.8954 10 21 10V7C21 5.89543 20.1046 5 19 5H5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
 
-                            <span class="mx-4 font-medium">Watchlist</span>
-                        </div>
+                        <span class="mx-4 font-medium">Watchlist</span>
+                    </div>
                 </nav>
             </div>
         </div>
         {{-- Content --}}
         <div class="flex flex-col">
+            @if(session()->has('message'))
+                <div class="w-full text-blue-500 bg-blue-100 border border-2 border-blue-400 p-6">
+                    {{ session()->get('message') }}
+                </div>
+            @endif
             <div class="container w-full px-14 py-5 mx-auto">
                 <div class="flex justify-between">
                     <span class="font-medium text-gray-800 whitespace-nowrap capitalize md:text-2xl">Watchlist</span>
                     <div class="flex items-center px-4 py-2 font-medium tracking-wide capitalize transition-colors duration-200 transform rounded-md border-2 border-gray-300">
-                        <a href="{{ route('profile.watchlist.create', $user->id) }}"><span class="mx-2 whitespace-nowrap">Add a Movie</span></a>
+                        <a href="{{ route('watchlist.create', $user->id) }}"><span class="mx-2 whitespace-nowrap">Add a Movie</span></a>
                     </div>
                 </div>
                 <div class="flex items-baseline">
@@ -66,8 +71,19 @@
                             <div>
                                 <a href="{{ route('movies.show', $item->id) }}">
                                     <img class="object-cover w-full h-30" src="{{ $item->poster }}" alt="{{ $item->poster }}">
-                                    <h3>{{ $item->title }}</h3>
                                 </a>
+                                <div class="flex justify-between">
+                                    <h3>{{ $item->title }}</h3>
+                                    <form method="post" action="{{ route('watchlist.delete', ['user'=>$user->id, 'movie'=>$item->id]) }}">
+                                        @csrf
+                                        @method('delete')
+                                        <button value="{{$item->id}}" name="movie_id" class="h-8 flex text-gray-600 items-center font-medium tracking-wide capitalize transition-colors duration-200 transform hover:text-gray-500">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            </svg>
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
                         @endforeach
                     </div>

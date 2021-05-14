@@ -10,16 +10,10 @@ class Movie extends Model
 {
     use HasFactory;
 
-    use Traits\Filterable;
-
-    private static $whiteListFilter = [
-        'title'
-    ];
-
     protected $guarded = [];
 
     public function users() {
-        return $this->belongsToMany(User::class, 'movie_user');
+        return $this->belongsToMany(User::class, 'movie_user')->withTimestamps();
     }
 
     public function reviews() {

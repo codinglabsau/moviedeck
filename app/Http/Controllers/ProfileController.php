@@ -7,7 +7,6 @@ use App\Models\User;
 use App\Models\Movie;
 use App\Models\Review;
 use App\Models\MovieUser;
-use App\Filters\MovieFilter;
 use App\Http\Requests\ProfileRequest;
 
 class ProfileController extends Controller
@@ -56,86 +55,5 @@ class ProfileController extends Controller
             'review_count' => $review_count,
             'user' => $user
         ]);
-    }
-
-    public function watchlist(User $user)
-    {
-        if(auth()->user()->id == $user->id) {
-            $watchlist = $user->movies()
-                ->select('id', 'title', 'poster')
-                ->latest()
-                ->paginate(15);
-
-            return view('profile/watchlist',[
-                'watchlist' => $watchlist,
-                'user' => $user
-            ]);
-        } else {
-            return redirect('/')
-                ->with('message', 'You don\'t have access to that page');
-        }
-    }
-
-    public function create(Request $request, MovieFilter $filters, User $user)
-    {
-        $movies = Movie::select('id', 'title', 'poster')
-            ->filter($filters)
-            ->latest()
-            ->paginate(10);
-
-        /*$input = implode($request->input());
-
-        if (!empty(request()->get('title'))) {
-            $output = Movie::ignoreRequest('perpage')
-                ->select('id', 'title', 'poster')
-                ->filter()
-                ->latest()
-                ->paginate(request()->get('perpage'),['*'],'page');
-        } else {
-            $output = Movie::filter(
-                ['title', 'like', '%'.$validated.'%']
-            )->select('id', 'title', 'poster')
-             ->latest()
-             ->paginate(10,['*'],'page');
-        }*/
-
-        return view('profile/watchlist_create', [
-            'keyword' => $request->input('title'),
-            'movies' => $movies,
-            'user' => $user
-        ]);
-    }
-
-    /*public function watchlistSearch(User $user)
-    {
-        return view('profile/watchlist_search', [
-            'user' => $user
-        ]);
-    }
-
-    public function watchlistCreate(ProfileRequest $request, User $user)
-    {
-        $validated = implode($request->validated());
-
-        $output = Movie::select('id', 'title', 'poster')
-            ->where('title', 'like', '%'.$validated.'%')
-            ->paginate(10);
-
-        return view('profile/watchlist_create',[
-            'validated' => $validated,
-            'output' => $output,
-            'user' => $user
-        ]);
-    }*/
-
-    public function store(User $user, Movie $movie)
-    {
-        MovieUser::create([
-            'user_id' => $user->id,
-            'movie_id' => $movie->id
-        ]);
-
-        return redirect("profile/$user->id/watchlist")
-            ->with('message', 'Movie successfully added to your watchlist');
     }
 }
