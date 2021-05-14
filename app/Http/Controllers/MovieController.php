@@ -6,6 +6,7 @@ use App\Models\Celeb;
 use App\Models\Genre;
 use App\Models\Movie;
 use App\Http\Requests\MovieRequest;
+use App\Http\Requests\MovieCastRequest;
 
 class MovieController extends Controller
 {
@@ -35,12 +36,6 @@ class MovieController extends Controller
 
         $genres = $request->input('genres');
         $movie->genres()->sync($genres);
-
-//        $celebs = collect($request->input('celebs', []))
-//            ->map(function($celeb) {
-//                return ['character_name' => $celeb];
-//            });
-//        $movie->celebs()->sync($celebs);
 
         return redirect()->route('movies.index')
             ->with(['message' => 'Sucess! Movie has been added.']);
@@ -73,12 +68,32 @@ class MovieController extends Controller
         ]);
     }
 
+    public function editCasts(Movie $movie)
+    {
+        $celebs = Celeb::orderBy('name', 'ASC')->get();
+
+        return view('movies.edit_cast', [
+            'movie' => $movie,
+            'celebs' => $celebs
+        ]);
+    }
+
     public function update(MovieRequest $request, Movie $movie)
     {
-        $movie->update($request->validated());
+        $movie->update($request->except('genres'));
 
         $genres = $request->input('genres');
         $movie->genres()->sync($genres);
+
+        return redirect()->route('movies.show', $movie)
+            ->with(['message' => 'Sucess! Movie has been updated.']);
+    }
+
+    public function updateCasts(MovieCastRequest $request, Movie $movie)
+    {
+        $movie->update($request->validated());
+
+        dd($request->input('celebs', []));
 
         $celebs = collect($request->input('celebs', []))
             ->map(function($celeb) {

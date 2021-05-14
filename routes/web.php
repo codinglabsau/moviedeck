@@ -42,8 +42,10 @@ Route::group(['middleware'=>'admin'], function()
     Route::get('/movies/create', [MovieController::class, 'create'])->name('movies.create');
     Route::post('/movies', [MovieController::class, 'store'])->name('movies.store');
     Route::get('/movies/{movie}/edit', [MovieController::class, 'edit'])->name('movies.edit');
+    Route::get('/movies/{movie}/edit/casts', [MovieController::class, 'editCasts'])->name('movies.edit.cast');
     Route::get('/movies/create', [MovieController::class, 'create'])->name('movies.create');
-    Route::put('/movies/{movie}', [MovieController::class, 'update'])->name('movies.update');;
+    Route::put('/movies/{movie}', [MovieController::class, 'update'])->name('movies.update');
+    Route::put('/movies/{movie}/casts', [MovieController::class, 'updateCasts'])->name('movies.update.cast');
     Route::delete('/movies/{movie}', [MovieController::class, 'destroy'])->name('movies.delete');
 });
 

@@ -4,7 +4,9 @@ module.exports = {
     './resources/css/**/*.css',
   ],
   theme: {
-    extend: {}
+    extend: {
+        opacity: ['disabled'],
+    }
   },
   variants: {},
   plugins: [

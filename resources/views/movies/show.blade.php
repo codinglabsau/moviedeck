@@ -7,6 +7,11 @@
                 {{--     Movie Summary Section       --}}
                 <div class="container mx-auto flex px-5 py-32 md:flex-row flex-col items-center">
                     <div class="w-full lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
+                        @if(session()->has('message'))
+                            <div class="w-full text-green-500 bg-green-100 border border-2 border-green-400 rounded rounded-md p-6 mb-12">
+                                {{ session()->get('message') }}
+                            </div>
+                        @endif
                         <div class="flex justify-center mb-12">
                             <div class="flex items-center px-4 py-2 font-medium tracking-wide capitalize transition-colors duration-200 transform rounded-md border-2 border-gray-200">
                                 <span class="text-gray-200 mx-2 whitespace-nowrap">{{ $movie->year }}</span>
@@ -119,7 +124,7 @@
                         <div class="flex mx-6">
                             @if (auth()->check() && auth()->user()->is_admin)
                                 <div class="items-center align-bottom py-2">
-                                    <a href="{{ route('movies.edit', $movie) . "#casts" }}">
+                                    <a href="{{ route('movies.edit.cast', $movie) }}">
                                         <button class="bg-blue-600 hover:bg-blue-500 rounded rounded-sm text-white">
                                             <span class="mx-2 whitespace-nowrap">Manage Casts</span>
                                         </button>
@@ -144,7 +149,7 @@
                         <div>
                             <p>
                                 No casts added yet.
-                                <a href="{{ route('movies.edit', $movie) . "#casts" }}" class="text-blue-500 font-semibold text-sm">Add a Cast</a>
+                                <a href="{{ route('movies.edit.cast', $movie) }}" class="text-blue-500 font-semibold text-sm">Add a Cast</a>
                             </p>
                         </div>
                     @endforelse

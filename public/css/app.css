@@ -2104,7 +2104,7 @@ select {
 }
 
 .divide-opacity-0 > :not([hidden]) ~ :not([hidden]) {
-  --tw-divide-opacity: 0;
+  --tw-divide-opacity: disabled;
 }
 
 .divide-opacity-5 > :not([hidden]) ~ :not([hidden]) {
@@ -7670,7 +7670,7 @@ select {
 }
 
 .bg-opacity-0 {
-  --tw-bg-opacity: 0;
+  --tw-bg-opacity: disabled;
 }
 
 .bg-opacity-5 {
@@ -7730,7 +7730,7 @@ select {
 }
 
 .group:hover .group-hover\:bg-opacity-0 {
-  --tw-bg-opacity: 0;
+  --tw-bg-opacity: disabled;
 }
 
 .group:hover .group-hover\:bg-opacity-5 {
@@ -7790,7 +7790,7 @@ select {
 }
 
 .focus-within\:bg-opacity-0:focus-within {
-  --tw-bg-opacity: 0;
+  --tw-bg-opacity: disabled;
 }
 
 .focus-within\:bg-opacity-5:focus-within {
@@ -7850,7 +7850,7 @@ select {
 }
 
 .hover\:bg-opacity-0:hover {
-  --tw-bg-opacity: 0;
+  --tw-bg-opacity: disabled;
 }
 
 .hover\:bg-opacity-5:hover {
@@ -7910,7 +7910,7 @@ select {
 }
 
 .focus\:bg-opacity-0:focus {
-  --tw-bg-opacity: 0;
+  --tw-bg-opacity: disabled;
 }
 
 .focus\:bg-opacity-5:focus {
@@ -10140,7 +10140,7 @@ select {
 }
 
 .border-opacity-0 {
-  --tw-border-opacity: 0;
+  --tw-border-opacity: disabled;
 }
 
 .border-opacity-5 {
@@ -10200,7 +10200,7 @@ select {
 }
 
 .group:hover .group-hover\:border-opacity-0 {
-  --tw-border-opacity: 0;
+  --tw-border-opacity: disabled;
 }
 
 .group:hover .group-hover\:border-opacity-5 {
@@ -10260,7 +10260,7 @@ select {
 }
 
 .focus-within\:border-opacity-0:focus-within {
-  --tw-border-opacity: 0;
+  --tw-border-opacity: disabled;
 }
 
 .focus-within\:border-opacity-5:focus-within {
@@ -10320,7 +10320,7 @@ select {
 }
 
 .hover\:border-opacity-0:hover {
-  --tw-border-opacity: 0;
+  --tw-border-opacity: disabled;
 }
 
 .hover\:border-opacity-5:hover {
@@ -10380,7 +10380,7 @@ select {
 }
 
 .focus\:border-opacity-0:focus {
-  --tw-border-opacity: 0;
+  --tw-border-opacity: disabled;
 }
 
 .focus\:border-opacity-5:focus {
@@ -14263,7 +14263,7 @@ select {
 }
 
 .opacity-0 {
-  opacity: 0;
+  opacity: disabled;
 }
 
 .opacity-5 {
@@ -14323,7 +14323,7 @@ select {
 }
 
 .group:hover .group-hover\:opacity-0 {
-  opacity: 0;
+  opacity: disabled;
 }
 
 .group:hover .group-hover\:opacity-5 {
@@ -14383,7 +14383,7 @@ select {
 }
 
 .focus-within\:opacity-0:focus-within {
-  opacity: 0;
+  opacity: disabled;
 }
 
 .focus-within\:opacity-5:focus-within {
@@ -14443,7 +14443,7 @@ select {
 }
 
 .hover\:opacity-0:hover {
-  opacity: 0;
+  opacity: disabled;
 }
 
 .hover\:opacity-5:hover {
@@ -14503,7 +14503,7 @@ select {
 }
 
 .focus\:opacity-0:focus {
-  opacity: 0;
+  opacity: disabled;
 }
 
 .focus\:opacity-5:focus {
@@ -18253,15 +18253,15 @@ select {
 }
 
 .placeholder-opacity-0::-moz-placeholder {
-  --tw-placeholder-opacity: 0;
+  --tw-placeholder-opacity: disabled;
 }
 
 .placeholder-opacity-0:-ms-input-placeholder {
-  --tw-placeholder-opacity: 0;
+  --tw-placeholder-opacity: disabled;
 }
 
 .placeholder-opacity-0::placeholder {
-  --tw-placeholder-opacity: 0;
+  --tw-placeholder-opacity: disabled;
 }
 
 .placeholder-opacity-5::-moz-placeholder {
@@ -18433,15 +18433,15 @@ select {
 }
 
 .focus\:placeholder-opacity-0:focus::-moz-placeholder {
-  --tw-placeholder-opacity: 0;
+  --tw-placeholder-opacity: disabled;
 }
 
 .focus\:placeholder-opacity-0:focus:-ms-input-placeholder {
-  --tw-placeholder-opacity: 0;
+  --tw-placeholder-opacity: disabled;
 }
 
 .focus\:placeholder-opacity-0:focus::placeholder {
-  --tw-placeholder-opacity: 0;
+  --tw-placeholder-opacity: disabled;
 }
 
 .focus\:placeholder-opacity-5:focus::-moz-placeholder {
@@ -24117,7 +24117,7 @@ select {
 }
 
 .ring-opacity-0 {
-  --tw-ring-opacity: 0;
+  --tw-ring-opacity: disabled;
 }
 
 .ring-opacity-5 {
@@ -24177,7 +24177,7 @@ select {
 }
 
 .focus-within\:ring-opacity-0:focus-within {
-  --tw-ring-opacity: 0;
+  --tw-ring-opacity: disabled;
 }
 
 .focus-within\:ring-opacity-5:focus-within {
@@ -24237,7 +24237,7 @@ select {
 }
 
 .focus\:ring-opacity-0:focus {
-  --tw-ring-opacity: 0;
+  --tw-ring-opacity: disabled;
 }
 
 .focus\:ring-opacity-5:focus {
@@ -26431,7 +26431,7 @@ select {
 }
 
 .text-opacity-0 {
-  --tw-text-opacity: 0;
+  --tw-text-opacity: disabled;
 }
 
 .text-opacity-5 {
@@ -26491,7 +26491,7 @@ select {
 }
 
 .group:hover .group-hover\:text-opacity-0 {
-  --tw-text-opacity: 0;
+  --tw-text-opacity: disabled;
 }
 
 .group:hover .group-hover\:text-opacity-5 {
@@ -26551,7 +26551,7 @@ select {
 }
 
 .focus-within\:text-opacity-0:focus-within {
-  --tw-text-opacity: 0;
+  --tw-text-opacity: disabled;
 }
 
 .focus-within\:text-opacity-5:focus-within {
@@ -26611,7 +26611,7 @@ select {
 }
 
 .hover\:text-opacity-0:hover {
-  --tw-text-opacity: 0;
+  --tw-text-opacity: disabled;
 }
 
 .hover\:text-opacity-5:hover {
@@ -26671,7 +26671,7 @@ select {
 }
 
 .focus\:text-opacity-0:focus {
-  --tw-text-opacity: 0;
+  --tw-text-opacity: disabled;
 }
 
 .focus\:text-opacity-5:focus {
@@ -31908,7 +31908,7 @@ select {
 }
 
 .backdrop-opacity-0 {
-  --tw-backdrop-opacity: opacity(0);
+  --tw-backdrop-opacity: opacity(disabled);
 }
 
 .backdrop-opacity-5 {
@@ -33385,7 +33385,7 @@ select {
   }
 
   .sm\:divide-opacity-0 > :not([hidden]) ~ :not([hidden]) {
-    --tw-divide-opacity: 0;
+    --tw-divide-opacity: disabled;
   }
 
   .sm\:divide-opacity-5 > :not([hidden]) ~ :not([hidden]) {
@@ -38951,7 +38951,7 @@ select {
   }
 
   .sm\:bg-opacity-0 {
-    --tw-bg-opacity: 0;
+    --tw-bg-opacity: disabled;
   }
 
   .sm\:bg-opacity-5 {
@@ -39011,7 +39011,7 @@ select {
   }
 
   .group:hover .sm\:group-hover\:bg-opacity-0 {
-    --tw-bg-opacity: 0;
+    --tw-bg-opacity: disabled;
   }
 
   .group:hover .sm\:group-hover\:bg-opacity-5 {
@@ -39071,7 +39071,7 @@ select {
   }
 
   .sm\:focus-within\:bg-opacity-0:focus-within {
-    --tw-bg-opacity: 0;
+    --tw-bg-opacity: disabled;
   }
 
   .sm\:focus-within\:bg-opacity-5:focus-within {
@@ -39131,7 +39131,7 @@ select {
   }
 
   .sm\:hover\:bg-opacity-0:hover {
-    --tw-bg-opacity: 0;
+    --tw-bg-opacity: disabled;
   }
 
   .sm\:hover\:bg-opacity-5:hover {
@@ -39191,7 +39191,7 @@ select {
   }
 
   .sm\:focus\:bg-opacity-0:focus {
-    --tw-bg-opacity: 0;
+    --tw-bg-opacity: disabled;
   }
 
   .sm\:focus\:bg-opacity-5:focus {
@@ -41421,7 +41421,7 @@ select {
   }
 
   .sm\:border-opacity-0 {
-    --tw-border-opacity: 0;
+    --tw-border-opacity: disabled;
   }
 
   .sm\:border-opacity-5 {
@@ -41481,7 +41481,7 @@ select {
   }
 
   .group:hover .sm\:group-hover\:border-opacity-0 {
-    --tw-border-opacity: 0;
+    --tw-border-opacity: disabled;
   }
 
   .group:hover .sm\:group-hover\:border-opacity-5 {
@@ -41541,7 +41541,7 @@ select {
   }
 
   .sm\:focus-within\:border-opacity-0:focus-within {
-    --tw-border-opacity: 0;
+    --tw-border-opacity: disabled;
   }
 
   .sm\:focus-within\:border-opacity-5:focus-within {
@@ -41601,7 +41601,7 @@ select {
   }
 
   .sm\:hover\:border-opacity-0:hover {
-    --tw-border-opacity: 0;
+    --tw-border-opacity: disabled;
   }
 
   .sm\:hover\:border-opacity-5:hover {
@@ -41661,7 +41661,7 @@ select {
   }
 
   .sm\:focus\:border-opacity-0:focus {
-    --tw-border-opacity: 0;
+    --tw-border-opacity: disabled;
   }
 
   .sm\:focus\:border-opacity-5:focus {
@@ -45544,7 +45544,7 @@ select {
   }
 
   .sm\:opacity-0 {
-    opacity: 0;
+    opacity: disabled;
   }
 
   .sm\:opacity-5 {
@@ -45604,7 +45604,7 @@ select {
   }
 
   .group:hover .sm\:group-hover\:opacity-0 {
-    opacity: 0;
+    opacity: disabled;
   }
 
   .group:hover .sm\:group-hover\:opacity-5 {
@@ -45664,7 +45664,7 @@ select {
   }
 
   .sm\:focus-within\:opacity-0:focus-within {
-    opacity: 0;
+    opacity: disabled;
   }
 
   .sm\:focus-within\:opacity-5:focus-within {
@@ -45724,7 +45724,7 @@ select {
   }
 
   .sm\:hover\:opacity-0:hover {
-    opacity: 0;
+    opacity: disabled;
   }
 
   .sm\:hover\:opacity-5:hover {
@@ -45784,7 +45784,7 @@ select {
   }
 
   .sm\:focus\:opacity-0:focus {
-    opacity: 0;
+    opacity: disabled;
   }
 
   .sm\:focus\:opacity-5:focus {
@@ -49534,15 +49534,15 @@ select {
   }
 
   .sm\:placeholder-opacity-0::-moz-placeholder {
-    --tw-placeholder-opacity: 0;
+    --tw-placeholder-opacity: disabled;
   }
 
   .sm\:placeholder-opacity-0:-ms-input-placeholder {
-    --tw-placeholder-opacity: 0;
+    --tw-placeholder-opacity: disabled;
   }
 
   .sm\:placeholder-opacity-0::placeholder {
-    --tw-placeholder-opacity: 0;
+    --tw-placeholder-opacity: disabled;
   }
 
   .sm\:placeholder-opacity-5::-moz-placeholder {
@@ -49714,15 +49714,15 @@ select {
   }
 
   .sm\:focus\:placeholder-opacity-0:focus::-moz-placeholder {
-    --tw-placeholder-opacity: 0;
+    --tw-placeholder-opacity: disabled;
   }
 
   .sm\:focus\:placeholder-opacity-0:focus:-ms-input-placeholder {
-    --tw-placeholder-opacity: 0;
+    --tw-placeholder-opacity: disabled;
   }
 
   .sm\:focus\:placeholder-opacity-0:focus::placeholder {
-    --tw-placeholder-opacity: 0;
+    --tw-placeholder-opacity: disabled;
   }
 
   .sm\:focus\:placeholder-opacity-5:focus::-moz-placeholder {
@@ -55385,7 +55385,7 @@ select {
   }
 
   .sm\:ring-opacity-0 {
-    --tw-ring-opacity: 0;
+    --tw-ring-opacity: disabled;
   }
 
   .sm\:ring-opacity-5 {
@@ -55445,7 +55445,7 @@ select {
   }
 
   .sm\:focus-within\:ring-opacity-0:focus-within {
-    --tw-ring-opacity: 0;
+    --tw-ring-opacity: disabled;
   }
 
   .sm\:focus-within\:ring-opacity-5:focus-within {
@@ -55505,7 +55505,7 @@ select {
   }
 
   .sm\:focus\:ring-opacity-0:focus {
-    --tw-ring-opacity: 0;
+    --tw-ring-opacity: disabled;
   }
 
   .sm\:focus\:ring-opacity-5:focus {
@@ -57699,7 +57699,7 @@ select {
   }
 
   .sm\:text-opacity-0 {
-    --tw-text-opacity: 0;
+    --tw-text-opacity: disabled;
   }
 
   .sm\:text-opacity-5 {
@@ -57759,7 +57759,7 @@ select {
   }
 
   .group:hover .sm\:group-hover\:text-opacity-0 {
-    --tw-text-opacity: 0;
+    --tw-text-opacity: disabled;
   }
 
   .group:hover .sm\:group-hover\:text-opacity-5 {
@@ -57819,7 +57819,7 @@ select {
   }
 
   .sm\:focus-within\:text-opacity-0:focus-within {
-    --tw-text-opacity: 0;
+    --tw-text-opacity: disabled;
   }
 
   .sm\:focus-within\:text-opacity-5:focus-within {
@@ -57879,7 +57879,7 @@ select {
   }
 
   .sm\:hover\:text-opacity-0:hover {
-    --tw-text-opacity: 0;
+    --tw-text-opacity: disabled;
   }
 
   .sm\:hover\:text-opacity-5:hover {
@@ -57939,7 +57939,7 @@ select {
   }
 
   .sm\:focus\:text-opacity-0:focus {
-    --tw-text-opacity: 0;
+    --tw-text-opacity: disabled;
   }
 
   .sm\:focus\:text-opacity-5:focus {
@@ -64496,7 +64496,7 @@ select {
   }
 
   .md\:divide-opacity-0 > :not([hidden]) ~ :not([hidden]) {
-    --tw-divide-opacity: 0;
+    --tw-divide-opacity: disabled;
   }
 
   .md\:divide-opacity-5 > :not([hidden]) ~ :not([hidden]) {
@@ -70062,7 +70062,7 @@ select {
   }
 
   .md\:bg-opacity-0 {
-    --tw-bg-opacity: 0;
+    --tw-bg-opacity: disabled;
   }
 
   .md\:bg-opacity-5 {
@@ -70122,7 +70122,7 @@ select {
   }
 
   .group:hover .md\:group-hover\:bg-opacity-0 {
-    --tw-bg-opacity: 0;
+    --tw-bg-opacity: disabled;
   }
 
   .group:hover .md\:group-hover\:bg-opacity-5 {
@@ -70182,7 +70182,7 @@ select {
   }
 
   .md\:focus-within\:bg-opacity-0:focus-within {
-    --tw-bg-opacity: 0;
+    --tw-bg-opacity: disabled;
   }
 
   .md\:focus-within\:bg-opacity-5:focus-within {
@@ -70242,7 +70242,7 @@ select {
   }
 
   .md\:hover\:bg-opacity-0:hover {
-    --tw-bg-opacity: 0;
+    --tw-bg-opacity: disabled;
   }
 
   .md\:hover\:bg-opacity-5:hover {
@@ -70302,7 +70302,7 @@ select {
   }
 
   .md\:focus\:bg-opacity-0:focus {
-    --tw-bg-opacity: 0;
+    --tw-bg-opacity: disabled;
   }
 
   .md\:focus\:bg-opacity-5:focus {
@@ -72532,7 +72532,7 @@ select {
   }
 
   .md\:border-opacity-0 {
-    --tw-border-opacity: 0;
+    --tw-border-opacity: disabled;
   }
 
   .md\:border-opacity-5 {
@@ -72592,7 +72592,7 @@ select {
   }
 
   .group:hover .md\:group-hover\:border-opacity-0 {
-    --tw-border-opacity: 0;
+    --tw-border-opacity: disabled;
   }
 
   .group:hover .md\:group-hover\:border-opacity-5 {
@@ -72652,7 +72652,7 @@ select {
   }
 
   .md\:focus-within\:border-opacity-0:focus-within {
-    --tw-border-opacity: 0;
+    --tw-border-opacity: disabled;
   }
 
   .md\:focus-within\:border-opacity-5:focus-within {
@@ -72712,7 +72712,7 @@ select {
   }
 
   .md\:hover\:border-opacity-0:hover {
-    --tw-border-opacity: 0;
+    --tw-border-opacity: disabled;
   }
 
   .md\:hover\:border-opacity-5:hover {
@@ -72772,7 +72772,7 @@ select {
   }
 
   .md\:focus\:border-opacity-0:focus {
-    --tw-border-opacity: 0;
+    --tw-border-opacity: disabled;
   }
 
   .md\:focus\:border-opacity-5:focus {
@@ -76655,7 +76655,7 @@ select {
   }
 
   .md\:opacity-0 {
-    opacity: 0;
+    opacity: disabled;
   }
 
   .md\:opacity-5 {
@@ -76715,7 +76715,7 @@ select {
   }
 
   .group:hover .md\:group-hover\:opacity-0 {
-    opacity: 0;
+    opacity: disabled;
   }
 
   .group:hover .md\:group-hover\:opacity-5 {
@@ -76775,7 +76775,7 @@ select {
   }
 
   .md\:focus-within\:opacity-0:focus-within {
-    opacity: 0;
+    opacity: disabled;
   }
 
   .md\:focus-within\:opacity-5:focus-within {
@@ -76835,7 +76835,7 @@ select {
   }
 
   .md\:hover\:opacity-0:hover {
-    opacity: 0;
+    opacity: disabled;
   }
 
   .md\:hover\:opacity-5:hover {
@@ -76895,7 +76895,7 @@ select {
   }
 
   .md\:focus\:opacity-0:focus {
-    opacity: 0;
+    opacity: disabled;
   }
 
   .md\:focus\:opacity-5:focus {
@@ -80645,15 +80645,15 @@ select {
   }
 
   .md\:placeholder-opacity-0::-moz-placeholder {
-    --tw-placeholder-opacity: 0;
+    --tw-placeholder-opacity: disabled;
   }
 
   .md\:placeholder-opacity-0:-ms-input-placeholder {
-    --tw-placeholder-opacity: 0;
+    --tw-placeholder-opacity: disabled;
   }
 
   .md\:placeholder-opacity-0::placeholder {
-    --tw-placeholder-opacity: 0;
+    --tw-placeholder-opacity: disabled;
   }
 
   .md\:placeholder-opacity-5::-moz-placeholder {
@@ -80825,15 +80825,15 @@ select {
   }
 
   .md\:focus\:placeholder-opacity-0:focus::-moz-placeholder {
-    --tw-placeholder-opacity: 0;
+    --tw-placeholder-opacity: disabled;
   }
 
   .md\:focus\:placeholder-opacity-0:focus:-ms-input-placeholder {
-    --tw-placeholder-opacity: 0;
+    --tw-placeholder-opacity: disabled;
   }
 
   .md\:focus\:placeholder-opacity-0:focus::placeholder {
-    --tw-placeholder-opacity: 0;
+    --tw-placeholder-opacity: disabled;
   }
 
   .md\:focus\:placeholder-opacity-5:focus::-moz-placeholder {
@@ -86496,7 +86496,7 @@ select {
   }
 
   .md\:ring-opacity-0 {
-    --tw-ring-opacity: 0;
+    --tw-ring-opacity: disabled;
   }
 
   .md\:ring-opacity-5 {
@@ -86556,7 +86556,7 @@ select {
   }
 
   .md\:focus-within\:ring-opacity-0:focus-within {
-    --tw-ring-opacity: 0;
+    --tw-ring-opacity: disabled;
   }
 
   .md\:focus-within\:ring-opacity-5:focus-within {
@@ -86616,7 +86616,7 @@ select {
   }
 
   .md\:focus\:ring-opacity-0:focus {
-    --tw-ring-opacity: 0;
+    --tw-ring-opacity: disabled;
   }
 
   .md\:focus\:ring-opacity-5:focus {
@@ -88810,7 +88810,7 @@ select {
   }
 
   .md\:text-opacity-0 {
-    --tw-text-opacity: 0;
+    --tw-text-opacity: disabled;
   }
 
   .md\:text-opacity-5 {
@@ -88870,7 +88870,7 @@ select {
   }
 
   .group:hover .md\:group-hover\:text-opacity-0 {
-    --tw-text-opacity: 0;
+    --tw-text-opacity: disabled;
   }
 
   .group:hover .md\:group-hover\:text-opacity-5 {
@@ -88930,7 +88930,7 @@ select {
   }
 
   .md\:focus-within\:text-opacity-0:focus-within {
-    --tw-text-opacity: 0;
+    --tw-text-opacity: disabled;
   }
 
   .md\:focus-within\:text-opacity-5:focus-within {
@@ -88990,7 +88990,7 @@ select {
   }
 
   .md\:hover\:text-opacity-0:hover {
-    --tw-text-opacity: 0;
+    --tw-text-opacity: disabled;
   }
 
   .md\:hover\:text-opacity-5:hover {
@@ -89050,7 +89050,7 @@ select {
   }
 
   .md\:focus\:text-opacity-0:focus {
-    --tw-text-opacity: 0;
+    --tw-text-opacity: disabled;
   }
 
   .md\:focus\:text-opacity-5:focus {
@@ -95607,7 +95607,7 @@ select {
   }
 
   .lg\:divide-opacity-0 > :not([hidden]) ~ :not([hidden]) {
-    --tw-divide-opacity: 0;
+    --tw-divide-opacity: disabled;
   }
 
   .lg\:divide-opacity-5 > :not([hidden]) ~ :not([hidden]) {
@@ -101173,7 +101173,7 @@ select {
   }
 
   .lg\:bg-opacity-0 {
-    --tw-bg-opacity: 0;
+    --tw-bg-opacity: disabled;
   }
 
   .lg\:bg-opacity-5 {
@@ -101233,7 +101233,7 @@ select {
   }
 
   .group:hover .lg\:group-hover\:bg-opacity-0 {
-    --tw-bg-opacity: 0;
+    --tw-bg-opacity: disabled;
   }
 
   .group:hover .lg\:group-hover\:bg-opacity-5 {
@@ -101293,7 +101293,7 @@ select {
   }
 
   .lg\:focus-within\:bg-opacity-0:focus-within {
-    --tw-bg-opacity: 0;
+    --tw-bg-opacity: disabled;
   }
 
   .lg\:focus-within\:bg-opacity-5:focus-within {
@@ -101353,7 +101353,7 @@ select {
   }
 
   .lg\:hover\:bg-opacity-0:hover {
-    --tw-bg-opacity: 0;
+    --tw-bg-opacity: disabled;
   }
 
   .lg\:hover\:bg-opacity-5:hover {
@@ -101413,7 +101413,7 @@ select {
   }
 
   .lg\:focus\:bg-opacity-0:focus {
-    --tw-bg-opacity: 0;
+    --tw-bg-opacity: disabled;
   }
 
   .lg\:focus\:bg-opacity-5:focus {
@@ -103643,7 +103643,7 @@ select {
   }
 
   .lg\:border-opacity-0 {
-    --tw-border-opacity: 0;
+    --tw-border-opacity: disabled;
   }
 
   .lg\:border-opacity-5 {
@@ -103703,7 +103703,7 @@ select {
   }
 
   .group:hover .lg\:group-hover\:border-opacity-0 {
-    --tw-border-opacity: 0;
+    --tw-border-opacity: disabled;
   }
 
   .group:hover .lg\:group-hover\:border-opacity-5 {
@@ -103763,7 +103763,7 @@ select {
   }
 
   .lg\:focus-within\:border-opacity-0:focus-within {
-    --tw-border-opacity: 0;
+    --tw-border-opacity: disabled;
   }
 
   .lg\:focus-within\:border-opacity-5:focus-within {
@@ -103823,7 +103823,7 @@ select {
   }
 
   .lg\:hover\:border-opacity-0:hover {
-    --tw-border-opacity: 0;
+    --tw-border-opacity: disabled;
   }
 
   .lg\:hover\:border-opacity-5:hover {
@@ -103883,7 +103883,7 @@ select {
   }
 
   .lg\:focus\:border-opacity-0:focus {
-    --tw-border-opacity: 0;
+    --tw-border-opacity: disabled;
   }
 
   .lg\:focus\:border-opacity-5:focus {
@@ -107766,7 +107766,7 @@ select {
   }
 
   .lg\:opacity-0 {
-    opacity: 0;
+    opacity: disabled;
   }
 
   .lg\:opacity-5 {
@@ -107826,7 +107826,7 @@ select {
   }
 
   .group:hover .lg\:group-hover\:opacity-0 {
-    opacity: 0;
+    opacity: disabled;
   }
 
   .group:hover .lg\:group-hover\:opacity-5 {
@@ -107886,7 +107886,7 @@ select {
   }
 
   .lg\:focus-within\:opacity-0:focus-within {
-    opacity: 0;
+    opacity: disabled;
   }
 
   .lg\:focus-within\:opacity-5:focus-within {
@@ -107946,7 +107946,7 @@ select {
   }
 
   .lg\:hover\:opacity-0:hover {
-    opacity: 0;
+    opacity: disabled;
   }
 
   .lg\:hover\:opacity-5:hover {
@@ -108006,7 +108006,7 @@ select {
   }
 
   .lg\:focus\:opacity-0:focus {
-    opacity: 0;
+    opacity: disabled;
   }
 
   .lg\:focus\:opacity-5:focus {
@@ -111756,15 +111756,15 @@ select {
   }
 
   .lg\:placeholder-opacity-0::-moz-placeholder {
-    --tw-placeholder-opacity: 0;
+    --tw-placeholder-opacity: disabled;
   }
 
   .lg\:placeholder-opacity-0:-ms-input-placeholder {
-    --tw-placeholder-opacity: 0;
+    --tw-placeholder-opacity: disabled;
   }
 
   .lg\:placeholder-opacity-0::placeholder {
-    --tw-placeholder-opacity: 0;
+    --tw-placeholder-opacity: disabled;
   }
 
   .lg\:placeholder-opacity-5::-moz-placeholder {
@@ -111936,15 +111936,15 @@ select {
   }
 
   .lg\:focus\:placeholder-opacity-0:focus::-moz-placeholder {
-    --tw-placeholder-opacity: 0;
+    --tw-placeholder-opacity: disabled;
   }
 
   .lg\:focus\:placeholder-opacity-0:focus:-ms-input-placeholder {
-    --tw-placeholder-opacity: 0;
+    --tw-placeholder-opacity: disabled;
   }
 
   .lg\:focus\:placeholder-opacity-0:focus::placeholder {
-    --tw-placeholder-opacity: 0;
+    --tw-placeholder-opacity: disabled;
   }
 
   .lg\:focus\:placeholder-opacity-5:focus::-moz-placeholder {
@@ -117607,7 +117607,7 @@ select {
   }
 
   .lg\:ring-opacity-0 {
-    --tw-ring-opacity: 0;
+    --tw-ring-opacity: disabled;
   }
 
   .lg\:ring-opacity-5 {
@@ -117667,7 +117667,7 @@ select {
   }
 
   .lg\:focus-within\:ring-opacity-0:focus-within {
-    --tw-ring-opacity: 0;
+    --tw-ring-opacity: disabled;
   }
 
   .lg\:focus-within\:ring-opacity-5:focus-within {
@@ -117727,7 +117727,7 @@ select {
   }
 
   .lg\:focus\:ring-opacity-0:focus {
-    --tw-ring-opacity: 0;
+    --tw-ring-opacity: disabled;
   }
 
   .lg\:focus\:ring-opacity-5:focus {
@@ -119921,7 +119921,7 @@ select {
   }
 
   .lg\:text-opacity-0 {
-    --tw-text-opacity: 0;
+    --tw-text-opacity: disabled;
   }
 
   .lg\:text-opacity-5 {
@@ -119981,7 +119981,7 @@ select {
   }
 
   .group:hover .lg\:group-hover\:text-opacity-0 {
-    --tw-text-opacity: 0;
+    --tw-text-opacity: disabled;
   }
 
   .group:hover .lg\:group-hover\:text-opacity-5 {
@@ -120041,7 +120041,7 @@ select {
   }
 
   .lg\:focus-within\:text-opacity-0:focus-within {
-    --tw-text-opacity: 0;
+    --tw-text-opacity: disabled;
   }
 
   .lg\:focus-within\:text-opacity-5:focus-within {
@@ -120101,7 +120101,7 @@ select {
   }
 
   .lg\:hover\:text-opacity-0:hover {
-    --tw-text-opacity: 0;
+    --tw-text-opacity: disabled;
   }
 
   .lg\:hover\:text-opacity-5:hover {
@@ -120161,7 +120161,7 @@ select {
   }
 
   .lg\:focus\:text-opacity-0:focus {
-    --tw-text-opacity: 0;
+    --tw-text-opacity: disabled;
   }
 
   .lg\:focus\:text-opacity-5:focus {
@@ -126718,7 +126718,7 @@ select {
   }
 
   .xl\:divide-opacity-0 > :not([hidden]) ~ :not([hidden]) {
-    --tw-divide-opacity: 0;
+    --tw-divide-opacity: disabled;
   }
 
   .xl\:divide-opacity-5 > :not([hidden]) ~ :not([hidden]) {
@@ -132284,7 +132284,7 @@ select {
   }
 
   .xl\:bg-opacity-0 {
-    --tw-bg-opacity: 0;
+    --tw-bg-opacity: disabled;
   }
 
   .xl\:bg-opacity-5 {
@@ -132344,7 +132344,7 @@ select {
   }
 
   .group:hover .xl\:group-hover\:bg-opacity-0 {
-    --tw-bg-opacity: 0;
+    --tw-bg-opacity: disabled;
   }
 
   .group:hover .xl\:group-hover\:bg-opacity-5 {
@@ -132404,7 +132404,7 @@ select {
   }
 
   .xl\:focus-within\:bg-opacity-0:focus-within {
-    --tw-bg-opacity: 0;
+    --tw-bg-opacity: disabled;
   }
 
   .xl\:focus-within\:bg-opacity-5:focus-within {
@@ -132464,7 +132464,7 @@ select {
   }
 
   .xl\:hover\:bg-opacity-0:hover {
-    --tw-bg-opacity: 0;
+    --tw-bg-opacity: disabled;
   }
 
   .xl\:hover\:bg-opacity-5:hover {
@@ -132524,7 +132524,7 @@ select {
   }
 
   .xl\:focus\:bg-opacity-0:focus {
-    --tw-bg-opacity: 0;
+    --tw-bg-opacity: disabled;
   }
 
   .xl\:focus\:bg-opacity-5:focus {
@@ -134754,7 +134754,7 @@ select {
   }
 
   .xl\:border-opacity-0 {
-    --tw-border-opacity: 0;
+    --tw-border-opacity: disabled;
   }
 
   .xl\:border-opacity-5 {
@@ -134814,7 +134814,7 @@ select {
   }
 
   .group:hover .xl\:group-hover\:border-opacity-0 {
-    --tw-border-opacity: 0;
+    --tw-border-opacity: disabled;
   }
 
   .group:hover .xl\:group-hover\:border-opacity-5 {
@@ -134874,7 +134874,7 @@ select {
   }
 
   .xl\:focus-within\:border-opacity-0:focus-within {
-    --tw-border-opacity: 0;
+    --tw-border-opacity: disabled;
   }
 
   .xl\:focus-within\:border-opacity-5:focus-within {
@@ -134934,7 +134934,7 @@ select {
   }
 
   .xl\:hover\:border-opacity-0:hover {
-    --tw-border-opacity: 0;
+    --tw-border-opacity: disabled;
   }
 
   .xl\:hover\:border-opacity-5:hover {
@@ -134994,7 +134994,7 @@ select {
   }
 
   .xl\:focus\:border-opacity-0:focus {
-    --tw-border-opacity: 0;
+    --tw-border-opacity: disabled;
   }
 
   .xl\:focus\:border-opacity-5:focus {
@@ -138877,7 +138877,7 @@ select {
   }
 
   .xl\:opacity-0 {
-    opacity: 0;
+    opacity: disabled;
   }
 
   .xl\:opacity-5 {
@@ -138937,7 +138937,7 @@ select {
   }
 
   .group:hover .xl\:group-hover\:opacity-0 {
-    opacity: 0;
+    opacity: disabled;
   }
 
   .group:hover .xl\:group-hover\:opacity-5 {
@@ -138997,7 +138997,7 @@ select {
   }
 
   .xl\:focus-within\:opacity-0:focus-within {
-    opacity: 0;
+    opacity: disabled;
   }
 
   .xl\:focus-within\:opacity-5:focus-within {
@@ -139057,7 +139057,7 @@ select {
   }
 
   .xl\:hover\:opacity-0:hover {
-    opacity: 0;
+    opacity: disabled;
   }
 
   .xl\:hover\:opacity-5:hover {
@@ -139117,7 +139117,7 @@ select {
   }
 
   .xl\:focus\:opacity-0:focus {
-    opacity: 0;
+    opacity: disabled;
   }
 
   .xl\:focus\:opacity-5:focus {
@@ -142867,15 +142867,15 @@ select {
   }
 
   .xl\:placeholder-opacity-0::-moz-placeholder {
-    --tw-placeholder-opacity: 0;
+    --tw-placeholder-opacity: disabled;
   }
 
   .xl\:placeholder-opacity-0:-ms-input-placeholder {
-    --tw-placeholder-opacity: 0;
+    --tw-placeholder-opacity: disabled;
   }
 
   .xl\:placeholder-opacity-0::placeholder {
-    --tw-placeholder-opacity: 0;
+    --tw-placeholder-opacity: disabled;
   }
 
   .xl\:placeholder-opacity-5::-moz-placeholder {
@@ -143047,15 +143047,15 @@ select {
   }
 
   .xl\:focus\:placeholder-opacity-0:focus::-moz-placeholder {
-    --tw-placeholder-opacity: 0;
+    --tw-placeholder-opacity: disabled;
   }
 
   .xl\:focus\:placeholder-opacity-0:focus:-ms-input-placeholder {
-    --tw-placeholder-opacity: 0;
+    --tw-placeholder-opacity: disabled;
   }
 
   .xl\:focus\:placeholder-opacity-0:focus::placeholder {
-    --tw-placeholder-opacity: 0;
+    --tw-placeholder-opacity: disabled;
   }
 
   .xl\:focus\:placeholder-opacity-5:focus::-moz-placeholder {
@@ -148718,7 +148718,7 @@ select {
   }
 
   .xl\:ring-opacity-0 {
-    --tw-ring-opacity: 0;
+    --tw-ring-opacity: disabled;
   }
 
   .xl\:ring-opacity-5 {
@@ -148778,7 +148778,7 @@ select {
   }
 
   .xl\:focus-within\:ring-opacity-0:focus-within {
-    --tw-ring-opacity: 0;
+    --tw-ring-opacity: disabled;
   }
 
   .xl\:focus-within\:ring-opacity-5:focus-within {
@@ -148838,7 +148838,7 @@ select {
   }
 
   .xl\:focus\:ring-opacity-0:focus {
-    --tw-ring-opacity: 0;
+    --tw-ring-opacity: disabled;
   }
 
   .xl\:focus\:ring-opacity-5:focus {
@@ -151032,7 +151032,7 @@ select {
   }
 
   .xl\:text-opacity-0 {
-    --tw-text-opacity: 0;
+    --tw-text-opacity: disabled;
   }
 
   .xl\:text-opacity-5 {
@@ -151092,7 +151092,7 @@ select {
   }
 
   .group:hover .xl\:group-hover\:text-opacity-0 {
-    --tw-text-opacity: 0;
+    --tw-text-opacity: disabled;
   }
 
   .group:hover .xl\:group-hover\:text-opacity-5 {
@@ -151152,7 +151152,7 @@ select {
   }
 
   .xl\:focus-within\:text-opacity-0:focus-within {
-    --tw-text-opacity: 0;
+    --tw-text-opacity: disabled;
   }
 
   .xl\:focus-within\:text-opacity-5:focus-within {
@@ -151212,7 +151212,7 @@ select {
   }
 
   .xl\:hover\:text-opacity-0:hover {
-    --tw-text-opacity: 0;
+    --tw-text-opacity: disabled;
   }
 
   .xl\:hover\:text-opacity-5:hover {
@@ -151272,7 +151272,7 @@ select {
   }
 
   .xl\:focus\:text-opacity-0:focus {
-    --tw-text-opacity: 0;
+    --tw-text-opacity: disabled;
   }
 
   .xl\:focus\:text-opacity-5:focus {
@@ -157829,7 +157829,7 @@ select {
   }
 
   .\32xl\:divide-opacity-0 > :not([hidden]) ~ :not([hidden]) {
-    --tw-divide-opacity: 0;
+    --tw-divide-opacity: disabled;
   }
 
   .\32xl\:divide-opacity-5 > :not([hidden]) ~ :not([hidden]) {
@@ -163395,7 +163395,7 @@ select {
   }
 
   .\32xl\:bg-opacity-0 {
-    --tw-bg-opacity: 0;
+    --tw-bg-opacity: disabled;
   }
 
   .\32xl\:bg-opacity-5 {
@@ -163455,7 +163455,7 @@ select {
   }
 
   .group:hover .\32xl\:group-hover\:bg-opacity-0 {
-    --tw-bg-opacity: 0;
+    --tw-bg-opacity: disabled;
   }
 
   .group:hover .\32xl\:group-hover\:bg-opacity-5 {
@@ -163515,7 +163515,7 @@ select {
   }
 
   .\32xl\:focus-within\:bg-opacity-0:focus-within {
-    --tw-bg-opacity: 0;
+    --tw-bg-opacity: disabled;
   }
 
   .\32xl\:focus-within\:bg-opacity-5:focus-within {
@@ -163575,7 +163575,7 @@ select {
   }
 
   .\32xl\:hover\:bg-opacity-0:hover {
-    --tw-bg-opacity: 0;
+    --tw-bg-opacity: disabled;
   }
 
   .\32xl\:hover\:bg-opacity-5:hover {
@@ -163635,7 +163635,7 @@ select {
   }
 
   .\32xl\:focus\:bg-opacity-0:focus {
-    --tw-bg-opacity: 0;
+    --tw-bg-opacity: disabled;
   }
 
   .\32xl\:focus\:bg-opacity-5:focus {
@@ -165865,7 +165865,7 @@ select {
   }
 
   .\32xl\:border-opacity-0 {
-    --tw-border-opacity: 0;
+    --tw-border-opacity: disabled;
   }
 
   .\32xl\:border-opacity-5 {
@@ -165925,7 +165925,7 @@ select {
   }
 
   .group:hover .\32xl\:group-hover\:border-opacity-0 {
-    --tw-border-opacity: 0;
+    --tw-border-opacity: disabled;
   }
 
   .group:hover .\32xl\:group-hover\:border-opacity-5 {
@@ -165985,7 +165985,7 @@ select {
   }
 
   .\32xl\:focus-within\:border-opacity-0:focus-within {
-    --tw-border-opacity: 0;
+    --tw-border-opacity: disabled;
   }
 
   .\32xl\:focus-within\:border-opacity-5:focus-within {
@@ -166045,7 +166045,7 @@ select {
   }
 
   .\32xl\:hover\:border-opacity-0:hover {
-    --tw-border-opacity: 0;
+    --tw-border-opacity: disabled;
   }
 
   .\32xl\:hover\:border-opacity-5:hover {
@@ -166105,7 +166105,7 @@ select {
   }
 
   .\32xl\:focus\:border-opacity-0:focus {
-    --tw-border-opacity: 0;
+    --tw-border-opacity: disabled;
   }
 
   .\32xl\:focus\:border-opacity-5:focus {
@@ -169988,7 +169988,7 @@ select {
   }
 
   .\32xl\:opacity-0 {
-    opacity: 0;
+    opacity: disabled;
   }
 
   .\32xl\:opacity-5 {
@@ -170048,7 +170048,7 @@ select {
   }
 
   .group:hover .\32xl\:group-hover\:opacity-0 {
-    opacity: 0;
+    opacity: disabled;
   }
 
   .group:hover .\32xl\:group-hover\:opacity-5 {
@@ -170108,7 +170108,7 @@ select {
   }
 
   .\32xl\:focus-within\:opacity-0:focus-within {
-    opacity: 0;
+    opacity: disabled;
   }
 
   .\32xl\:focus-within\:opacity-5:focus-within {
@@ -170168,7 +170168,7 @@ select {
   }
 
   .\32xl\:hover\:opacity-0:hover {
-    opacity: 0;
+    opacity: disabled;
   }
 
   .\32xl\:hover\:opacity-5:hover {
@@ -170228,7 +170228,7 @@ select {
   }
 
   .\32xl\:focus\:opacity-0:focus {
-    opacity: 0;
+    opacity: disabled;
   }
 
   .\32xl\:focus\:opacity-5:focus {
@@ -173978,15 +173978,15 @@ select {
   }
 
   .\32xl\:placeholder-opacity-0::-moz-placeholder {
-    --tw-placeholder-opacity: 0;
+    --tw-placeholder-opacity: disabled;
   }
 
   .\32xl\:placeholder-opacity-0:-ms-input-placeholder {
-    --tw-placeholder-opacity: 0;
+    --tw-placeholder-opacity: disabled;
   }
 
   .\32xl\:placeholder-opacity-0::placeholder {
-    --tw-placeholder-opacity: 0;
+    --tw-placeholder-opacity: disabled;
   }
 
   .\32xl\:placeholder-opacity-5::-moz-placeholder {
@@ -174158,15 +174158,15 @@ select {
   }
 
   .\32xl\:focus\:placeholder-opacity-0:focus::-moz-placeholder {
-    --tw-placeholder-opacity: 0;
+    --tw-placeholder-opacity: disabled;
   }
 
   .\32xl\:focus\:placeholder-opacity-0:focus:-ms-input-placeholder {
-    --tw-placeholder-opacity: 0;
+    --tw-placeholder-opacity: disabled;
   }
 
   .\32xl\:focus\:placeholder-opacity-0:focus::placeholder {
-    --tw-placeholder-opacity: 0;
+    --tw-placeholder-opacity: disabled;
   }
 
   .\32xl\:focus\:placeholder-opacity-5:focus::-moz-placeholder {
@@ -179829,7 +179829,7 @@ select {
   }
 
   .\32xl\:ring-opacity-0 {
-    --tw-ring-opacity: 0;
+    --tw-ring-opacity: disabled;
   }
 
   .\32xl\:ring-opacity-5 {
@@ -179889,7 +179889,7 @@ select {
   }
 
   .\32xl\:focus-within\:ring-opacity-0:focus-within {
-    --tw-ring-opacity: 0;
+    --tw-ring-opacity: disabled;
   }
 
   .\32xl\:focus-within\:ring-opacity-5:focus-within {
@@ -179949,7 +179949,7 @@ select {
   }
 
   .\32xl\:focus\:ring-opacity-0:focus {
-    --tw-ring-opacity: 0;
+    --tw-ring-opacity: disabled;
   }
 
   .\32xl\:focus\:ring-opacity-5:focus {
@@ -182143,7 +182143,7 @@ select {
   }
 
   .\32xl\:text-opacity-0 {
-    --tw-text-opacity: 0;
+    --tw-text-opacity: disabled;
   }
 
   .\32xl\:text-opacity-5 {
@@ -182203,7 +182203,7 @@ select {
   }
 
   .group:hover .\32xl\:group-hover\:text-opacity-0 {
-    --tw-text-opacity: 0;
+    --tw-text-opacity: disabled;
   }
 
   .group:hover .\32xl\:group-hover\:text-opacity-5 {
@@ -182263,7 +182263,7 @@ select {
   }
 
   .\32xl\:focus-within\:text-opacity-0:focus-within {
-    --tw-text-opacity: 0;
+    --tw-text-opacity: disabled;
   }
 
   .\32xl\:focus-within\:text-opacity-5:focus-within {
@@ -182323,7 +182323,7 @@ select {
   }
 
   .\32xl\:hover\:text-opacity-0:hover {
-    --tw-text-opacity: 0;
+    --tw-text-opacity: disabled;
   }
 
   .\32xl\:hover\:text-opacity-5:hover {
@@ -182383,7 +182383,7 @@ select {
   }
 
   .\32xl\:focus\:text-opacity-0:focus {
-    --tw-text-opacity: 0;
+    --tw-text-opacity: disabled;
   }
 
   .\32xl\:focus\:text-opacity-5:focus {
