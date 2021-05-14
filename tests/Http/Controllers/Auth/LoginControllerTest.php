@@ -2,9 +2,9 @@
 
 namespace Tests\Http\Controllers\Auth;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class LoginControllerTest extends TestCase
 {
@@ -29,7 +29,7 @@ class LoginControllerTest extends TestCase
     /** @test */
     public function login_authenticates_and_redirects_user()
     {
-        $user = \App\Models\User::factory()->create();
+        $user = User::factory()->create();
 
         $this->post(route('login'), [
             'email' => $user->email,

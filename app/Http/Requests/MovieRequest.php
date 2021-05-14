@@ -13,7 +13,7 @@ class MovieRequest extends FormRequest
      */
     public function authorize()
     {
-        return auth()->user()->is_admin;
+        return auth()->check() && auth()->user()->is_admin;
     }
 
     /**

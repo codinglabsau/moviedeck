@@ -9,7 +9,7 @@
                 <div class="flex flex-col w-3/4 md:items-start md:text-left mr-10 mb-16 md:mb-0 items-center text-center bg-white p-12">
                     <h1 class="font-medium text-gray-500 text-4xl mb-6">Update your review of
                         <span class="text-blue-500">
-                            <a href="{{ route('movies.show', $review->movie_id) }}" target="_blank">{{ $review->movie->title }}</a>
+                            <a href="{{ route('movies.show', $movie) }}" target="_blank">{{ $movie->title }}</a>
                         </span>
                     </h1>
                     @if ($errors->any())
@@ -20,11 +20,11 @@
                         </div>
                     @endif
                     <div class="flex w-full justify-between">
-                        <form method="POST" action="{{ route('reviews.update', $review) }}" class="mx-auto w-full">
+                        <form method="POST" action="{{ route('reviews.update', ['movie' => $movie, 'review' => $review]) }}" class="mx-auto w-full">
                             @csrf
                             @method('PUT')
                             <input type="hidden" name="user_id" value="{{ $review->user_id }}">
-                            <input type="hidden" name="movie_id" value="{{ $review->movie_id }}">
+                            <input type="hidden" name="movie_id" value="{{ $movie->id }}">
                             <div class="flex flex-row">
                                 <div class="flex flex-col pb-6">
                                     <label for="title" class="text-md font-medium py-2">Review Title:</label>
@@ -50,7 +50,7 @@
                                     <textarea name="content" cols="60" rows="10" class="outline-none border border-4 border-gray-200 text-gray-700 rounded rounded-md p-4 text-md font-light">{{  $review->content }}</textarea>
                                 <div class="flex flex-row mt-6 align-middle items-center">
                                     <button type="submit" class="flex w-max px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">Update</button>
-                                    <a class="text-gray-400 hover:text-gray-600 px-4" href="{{ route('reviews.show', $review) }}">Cancel</a>
+                                    <a class="text-gray-400 hover:text-gray-600 px-4" href="{{ route('reviews.show', ['movie' => $movie, 'review' => $review]) }}">Cancel</a>
                                 </div>
                             </div>
                         </form>
@@ -58,8 +58,8 @@
                 </div>
                 <div class="w-1/4 flex flex-col items-end mb-16 md:mb-0">
                     <div class="flex-col pb-6">
-                        <a href="{{ route('movies.show', $review->movie_id) }}" target="_blank">
-                            <img class="flex w-80 border rounded-sm mb-4 align-middle justify-end" src="{{ $review->movie->poster }}" alt="{{ $review->movie->title }}">
+                        <a href="{{ route('movies.show', $movie) }}" target="_blank">
+                            <img class="flex w-80 border rounded-sm mb-4 align-middle justify-end" src="{{ $movie->poster }}" alt="{{ $movie->title }}">
                         </a>
                     </div>
                     <div class="flex justify-center">
@@ -68,7 +68,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
-                            <a href="{{ $review->movie->trailer }}" target="_blank"><span class="mx-2 whitespace-nowrap text-sm">Play Trailer</span></a>
+                            <a href="{{ $movie->trailer }}" target="_blank"><span class="mx-2 whitespace-nowrap text-sm">Play Trailer</span></a>
                         </button>
                         <button class="flex items-center ml-5 px-2 py-2 font-medium tracking-wide capitalize rounded-md bg-gray-800 hover:bg-gray-600">
                             <svg class="w-5 h-5 mx-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#f8f8f8">

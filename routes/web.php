@@ -1,5 +1,6 @@
 <?php
 
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -20,6 +21,7 @@ use App\Http\Controllers\ReviewController;
 /** Auth */
 Auth::routes();
 
+<<<<<<<<< Temporary merge branch 1
 /** Home */
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -28,6 +30,8 @@ Route::get('/celebs', [CelebController::class, 'index'])->name('celebs.index');
 Route::get('/movies', [MovieController::class, 'index'])->name('movies.index');
 Route::get('/reviews', [ReviewController::class, 'index'])->name('reviews.index');
 
+=========
+>>>>>>>>> Temporary merge branch 2
 /** Middleware Admin */
 Route::group(['middleware'=>'admin'], function()
 {
@@ -52,14 +56,9 @@ Route::group(['middleware'=>'admin'], function()
 /** Middleware Auth */
 Route::group(['middleware'=> 'auth'], function()
 {
-    /** Reviews */
-    Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
-    Route::get('/reviews/{review}/edit', [ReviewController::class, 'edit'])->name('reviews.edit');
-    Route::get('/reviews/create/{movie}', [ReviewController::class, 'create'])->name('reviews.create');
-    Route::put('/reviews/{review}', [ReviewController::class, 'update'])->name('reviews.update');
-    Route::delete('/reviews/{review}', [ReviewController::class, 'destroy'])->name('reviews.delete');
+    Route::resource('movies/{movie}/reviews', ReviewController::class)->except(['index', 'show']);
 });
 
 Route::get('/celebs/{celeb}', [CelebController::class, 'show'])->name('celebs.show');
 Route::get('/movies/{movie}', [MovieController::class, 'show'])->name('movies.show');
-Route::get('/reviews/{review}', [ReviewController::class, 'show'])->name('reviews.show');
+Route::get('/movies/{movie}/reviews/{review}', [ReviewController::class, 'show'])->name('reviews.show');

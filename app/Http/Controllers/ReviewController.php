@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Movie;
 use App\Models\Review;
-use App\Http\Requests\ReviewRequest;
+use App\Http\Requests\Review\Store;
+use App\Http\Requests\Review\Update;
 
 class ReviewController extends Controller
 {
@@ -19,11 +20,12 @@ class ReviewController extends Controller
         ]);
     }
 
-    public function show(Review $review)
+    public function show(Movie $movie, Review $review)
     {
         $review->with('movie:id,title,poster,trailer')->get();
 
         return view('reviews.show', [
+            'movie' => $movie,
             'review' => $review
         ]);
     }
@@ -35,7 +37,7 @@ class ReviewController extends Controller
         ]);
     }
 
-    public function store(ReviewRequest $request)
+    public function store(Store $request, Movie $movie)
     {
         Review::create($request->validated());
 
@@ -43,32 +45,39 @@ class ReviewController extends Controller
             ->with('status', 'Success! Review has been added.');
     }
 
-    public function edit(Review $review)
+    public function edit(Movie $movie, Review $review)
     {
-        if (isset(auth()->user()->id) && auth()->user()->id != $review->user_id)
+        if (request()->user()->id === $review->user->id)
         {
-            return redirect()->route('reviews.show', $review)
-                    ->with('status', 'Oops! You do not have permission to edit this review.');
-        } else {
             return view('reviews.edit', [
+                'movie' => $movie,
                 'review' => $review
             ]);
         }
+
+        return redirect()->route('reviews.show', ['movie' => $movie, 'review' => $review])
+            ->with('status', 'Oops! You do not have permission to edit this review.');
     }
 
-    public function update(ReviewRequest $request, Review $review)
+    public function update(Update $request, Movie $movie, Review $review)
     {
         $review->update($request->validated());
 
-        return redirect()->route('reviews.show', $review)
+        return redirect()->route('reviews.show', ['movie' => $movie, 'review' => $review])
                 ->with('status', 'Success! Review has been updated.');
     }
 
-    public function destroy(Review $review)
+    public function destroy(Movie $movie, Review $review)
     {
-        $review->delete();
+        if ($review->user->id === request()->user()->id || request()->user()->is_admin)
+        {
+            $review->delete();
 
-        return redirect()->route('reviews.index')
-            ->with('status', 'Success! Review has been deleted.');
+            return redirect()->route('reviews.index')
+                ->with('status', 'Success! Review has been deleted.');
+        }
+
+        return redirect()->route('reviews.show', ['movie' => $movie, 'review' => $review])
+            ->with('status', 'Oops! You do not have permission to delete this review.');
     }
 }

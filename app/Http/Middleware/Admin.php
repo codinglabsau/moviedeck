@@ -22,6 +22,6 @@ class Admin
             return $next($request);
         }
 
-        return redirect('/');
+        return redirect('/')->with('status', 'Oops! You need administrator access to continue.');
     }
 }
