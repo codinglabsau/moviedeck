@@ -10,7 +10,7 @@
                 <div class="flex justify-between w-full">
                     <div>
                         <h4 class="z-10 mx-3 mt-2 md:text-base text-sm font-medium text-gray-100">{{$user->name}}</h4>
-                        <p class="z-10 mx-3 mb-2 md:text-sm text-xs text-gray-400 ">{{$user->email}}</p>
+                        <p class="z-10 mx-3 mb-2 md:text-sm text-xs text-gray-300 ">{{$user->email}}</p>
                     </div>
                     @if (Auth::user()==$user)
                         <a href="#" class="text-gray-400 flex items-center justify-end mr-4 hover:text-gray-500">
@@ -59,9 +59,9 @@
                 </div>
             @endif
             <div class="container w-full px-14 py-5 mx-auto">
-                <div class="flex justify-between">
-                    <span class="font-medium text-gray-800 whitespace-nowrap capitalize md:text-2xl">Watchlist</span>
-                    <div class="flex items-center px-4 py-2 font-medium tracking-wide capitalize transition-colors duration-200 transform rounded-md border-2 border-gray-300">
+                <div class="flex w-full justify-between">
+                    <span class="flex font-medium text-gray-800 whitespace-nowrap capitalize md:text-2xl">Watchlist</span>
+                    <div class="flex items-center px-4 py-2 font-medium tracking-wide capitalize transition-colors duration-200 transform rounded-md border-2 border-gray-300 hover:border-gray-500">
                         <a href="{{ route('watchlist.create', $user->id) }}"><span class="mx-2 whitespace-nowrap">Add a Movie</span></a>
                     </div>
                 </div>
@@ -74,10 +74,10 @@
                                 </a>
                                 <div class="flex justify-between">
                                     <h3>{{ $item->title }}</h3>
-                                    <form method="post" action="{{ route('watchlist.delete', ['user'=>$user->id, 'movie'=>$item->id]) }}">
+                                    <form method="post" action="{{ route('watchlist.destroy', ['user'=>$user->id, 'movie'=>$item->id]) }}">
                                         @csrf
                                         @method('delete')
-                                        <button value="{{$item->id}}" name="movie_id" class="h-8 flex text-gray-600 items-center font-medium tracking-wide capitalize transition-colors duration-200 transform hover:text-gray-500">
+                                        <button value="{{$item->id}}" name="movie_id" style="outline: none;" class="h-8 flex text-gray-500 items-center font-medium capitalize transition-colors duration-200 transform hover:text-gray-400 focus:text-gray-900">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                                             </svg>

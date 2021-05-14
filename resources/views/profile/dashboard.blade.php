@@ -10,7 +10,7 @@
                 <div class="flex justify-between w-full">
                     <div>
                         <h4 class="z-10 mx-3 mt-2 md:text-base text-sm font-medium text-gray-100">{{$user->name}}</h4>
-                        <p class="z-10 mx-3 mb-2 md:text-sm text-xs text-gray-400 ">{{$user->email}}</p>
+                        <p class="z-10 mx-3 mb-2 md:text-sm text-xs text-gray-300 ">{{$user->email}}</p>
                     </div>
                     @if (Auth::user()==$user)
                         <a href="#" class="text-gray-400 flex items-center justify-end mr-4 hover:text-gray-500">
@@ -87,10 +87,14 @@
                                         <span class="ml-3 text-gray-400">{{$review->created_at->format('M d')}}</span>
                                     </div>
                                     @if (Auth::user()==$user)
-                                        <div class="font-medium text-gray-600 mt-4">
-                                            <a href="#" class="hover:text-gray-500">Edit</a>
+                                        <div class="font-medium flex text-gray-600 mt-4">
+                                            <a href="{{ route('reviews.edit', ['movie'=>$review->movie->id, 'review'=>$review->id]) }}" class="hover:text-gray-500">Edit</a>
                                             <span class="px-2">|</span>
-                                            <a href="#" class="hover:text-gray-500">Delete</a>
+                                            <form method="post" action="{{ route('reviews.destroy', ['movie'=>$review->movie->id, 'review'=>$review->id]) }}">
+                                                @csrf
+                                                @method('delete')
+                                                <button class="font-medium text-gray-600 hover:text-gray-500">Delete</button>
+                                            </form>
                                         </div>
                                     @endif
                                 </div>

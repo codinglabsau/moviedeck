@@ -12,6 +12,11 @@
 
     <!-- Styles -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+    <style>
+        #sortbox:checked ~ #sortboxmenu {
+            opacity: 1;
+        }
+    </style>
 
     <title>@yield('title', 'MovieDeck | Best Movie Reviews')</title>
 </head>
@@ -62,24 +67,38 @@
                             <span class="mx-2 whitespace-nowrap">{{ __('Login') }}</span>
                         </button>
                     @else
-                        <div class="flex items-center ml-5 px-2 py-2 font-medium tracking-wide text-gray-600 capitalize">
-                            <span class="mx-2 whitespace-nowrap">{{ Auth::user()->name }}</span>
-                        </div>
+                        <img class="object-cover ml-5 items-center rounded-full h-12 w-12" src="{{auth()->user()->avatar}}" alt="avatar">
+                        {{--<div class="flex items-center px-2 py-2 font-medium tracking-wide text-gray-600 capitalize">
+                            <span class="mr-2 whitespace-nowrap">{{ auth()->user()->name }}</span>
+                        </div>--}}
 
-                        <button class="flex items-center ml-5 px-2 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mx-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                            </svg>
-                            <span class="mx-2 whitespace-nowrap">
-                            <a href="{{ route('logout') }}"
-                               class="no-underline hover:underline"
-                               onclick="event.preventDefault();
-                                    document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
-                                {{ csrf_field() }}
-                            </form>
-                        </span>
-                        </button>
+                        <div class="relative ml-3 flex items-center">
+                            <input type="checkbox" id="sortbox" class="hidden absolute">
+                            <label for="sortbox" class="flex items-center space-x-1 cursor-pointer">
+                                <span class="text-lg font-medium text-gray-600 whitespace-nowrap">{{ auth()->user()->name }}</span>
+                                <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </label>
+
+                            <div id="sortboxmenu" class="absolute mt-1 right-1 top-full min-w-max shadow rounded opacity-0 bg-gray-300 border border-gray-400 transition delay-75 ease-in-out z-10">
+                                <ul class="block text-right text-gray-900">
+                                    <li><a href="{{ route('profile.dashboard', auth()->user()->id) }}" class="block px-3 py-2 hover:bg-gray-200">My Profile</a></li>
+                                    <li>
+                                        <button class="flex px-3 py-2 w-full hover:bg-gray-200">
+                                            <span class="mx-2 whitespace-nowrap">
+                                                <a href="{{ route('logout') }}"
+                                                   onclick="event.preventDefault();
+                                                        document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
+                                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
+                                                    @csrf
+                                                </form>
+                                            </span>
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     @endguest
                 </div>
             </div>

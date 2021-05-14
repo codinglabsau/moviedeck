@@ -63,7 +63,7 @@ Route::group(['middleware'=> 'auth'], function()
     Route::get('/profile/{user}/watchlist', [WatchlistController::class, 'index'])->name('watchlist.index');
     Route::get('/profile/{user}/watchlist/create', [WatchlistController::class, 'create'])->name('watchlist.create');
     Route::post('/profile/{user}/watchlist/{movie}', [WatchlistController::class, 'store'])->name('watchlist.store');
-    Route::delete('/profile/{user}/watchlist/{movie}', [WatchlistController::class, 'destroy'])->name('watchlist.delete');
+    Route::delete('/profile/{user}/watchlist/{movie}', [WatchlistController::class, 'destroy'])->name('watchlist.destroy');
 });
 
 /** Celebs, Movies, Reviews | Show */
