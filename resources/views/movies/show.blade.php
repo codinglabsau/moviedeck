@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="w-full bg-fixed bg-bottom bg-cover" style="background-image: linear-gradient(rgba(248, 248, 248, 0.2), rgba(28, 28, 28, 0.9)), url('{{ $movie->banner }}')">
+    <div class="w-full bg-fixed bg-bottom bg-cover shadow-inner" style="background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(27, 28, 32, 1)), url('{{ $movie->banner }}')">
         <div class="container px-6 py-3 mx-auto">
             <section class="text-gray-600 body-font">
                 {{--     Movie Summary Section       --}}

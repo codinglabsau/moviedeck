@@ -10,7 +10,7 @@ class HomeController extends Controller
     public function index()
     {
         $movies = Movie::with(['genres'])
-            ->take(4)
+            ->take(5)
             ->get()
             ->map(function ($movie) {
                 $movie->average_rating = round($movie->reviews()->average('rating'),1);
@@ -18,7 +18,7 @@ class HomeController extends Controller
             })
             ->sortByDesc('average_rating');
 
-        $celebs= Celeb::take(4)
+        $celebs = Celeb::take(5)
             ->get();
 
         return view('home', [
