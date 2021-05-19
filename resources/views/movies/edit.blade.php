@@ -96,24 +96,17 @@
                             </div>
                         </div>
                         <div class="flex flex-col">
-
-                            @foreach($movie->celebs as $celeb)
-
-                                {{ $celeb->id . " and " . $celeb->pivot->character_name }}
-                            @endforeach
-
-
                             <template x-for="cast, index in casts" :key="index">
                                 <div class="flex flex-row">
                                     <div x-text="index + 1" class="text-gray-400 py-4"></div>
                                     <select x-model="cast.celebId" name="celebs[]"
                                             class="form-select ml-6 mr-3 h-12 w-1/3 mt-1 rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0">
                                         <option value="">Select a celebrity</option>
-                                        @foreach($celebs as $celeb)
-                                            <option value="{{ $celeb->id }}" @if(old("celebs") == $celeb->id) selected @endif>{{ $celeb->name }}</option>
+                                        @foreach($celebs as $celebOption)
+                                            <option value="{{ $celebOption->id }}" @if($movie->celebs->contains($celeb->id && $celebOption->id == $celeb->id)) selected @endif>{{ $celeb->name }}</option>
                                         @endforeach
                                     </select>
-                                    <input x-model="cast.castName" type="text" name="characters[]"
+                                    <input x-model="cast.castName" type="text" name="characters[]" value="{{ $celeb->pivot->character_name }}"
                                            class="mt-1 h-12 w-full align-middle rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                                     <button type="button" @click="removeCast(index)">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mx-4" fill="none" viewBox="0 0 24 24" stroke="#8c8c8c">
@@ -144,10 +137,7 @@
     <script>
         function casts() {
             return {
-                casts: [{
-                    celebId: '',
-                    castName: '',
-                }],
+                casts: [{{$movie->celebs}}],
                 celebId: '',
                 castName: '',
                 addNewCast() {

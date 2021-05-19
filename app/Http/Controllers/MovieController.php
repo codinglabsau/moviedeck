@@ -38,7 +38,6 @@ class MovieController extends Controller
         $movie->genres()->sync($genres);
 
         $results = array_combine($request->input('celebs'), $request->input('characters'));
-
         $casts = collect($results)
             ->map(function($result) {
                 return ['character_name' => $result];

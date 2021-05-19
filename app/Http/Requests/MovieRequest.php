@@ -63,8 +63,6 @@ class MovieRequest extends FormRequest
             ],
             'celebs.*' => [
                 'required',
-                'string',
-                'max: 30'
             ],
             'celebs' => [
                 'required',
@@ -80,5 +78,17 @@ class MovieRequest extends FormRequest
                 'array'
             ],
         ];
+    }
+
+    public function messages() {
+       return [
+           'genres.required' => 'Select one or more genres.',
+           'celebs.required' => 'Add one or more casts.',
+           'characters.required' => 'Add one or more casts.',
+           'celebs.*.required' => 'Select the appropriate celebrity.',
+           'characters.*.required' => 'Add the character name.',
+           'characters.*.string' => 'Cast name must be a string',
+           'characters.*.max' => 'Cast name must not be more than 30 characters.',
+       ];
     }
 }
