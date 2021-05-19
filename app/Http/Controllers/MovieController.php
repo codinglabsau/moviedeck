@@ -32,12 +32,18 @@ class MovieController extends Controller
 
     public function store(MovieRequest $request)
     {
-        $movie = Movie::create($request->except('genres'));
+        $movie = Movie::create($request->except('genres', 'celebs', 'characters'));
 
         $genres = $request->input('genres');
         $movie->genres()->sync($genres);
 
-        dd($request->input('characters'));
+        $results = array_combine($request->input('celebs'), $request->input('characters'));
+
+        $casts = collect($results)
+            ->map(function($result) {
+                return ['character_name' => $result];
+            });
+        $movie->celebs()->sync($casts);
 
         return redirect()->route('movies.index')
             ->with(['message' => 'Sucess! Movie has been added.']);

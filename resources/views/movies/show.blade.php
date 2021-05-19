@@ -124,7 +124,7 @@
                         <div class="flex mx-6">
                             @if (auth()->check() && auth()->user()->is_admin)
                                 <div class="items-center align-bottom py-2">
-                                    <a href="{{ route('movies.edit.cast', $movie) }}">
+                                    <a href="{{ route('movies.edit', $movie) . "#casts" }}">
                                         <button class="bg-blue-600 hover:bg-blue-500 rounded rounded-sm text-white">
                                             <span class="mx-2 whitespace-nowrap">Manage Casts</span>
                                         </button>
@@ -149,7 +149,7 @@
                         <div>
                             <p>
                                 No casts added yet.
-                                <a href="{{ route('movies.edit.cast', $movie) }}" class="text-blue-500 font-semibold text-sm">Add a Cast</a>
+                                <a href="{{ route('movies.edit', $movie) . "#casts" }}" class="text-blue-500 font-semibold text-sm">Add a Cast</a>
                             </p>
                         </div>
                     @endforelse

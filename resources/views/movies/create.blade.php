@@ -83,7 +83,7 @@
                         <div class="flex justify-between mb-6 mt-16">
                             <div>
                                 <h1 class="font-medium text-gray-500 text-2xl mb-4">Casts</h1>
-                                <span class="text-sm text-gray-400 py-4"> Select from our list of celebrities: </span>
+                                <span class="text-sm text-gray-400 py-4"> Select from our list of celebrities and add/remove casts: </span>
                             </div>
                             <div>
                                 <button type="button" @click="addNewCast()" class="flex w-max px-6 py-2 leading-5 text-gray-700 text-sm border border-gray-700 rounded-md">+Add Cast</button>
@@ -101,9 +101,9 @@
                                         @endforeach
                                     </select>
                                     <input x-model="cast.castName" type="text" name="characters[]"
-                                           class="mt-1 mx-2 align-middle w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                                           class="mt-1 h-12 w-full align-middle rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                                     <button type="button" @click="removeCast(index)">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="#8c8c8c">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mx-4" fill="none" viewBox="0 0 24 24" stroke="#8c8c8c">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                                         </svg>
                                     </button>
@@ -131,12 +131,16 @@
     <script>
         function casts() {
             return {
-                casts: [],
+                casts: [{
+                    celebId: '',
+                    castName: '',
+                }],
                 celebId: '',
                 castName: '',
                 addNewCast() {
                     this.casts.push({
-                        celebId: this.castName,
+                        celebId: '',
+                        castName: '',
                     });
                 },
                 removeCast(index) {
