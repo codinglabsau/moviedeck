@@ -22,11 +22,12 @@
                         <div class="flex justify-center mb-12">
                             <div class="flex items-center py-2 font-medium tracking-wide">
                                 <span class="text-gray-300 mx-2 whitespace-nowrap"> {{ $movies->first()->duration }} </span>
-                                <span class="whitespace-nowrap font-normal"><span class="text-gray-300 mx-4 whitespace-nowrap">|</span>
-                                @foreach($movies->first()->genres as $genre)
-                                        <span class="text-gray-300">{{ ($genre->name) }}@if (!$loop->last),@endif</span>
+                                <span class="whitespace-nowrap font-normal">
+                                    <span class="text-gray-300 mx-4 whitespace-nowrap">|</span>
+                                    @foreach($movies->first()->genres as $genre)
+                                            <span class="text-gray-300">{{ ($genre->name) }}@if (!$loop->last),@endif</span>
                                     @endforeach
-                            </span>
+                                </span>
                             </div>
                         </div>
                         <div class="flex justify-center">
@@ -50,11 +51,6 @@
         </div>
     </div>
     <div class="container mx-auto px-6 py-3 md:flex">
-        @if(session()->has('message'))
-            <div class="w-full text-green-500 bg-green-100 border border-2 border-green-400 p-6 mb-12">
-                {{ session()->get('message') }}
-            </div>
-        @endif
         <div class="text-gray-600 body-font">
             <div class="flex justify-between mb-12 pt-24">
                 <div class="flex items-center">
