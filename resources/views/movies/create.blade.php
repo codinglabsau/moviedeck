@@ -135,8 +135,6 @@
                     celebId: '',
                     castName: '',
                 }],
-                celebId: '',
-                castName: '',
                 addNewCast() {
                     this.casts.push({
                         celebId: '',

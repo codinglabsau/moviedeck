@@ -137,12 +137,7 @@
     <script>
         function casts() {
             return {
-                casts: [{
-                    celebId: '',
-                    castName: '',
-                }],
-                celebId: '',
-                castName: '',
+                casts: [],
                 addNewCast() {
                     this.casts.push({
                         celebId: '',
@@ -151,7 +146,7 @@
                 },
                 removeCast(index) {
                     this.casts.splice(index, 1);
-                },
+                }
             }
         }
     </script>
