@@ -60,10 +60,13 @@ class MovieController extends Controller
             'celebs'
         ])->get();
 
+        $movie->average_rating = round($movie->reviews()->average('rating'),1);
+
         $reviews = $movie->reviews()->paginate(3);
 
         return view('movies.show', [
             'movie' => $movie,
+            'rating' => $movie->average_rating,
             'reviews' => $reviews
         ]);
     }
