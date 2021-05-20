@@ -25,13 +25,14 @@
     <nav class="bg-white shadow">
         <div class="container px-10 py-6 mx-auto md:flex">
             <div class="flex items-center justify-between align-bottom">
-                <svg class="w-5 h-5 text-gray-700 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none"
-                     viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                          d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z"/>
-                </svg>
-                <a class="text-md font-bold uppercase text-gray-700 md:text-base hover:text-gray-600" href="{{ route('home') }}">Moviedeck</a>
-
+                <div class="flex items-center">
+                    <svg class="w-5 h-5 text-gray-700 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none"
+                         viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z"/>
+                    </svg>
+                    <a class="text-md font-bold uppercase text-gray-700 md:text-base hover:text-gray-600" href="{{ route('home') }}">Moviedeck</a>
+                </div>
                 <!-- Mobile menu button -->
                 <div class="flex md:hidden">
                     <button type="button" class="text-gray-500 hover:text-gray-600 focus:outline-none focus:text-gray-600" aria-label="toggle menu">
@@ -43,7 +44,7 @@
             </div>
 
             <!-- Mobile Menu open: "block", Menu closed: "hidden" -->
-            <div class="w-full ml-28 md:flex md:items-center md:justify-between">
+            <div class="w-full md:ml-28 md:flex md:items-center md:justify-between">
                 <div class="flex flex-col px-2 py-3 -mx-4 md:flex-row md:mx-0 md:py-0">
                     <a href="{{ route('movies.index') }}" class="px-2 py-1 text-sm font-medium text-gray-700 transition-colors duration-200 transform rounded hover:bg-gray-900 hover:text-gray-100 md:mx-2">Movies</a>
                     <a href="{{ route('celebs.index') }}" class="px-2 py-1 text-sm font-medium text-gray-700 transition-colors duration-200 transform rounded hover:bg-gray-900 hover:text-gray-100 md:mx-2">Celebs</a>
@@ -83,7 +84,7 @@
                                     <li><a href="{{ route('profile.dashboard', auth()->user()->id) }}" class="block px-3 py-2 hover:bg-gray-200">My Profile</a></li>
                                     <li>
                                         <button class="flex px-3 py-2 w-full hover:bg-gray-200">
-                                            <span class="mx-2 whitespace-nowrap">
+                                            <span class="mx-2 block whitespace-nowrap">
                                                 <a href="{{ route('logout') }}"
                                                    onclick="event.preventDefault();
                                                         document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
