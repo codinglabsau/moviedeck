@@ -77,10 +77,17 @@ class MovieController extends Controller
 
     public function update(MovieRequest $request, Movie $movie)
     {
-        $movie->update($request->except('genres'));
+        $movie->update($request->except('genres', 'celebs', 'characters'));
 
         $genres = $request->input('genres');
         $movie->genres()->sync($genres);
+
+        $results = array_combine($request->input('celebs'), $request->input('characters'));
+        $casts = collect($results)
+            ->map(function($result) {
+                return ['character_name' => $result];
+            });
+        $movie->celebs()->sync($casts);
 
         return redirect()->route('movies.show', $movie)
             ->with(['message' => 'Sucess! Movie has been updated.']);

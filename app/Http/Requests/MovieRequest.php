@@ -83,12 +83,12 @@ class MovieRequest extends FormRequest
     public function messages() {
        return [
            'genres.required' => 'Select one or more genres.',
-           'celebs.required' => 'Add one or more casts.',
-           'characters.required' => 'Add one or more casts.',
-           'celebs.*.required' => 'Select the appropriate celebrity.',
+           'celebs.required' => 'Add a starring celebrity.',
+           'characters.required' => 'Add character names for selected celebrities.',
+           'celebs.*.required' => 'Add one or more casts.',
            'characters.*.required' => 'Add the character name.',
-           'characters.*.string' => 'Cast name must be a string',
-           'characters.*.max' => 'Cast name must not be more than 30 characters.',
+           'characters.*.string' => 'Character name must be a string.',
+           'characters.*.max' => 'Character name must not exceed 30 characters.',
        ];
     }
 }
