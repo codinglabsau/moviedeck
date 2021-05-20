@@ -32,7 +32,7 @@
                                 </a>
                                 <div class="flex justify-between my-6">
                                     <h3>{{ $movie->title }}</h3>
-                                    <h3> 4.8 </h3>
+                                    <h3>{{ $movie->average_rating }}</h3>
                                 </div>
                             </div>
                             <div class="flex flex-row">

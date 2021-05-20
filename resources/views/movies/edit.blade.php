@@ -146,7 +146,7 @@
                 },
                 removeCast(index) {
                     this.casts.splice(index, 1);
-                }
+                },
             }
         }
     </script>

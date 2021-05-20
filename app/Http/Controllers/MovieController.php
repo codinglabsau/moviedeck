@@ -12,7 +12,12 @@ class MovieController extends Controller
 {
     public function index()
     {
-        $movies = Movie::orderBy('id', 'DESC')->paginate(20);
+        $movies = Movie::orderBy('id', 'DESC')
+            ->paginate(20);
+
+        foreach($movies as $movie) {
+            $movie->average_rating = round($movie->reviews()->average('rating'),1);
+        }
 
         return view('movies.index', [
             'movies' => $movies,
