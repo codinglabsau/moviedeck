@@ -56,4 +56,40 @@ class ProfileController extends Controller
             'user' => $user
         ]);
     }
+
+    public function edit(User $user)
+    {
+        return view('profile/edit', [
+            'user' => $user
+        ]);
+    }
+
+    public function update(ProfileRequest $request, User $user)
+    {
+        if(auth()->user()->id == $user->id || auth()->user()->is_admin) {
+            $user->update($request->validated());
+
+            return redirect("profile/$user->id")
+                ->with('message', 'You\'ve successfully updated your profile');
+        } else {
+            return redirect('/')
+                ->with('message', 'You don\'t have access to that page');
+        }
+    }
+
+    public function makeAdmin(User $user)
+    {
+        $user->update(['is_admin' => true]);
+
+        return redirect("profile/$user->id")
+            ->with('message', "$user->name is now an admin");
+    }
+
+    public function removeAdmin(User $user)
+    {
+        $user->update(['is_admin' => false]);
+
+        return redirect("profile/$user->id")
+            ->with('message', "$user->name has been removed as an admin");
+    }
 }

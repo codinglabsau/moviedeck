@@ -67,10 +67,7 @@
                             <span class="mx-2 whitespace-nowrap">{{ __('Login') }}</span>
                         </button>
                     @else
-                        <img class="object-cover ml-5 items-center rounded-full h-12 w-12" src="{{auth()->user()->avatar}}" alt="avatar">
-                        {{--<div class="flex items-center px-2 py-2 font-medium tracking-wide text-gray-600 capitalize">
-                            <span class="mr-2 whitespace-nowrap">{{ auth()->user()->name }}</span>
-                        </div>--}}
+                        <img class="object-cover ml-5 items-center rounded-full h-12 w-12" src="{{asset(auth()->user()->avatar)}}" alt="avatar">
 
                         <div class="relative ml-3 flex items-center">
                             <input type="checkbox" id="sortbox" class="hidden absolute">
