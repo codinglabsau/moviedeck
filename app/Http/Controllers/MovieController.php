@@ -84,7 +84,6 @@ class MovieController extends Controller
 
     public function update(MovieRequest $request, Movie $movie)
     {
-        dd($request);
         $movie->update($request->except('genres', 'celebs', 'characters'));
 
         $genres = $request->input('genres');

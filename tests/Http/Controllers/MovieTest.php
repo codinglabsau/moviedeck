@@ -156,9 +156,6 @@ class MovieTest extends TestCase
             'banner' => 'https://wallpaperaccess.com/full/1707195.jpg',
             'trailer' => 'https://www.youtube.com/watch?v=Da3STcxIUqw&list=PLuAiHxLeTqiTeCoAiB39PUYALbxKprq6e&index=10',
             'duration' => '190',
-            'genres' => [ 0 => "1" ],
-            'celebs' => [ 0 => "1" ],
-            'characters' => [ 0 => "Test 1" ],
         ]);
 
         $this->actingAs($admin)
@@ -203,9 +200,6 @@ class MovieTest extends TestCase
             'banner' => 'https://wallpaperaccess.com/full/1707195.jpg',
             'trailer' => 'https://www.youtube.com/watch?v=Da3STcxIUqw&list=PLuAiHxLeTqiTeCoAiB39PUYALbxKprq6e&index=10',
             'duration' => '190',
-            'genres' => [ 0 => "1" ],
-            'celebs' => [ 0 => "1" ],
-            'characters' => [ 0 => "Test 1" ],
         ]);
 
         $this->actingAs($user)
