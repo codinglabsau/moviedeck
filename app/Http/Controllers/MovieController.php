@@ -6,7 +6,6 @@ use App\Models\Celeb;
 use App\Models\Genre;
 use App\Models\Movie;
 use App\Http\Requests\MovieRequest;
-use App\Http\Requests\MovieCastRequest;
 
 class MovieController extends Controller
 {
@@ -50,7 +49,7 @@ class MovieController extends Controller
         $movie->celebs()->sync($casts);
 
         return redirect()->route('movies.index')
-            ->with(['message' => 'Sucess! Movie has been added.']);
+            ->with(['message' => 'Success! Movie has been added.']);
     }
 
     public function show(Movie $movie)
@@ -85,6 +84,7 @@ class MovieController extends Controller
 
     public function update(MovieRequest $request, Movie $movie)
     {
+        dd($request);
         $movie->update($request->except('genres', 'celebs', 'characters'));
 
         $genres = $request->input('genres');
@@ -98,7 +98,7 @@ class MovieController extends Controller
         $movie->celebs()->sync($casts);
 
         return redirect()->route('movies.show', $movie)
-            ->with(['message' => 'Sucess! Movie has been updated.']);
+            ->with(['message' => 'Success! Movie has been updated.']);
     }
 
     public function destroy(Movie $movie)
@@ -106,6 +106,6 @@ class MovieController extends Controller
         $movie->delete();
 
         return redirect()->route('movies.index')
-            ->with(['message' => 'Sucess! Movie has been deleted.']);
+            ->with(['message' => 'Success! Movie has been deleted.']);
     }
 }

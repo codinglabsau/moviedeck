@@ -52,32 +52,38 @@ class MovieTest extends TestCase
 
         $this->actingAs($user)
             ->get(route('movies.create'))
-            ->assertRedirect();
+            ->assertRedirect('/');
     }
 
     /** @test */
     public function an_admin_can_add_a_movie()
     {
+        $this->withoutExceptionHandling();
         $admin = User::factory()->admin()->create();
 
         $this->actingAs($admin)
              ->postJson('/movies', [
-                 'title' => 'Sample Movie',
-                 'synopsis' => 'This is a Sample Synopsis',
-                 'year' => 2021,
-                 'poster' => 'https://via.placeholder.com/600x750.png/00aa33?text=totam',
-                 'banner' => 'https://wallpapercave.com/wp/wp5223134.jpg',
-                 'trailer' => 'http://www.goyette.biz/',
+                 'title' => 'Praesent elementum facilisis leo vel!',
+                 'synopsis' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quam elementum pulvinar etiam non quam lacus suspendisse faucibus. Purus sit amet luctus venenatis lectus magna fringilla.',
+                 'year' => 2019,
+                 'poster' => 'https://townsquare.media/site/442/files/2019/08/jurassic-world-1.jpg?w=980&q=75',
+                 'banner' => 'https://wallpaperaccess.com/full/1707195.jpg',
+                 'trailer' => 'https://www.youtube.com/watch?v=Da3STcxIUqw&list=PLuAiHxLeTqiTeCoAiB39PUYALbxKprq6e&index=10',
                  'duration' => '190',
-             ])->assertOk();
+                 'genres' => [ 0 => "1" ],
+                 'celebs' => [ 0 => "1" ],
+                 'characters' => [ 0 => "Test 1" ],
+             ])
+            ->assertRedirect()
+            ->assertSessionHas('message', 'Success! Movie has been added.');
 
         $this->assertDatabaseHas('movies', [
-            'title' => 'Sample Movie',
-            'synopsis' => 'This is a Sample Synopsis',
-            'year' => 2021,
-            'poster' => 'https://via.placeholder.com/600x750.png/00aa33?text=totam',
-            'banner' => 'https://wallpapercave.com/wp/wp5223134.jpg',
-            'trailer' => 'http://www.goyette.biz/',
+            'title' => 'Praesent elementum facilisis leo vel!',
+            'synopsis' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quam elementum pulvinar etiam non quam lacus suspendisse faucibus. Purus sit amet luctus venenatis lectus magna fringilla.',
+            'year' => 2019,
+            'poster' => 'https://townsquare.media/site/442/files/2019/08/jurassic-world-1.jpg?w=980&q=75',
+            'banner' => 'https://wallpaperaccess.com/full/1707195.jpg',
+            'trailer' => 'https://www.youtube.com/watch?v=Da3STcxIUqw&list=PLuAiHxLeTqiTeCoAiB39PUYALbxKprq6e&index=10',
             'duration' => '190',
         ]);
     }
@@ -91,20 +97,26 @@ class MovieTest extends TestCase
 
         $this->actingAs($user)
             ->postJson('/movies', [
-                'title' => 'Sample Movie',
-                'synopsis' => 'This is a Sample Synopsis',
-                'year' => 2021,
-                'poster' => 'https://via.placeholder.com/600x750.png/00aa33?text=totam',
-                'trailer' => 'http://www.goyette.biz/',
+                'title' => 'Praesent elementum facilisis leo vel!',
+                'synopsis' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quam elementum pulvinar etiam non quam lacus suspendisse faucibus. Purus sit amet luctus venenatis lectus magna fringilla.',
+                'year' => 2019,
+                'poster' => 'https://townsquare.media/site/442/files/2019/08/jurassic-world-1.jpg?w=980&q=75',
+                'banner' => 'https://wallpaperaccess.com/full/1707195.jpg',
+                'trailer' => 'https://www.youtube.com/watch?v=Da3STcxIUqw&list=PLuAiHxLeTqiTeCoAiB39PUYALbxKprq6e&index=10',
                 'duration' => '190',
-            ])->assertRedirect();
+                'genres' => [ 0 => "1" ],
+                'celebs' => [ 0 => "1" ],
+                'characters' => [ 0 => "Test 1" ],
+            ])
+            ->assertRedirect('/');
 
         $this->assertDatabaseMissing('movies', [
-            'title' => 'Sample Movie',
-            'synopsis' => 'This is a Sample Synopsis',
-            'year' => 2021,
-            'poster' => 'https://via.placeholder.com/600x750.png/00aa33?text=totam',
-            'trailer' => 'http://www.goyette.biz/',
+            'title' => 'Praesent elementum facilisis leo vel!',
+            'synopsis' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quam elementum pulvinar etiam non quam lacus suspendisse faucibus. Purus sit amet luctus venenatis lectus magna fringilla.',
+            'year' => 2019,
+            'poster' => 'https://townsquare.media/site/442/files/2019/08/jurassic-world-1.jpg?w=980&q=75',
+            'banner' => 'https://wallpaperaccess.com/full/1707195.jpg',
+            'trailer' => 'https://www.youtube.com/watch?v=Da3STcxIUqw&list=PLuAiHxLeTqiTeCoAiB39PUYALbxKprq6e&index=10',
             'duration' => '190',
         ]);
     }
@@ -130,42 +142,54 @@ class MovieTest extends TestCase
 
         $this->actingAs($user)
             ->get("/movies/{$movie->id}/edit")
-            ->assertRedirect();
+            ->assertRedirect('/');
     }
 
     /** @test */
     public function an_admin_can_update_a_movie()
     {
+        $this->withoutExceptionHandling();
         $admin = User::factory()->admin()->create();
         $movie = Movie::factory()->create([
-            'title' => 'Epic Movie Title',
-            'synopsis' => 'This is the synopsis of the epic movie.',
-            'year' => 2021,
-            'poster' => 'https://via.placeholder.com/600x750.png/00aa33?text=totam',
-            'banner' => 'https://i.pinimg.com/originals/f0/3a/2b/f03a2bcaf5c64e81aa6c494ffe98be6e.jpg',
-            'trailer' => 'http://www.goyette.biz/',
-            'duration' => '160',
+            'title' => 'Praesent elementum facilisis leo vel!',
+            'synopsis' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quam elementum pulvinar etiam non quam lacus suspendisse faucibus. Purus sit amet luctus venenatis lectus magna fringilla.',
+            'year' => 2019,
+            'poster' => 'https://townsquare.media/site/442/files/2019/08/jurassic-world-1.jpg?w=980&q=75',
+            'banner' => 'https://wallpaperaccess.com/full/1707195.jpg',
+            'trailer' => 'https://www.youtube.com/watch?v=Da3STcxIUqw&list=PLuAiHxLeTqiTeCoAiB39PUYALbxKprq6e&index=10',
+            'duration' => '190',
+            'genres' => [ 0 => "1" ],
+            'celebs' => [ 0 => "1" ],
+            'characters' => [ 0 => "Test 1" ],
         ]);
 
         $this->actingAs($admin)
             ->putJson("/movies/{$movie->id}", [
-                'title' => 'Sample Updated Movie Title',
-                'synopsis' => 'This is a Sample Updated Synopsis of epic movie',
-                'year' => 2021,
-                'poster' => 'https://via.placeholder.com/600x750.png/00aa33?text=totam',
-                'banner' => 'https://i.pinimg.com/originals/f0/3a/2b/f03a2bcaf5c64e81aa6c494ffe98be6e.jpg',
-                'trailer' => 'http://www.goyette.biz/',
-                'duration' => '160',
-            ])->assertOk();
+                'title' => 'Update Praesent elementum facilisis leo vel!',
+                'synopsis' => 'Update Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quam elementum pulvinar etiam non quam lacus suspendisse faucibus. Purus sit amet luctus venenatis lectus magna fringilla.',
+                'year' => 2019,
+                'poster' => 'https://townsquare.media/site/442/files/2019/08/jurassic-world-1.jpg?w=980&q=75',
+                'banner' => 'https://wallpaperaccess.com/full/1707195.jpg',
+                'trailer' => 'https://www.youtube.com/watch?v=Da3STcxIUqw&list=PLuAiHxLeTqiTeCoAiB39PUYALbxKprq6e&index=10',
+                'duration' => '190',
+                'genres' => [ 0 => "1" ],
+                'celebs' => [ 0 => "1" ],
+                'characters' => [ 0 => "Test 1" ],
+            ])
+            ->assertRedirect()
+            ->assertSessionHas('message', 'Success! Movie has been updated.');
 
         $this->assertDatabaseHas('movies', [
-            'title' => 'Sample Updated Movie Title',
-            'synopsis' => 'This is a Sample Updated Synopsis of epic movie',
-            'year' => 2021,
-            'poster' => 'https://via.placeholder.com/600x750.png/00aa33?text=totam',
-            'banner' => 'https://i.pinimg.com/originals/f0/3a/2b/f03a2bcaf5c64e81aa6c494ffe98be6e.jpg',
-            'trailer' => 'http://www.goyette.biz/',
-            'duration' => '160',
+            'title' => 'Update Praesent elementum facilisis leo vel!',
+            'synopsis' => 'Update Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quam elementum pulvinar etiam non quam lacus suspendisse faucibus. Purus sit amet luctus venenatis lectus magna fringilla.',
+            'year' => 2019,
+            'poster' => 'https://townsquare.media/site/442/files/2019/08/jurassic-world-1.jpg?w=980&q=75',
+            'banner' => 'https://wallpaperaccess.com/full/1707195.jpg',
+            'trailer' => 'https://www.youtube.com/watch?v=Da3STcxIUqw&list=PLuAiHxLeTqiTeCoAiB39PUYALbxKprq6e&index=10',
+            'duration' => '190',
+            'genres' => [ 0 => "1" ],
+            'celebs' => [ 0 => "1" ],
+            'characters' => [ 0 => "Test 1" ],
         ]);
     }
 
@@ -177,31 +201,40 @@ class MovieTest extends TestCase
         ]);
 
         $movie = Movie::factory()->create([
-            'title' => 'Epic Movie Title',
-            'synopsis' => 'This is the synopsis of the epic movie.',
-            'year' => 2021,
-            'poster' => 'https://via.placeholder.com/600x750.png/00aa33?text=totam',
-            'trailer' => 'http://www.goyette.biz/',
-            'duration' => '160',
+            'title' => 'Praesent elementum facilisis leo vel!',
+            'synopsis' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quam elementum pulvinar etiam non quam lacus suspendisse faucibus. Purus sit amet luctus venenatis lectus magna fringilla.',
+            'year' => 2019,
+            'poster' => 'https://townsquare.media/site/442/files/2019/08/jurassic-world-1.jpg?w=980&q=75',
+            'banner' => 'https://wallpaperaccess.com/full/1707195.jpg',
+            'trailer' => 'https://www.youtube.com/watch?v=Da3STcxIUqw&list=PLuAiHxLeTqiTeCoAiB39PUYALbxKprq6e&index=10',
+            'duration' => '190',
+            'genres' => [ 0 => "1" ],
+            'celebs' => [ 0 => "1" ],
+            'characters' => [ 0 => "Test 1" ],
         ]);
 
         $this->actingAs($user)
             ->putJson("/movies/{$movie->id}", [
-                'title' => 'Sample Updated Movie Title',
-                'synopsis' => 'This is a Sample Updated Synopsis of epic movie',
-                'year' => 2021,
-                'poster' => 'https://via.placeholder.com/600x750.png/00aa33?text=totam',
-                'trailer' => 'http://www.goyette.biz/',
-                'duration' => '160',
+                'title' => 'Update Praesent elementum facilisis leo vel!',
+                'synopsis' => 'Update Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quam elementum pulvinar etiam non quam lacus suspendisse faucibus. Purus sit amet luctus venenatis lectus magna fringilla.',
+                'year' => 2019,
+                'poster' => 'https://townsquare.media/site/442/files/2019/08/jurassic-world-1.jpg?w=980&q=75',
+                'banner' => 'https://wallpaperaccess.com/full/1707195.jpg',
+                'trailer' => 'https://www.youtube.com/watch?v=Da3STcxIUqw&list=PLuAiHxLeTqiTeCoAiB39PUYALbxKprq6e&index=10',
+                'duration' => '190',
+                'genres' => [ 0 => "1" ],
+                'celebs' => [ 0 => "1" ],
+                'characters' => [ 0 => "Test 1" ],
             ])->assertRedirect();
 
         $this->assertDatabaseMissing('movies', [
-            'title' => 'Sample Updated Movie Title',
-            'synopsis' => 'This is a Sample Updated Synopsis of epic movie',
-            'year' => 2021,
-            'poster' => 'https://via.placeholder.com/600x750.png/00aa33?text=totam',
-            'trailer' => 'http://www.goyette.biz/',
-            'duration' => '160',
+            'title' => 'Update Praesent elementum facilisis leo vel!',
+            'synopsis' => 'Update Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quam elementum pulvinar etiam non quam lacus suspendisse faucibus. Purus sit amet luctus venenatis lectus magna fringilla.',
+            'year' => 2019,
+            'poster' => 'https://townsquare.media/site/442/files/2019/08/jurassic-world-1.jpg?w=980&q=75',
+            'banner' => 'https://wallpaperaccess.com/full/1707195.jpg',
+            'trailer' => 'https://www.youtube.com/watch?v=Da3STcxIUqw&list=PLuAiHxLeTqiTeCoAiB39PUYALbxKprq6e&index=10',
+            'duration' => '190',
         ]);
     }
 
@@ -213,7 +246,8 @@ class MovieTest extends TestCase
 
         $this->actingAs($admin)
             ->delete("/movies/{$movie->id}")
-                ->assertOk();
+                ->assertRedirect()
+                ->assertSessionHas('message', 'Success! Movie has been deleted.');
 
         $this->assertDatabaseMissing('movies', [
             'id' => $movie->id,
