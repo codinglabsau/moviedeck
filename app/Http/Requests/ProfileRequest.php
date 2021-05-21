@@ -31,7 +31,10 @@ class ProfileRequest extends FormRequest
                 'max:255',
                 Rule::unique('users')->ignore($this->user)
             ],
-            'avatar' => ['required'],
+            'avatar' => [
+                'required',
+                'max:255'
+            ],
             'about_me' => [
                 'max:200'
             ]
