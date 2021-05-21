@@ -49,8 +49,8 @@ Route::group(['middleware'=>'admin'], function()
     Route::delete('/movies/{movie}', [MovieController::class, 'destroy'])->name('movies.destroy');
 
     /** Profile */
-    Route::put('/profile/{user}/makeAdmin', [ProfileController::class, 'makeAdmin'])->name('profile.makeAdmin');
-    Route::put('/profile/{user}/removeAdmin', [ProfileController::class, 'removeAdmin'])->name('profile.removeAdmin');
+    Route::patch('/profile/{user}', [ProfileController::class, 'makeAdmin'])->name('profile.makeAdmin');
+    Route::patch('/profile/{user}/edit', [ProfileController::class, 'removeAdmin'])->name('profile.removeAdmin');
 });
 
 /** Middleware Auth */
@@ -68,7 +68,8 @@ Route::group(['middleware'=> 'auth'], function()
     /** Watchlist */
     Route::get('/profile/{user}/watchlist', [WatchlistController::class, 'index'])->name('watchlist.index');
     Route::get('/profile/{user}/watchlist/create', [WatchlistController::class, 'create'])->name('watchlist.create');
-    Route::post('/profile/{user}/watchlist/{movie}', [WatchlistController::class, 'store'])->name('watchlist.store');
+    Route::get('/profile/{user}/watchlist/{movie}', [WatchlistController::class, 'showMovie'])->name('watchlist.showMovie');
+    Route::post('/profile/{user}/watchlist', [WatchlistController::class, 'store'])->name('watchlist.store');
     Route::delete('/profile/{user}/watchlist/{movie}', [WatchlistController::class, 'destroy'])->name('watchlist.destroy');
 });
 

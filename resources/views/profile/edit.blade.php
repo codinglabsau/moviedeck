@@ -45,17 +45,17 @@
                         <h1 class="font-medium text-gray-400 text-2xl mb-6">{{$user->name}}</h1>
                         @if($user->is_admin)
                             <h1 class="h-8 flex text-gray-600 items-center font-medium tracking-wide transition-colors duration-200 transform rounded-md">Already an Admin</h1>
-                            <form method="post" action="{{ route('profile.removeAdmin', $user->id) }}">
+                            <form method="POST" action="{{ route('profile.removeAdmin', $user->id) }}">
                                 @csrf
-                                @method('PUT')
+                                @method('PATCH')
                                 <button name="remove_admin" class="h-8 flex text-gray-600 items-center font-medium tracking-wide transition-colors duration-200 transform rounded-md border-2 border-gray-700 hover:border-gray-500">
                                     <span class="mx-2 whitespace-nowrap">Remove as an Admin</span>
                                 </button>
                             </form>
                         @else
-                            <form method="post" action="{{ route('profile.makeAdmin', $user->id) }}">
+                            <form method="POST" action="{{ route('profile.makeAdmin', $user->id) }}">
                                 @csrf
-                                @method('PUT')
+                                @method('PATCH')
                                 <button name="make_admin" class="h-8 flex text-gray-600 items-center font-medium tracking-wide capitalize transition-colors duration-200 transform rounded-md border-2 border-gray-700 hover:border-gray-500">
                                     <span class="mx-2 whitespace-nowrap">Make Admin</span>
                                 </button>

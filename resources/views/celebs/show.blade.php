@@ -52,7 +52,8 @@
                 <div class="w-full lg:pr-24 md:pr-16 flex flex-col items-end mb-16 md:mb-0">
                     <div class="flex-col py-6">
                         <img class="w-80 rounded-md" src="{{ $celeb->photo }}" alt="celeb_photo">
-                        <h2 class="font-medium text-gray-800 text-2xl py-4 text-center">{{ $celeb->name }}</h2>
+                        <h2 class="font-medium text-gray-800 text-2xl pt-4">Name: {{ $celeb->name }}</h2>
+                        <h2 class="font-medium text-gray-800 text-2xl">Born: {{ \Carbon\Carbon::parse($celeb->date_of_birth)->format('d/m/Y')}}</h2>
                     </div>
                 </div>
             </div>

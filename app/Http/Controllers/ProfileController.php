@@ -47,33 +47,34 @@ class ProfileController extends Controller
             ->with(['movie:id,title,poster', 'user:id,name'])
             ->paginate(8);
 
-        $review_count = Review::where('user_id', $user->id)
-            ->count();
-
         return view('profile/reviews', [
             'reviews' => $reviews,
-            'review_count' => $review_count,
             'user' => $user
         ]);
     }
 
     public function edit(User $user)
     {
-        return view('profile/edit', [
-            'user' => $user
-        ]);
+        if(auth()->user()->id == $user->id || auth()->user()->is_admin) {
+            return view('profile/edit', [
+                'user' => $user
+            ]);
+        } else {
+            return redirect('/')
+                ->with('message', 'You don\'t have access to that page');
+        }
     }
 
     public function update(ProfileRequest $request, User $user)
     {
-        if(auth()->user()->id == $user->id || auth()->user()->is_admin) {
+        if(auth()->user()->id == $user->id) {
             $user->update($request->validated());
 
             return redirect("profile/$user->id")
                 ->with('message', 'You\'ve successfully updated your profile');
         } else {
             return redirect('/')
-                ->with('message', 'You don\'t have access to that page');
+                ->with('message', 'You don\'t have access to that function');
         }
     }
 

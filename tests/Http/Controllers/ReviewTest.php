@@ -330,7 +330,9 @@ class ReviewTest extends TestCase
     /** @test */
     public function any_auth_user_cannot_delete_a_review_they_did_not_create()
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create([
+            'is_admin' => false
+        ]);
         $movie = Movie::factory()->create();
         $review = Review::factory()->create([
             'user_id' => $user->id,
@@ -344,11 +346,13 @@ class ReviewTest extends TestCase
                 Saepe occaecati id aut doloremque repellat. Maiores neque deserunt dolores numquam quia ab quam.'
         ]);
 
-        $anotherUser = User::factory()->create();
+        $anotherUser = User::factory()->create([
+            'is_admin' => false
+        ]);
 
         $this->actingAs($anotherUser)
-            ->delete("/movies/{$movie->id}/reviews/{$review->id}")
-            ->assertRedirect("/movies/{$movie->id}/reviews/{$review->id}")
+            ->delete("/movies/$movie->id/reviews/$review->id")
+            ->assertRedirect("/movies/$movie->id/reviews/$review->id")
             ->assertSessionHas('status', 'Oops! You do not have permission to delete this review.');
 
         $this->assertDatabaseHas('reviews', [

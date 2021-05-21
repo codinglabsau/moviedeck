@@ -65,7 +65,7 @@
                 <div class="flex justify-between">
                     <span class="font-medium text-gray-800 whitespace-nowrap capitalize md:text-2xl">Recent Reviews</span>
                     <div class="flex items-center px-4 py-2 font-medium tracking-wide capitalize transition-colors duration-200 transform rounded-md border-2 border-gray-300">
-                        <span class="mx-2 whitespace-nowrap">{{$review_count}} Reviews</span>
+                        <span class="mx-2 whitespace-nowrap">{{$reviews->total()}} Reviews</span>
                     </div>
                 </div>
                 <div class="flex items-baseline">

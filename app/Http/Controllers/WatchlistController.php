@@ -29,42 +29,62 @@ class WatchlistController extends Controller
 
     public function create(Request $request, User $user)
     {
-        $keyword = $request->input('search');
+        if(auth()->user()->id == $user->id) {
+            $keyword = $request->input('search');
 
-        $movies = Movie::query()
-            ->select('id', 'title', 'poster')
-            ->when($keyword, function ($q) use ($keyword){
-                $q->where('title', 'LIKE', "%{$keyword}%");
-            })
-            ->orderBy('title')
-            ->paginate(10);
+            $movies = Movie::query()
+                ->select('id', 'title', 'poster')
+                ->when($keyword, function ($q) use ($keyword){
+                    $q->where('title', 'LIKE', "%{$keyword}%");
+                })
+                ->orderBy('title')
+                ->paginate(10);
 
 
-        return view('watchlist/create', [
-            'keyword' => $request->input('title'),
-            'movies' => $movies,
-            'user' => $user
-        ]);
+            return view('watchlist/create', [
+                'keyword' => $request->input('title'),
+                'movies' => $movies,
+                'user' => $user
+            ]);
+        } else {
+            return redirect('/')
+                ->with('message', 'You don\'t have access to that page');
+        }
     }
 
-    public function store(Request $request, User $user, Movie $movie)
+    public function store(Request $request, User $user)
     {
-        if ($user->movies()->where('id',$movie->id)->exists()) {
-            return redirect("profile/$user->id/watchlist")
-                ->with('message', 'Movie not added, already on your watchlist');
-        } else {
-            $user->movies()
-                 ->syncWithoutDetaching([$request->input('movie_id')]);
+        if(auth()->user()->id == $user->id) {
+            if ($user->movies()->where('id',$request->input('movie_id'))->exists()) {
+                return redirect("profile/$user->id/watchlist")
+                    ->with('message', 'Movie not added, already on your watchlist');
+            } else {
+                $user->movies()
+                    ->syncWithoutDetaching([$request->input('movie_id')]);
 
-            return redirect("profile/$user->id/watchlist")
-                ->with('message', 'Movie successfully added to your watchlist');
+                return redirect("profile/$user->id/watchlist")
+                    ->with('message', 'Movie successfully added to your watchlist');
+            }
+        } else {
+            return redirect('/')
+                ->with('message', 'You don\'t have access to that page');
         }
+    }
+
+    public function showMovie(User $user, Movie $movie)
+    {
+        return redirect("movies/$movie->id");
     }
 
     public function destroy(User $user, Movie $movie)
     {
-        $user->movies()->detach($movie->id);
+        if(auth()->user()->id == $user->id) {
+            $user->movies()->detach($movie->id);
 
-        return redirect("profile/$user->id/watchlist");
+            return redirect("profile/$user->id/watchlist");
+        } else {
+            return redirect('/')
+                ->with('message', 'You don\'t have access to that page');
+        }
     }
 }
