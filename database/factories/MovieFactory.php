@@ -106,7 +106,6 @@ class MovieFactory extends Factory
             'https://wallpaperaccess.com/full/889517.jpg',
             'https://wallpapercave.com/wp/wp3666962.jpg',
             'https://wallpapercave.com/wp/wp5539841.jpg',
-            'https://images.wallpapersden.com/image/download/joaquin-phoenix-as-joker_a2lma2uUmZqaraWkpJRnamtlrWZpaWU.jpg',
             'https://images.hdqwalls.com/wallpapers/a-quiet-place-part-2-movie-n3.jpg',
             'https://wallpapercave.com/wp/wp4817824.jpg',
             'https://wallpaperaccess.com/full/1264684.jpg',

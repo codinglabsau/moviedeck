@@ -58,7 +58,6 @@ class MovieTest extends TestCase
     /** @test */
     public function an_admin_can_add_a_movie()
     {
-        $this->withoutExceptionHandling();
         $admin = User::factory()->admin()->create();
 
         $this->actingAs($admin)
@@ -148,7 +147,6 @@ class MovieTest extends TestCase
     /** @test */
     public function an_admin_can_update_a_movie()
     {
-        $this->withoutExceptionHandling();
         $admin = User::factory()->admin()->create();
         $movie = Movie::factory()->create([
             'title' => 'Praesent elementum facilisis leo vel!',
@@ -187,9 +185,6 @@ class MovieTest extends TestCase
             'banner' => 'https://wallpaperaccess.com/full/1707195.jpg',
             'trailer' => 'https://www.youtube.com/watch?v=Da3STcxIUqw&list=PLuAiHxLeTqiTeCoAiB39PUYALbxKprq6e&index=10',
             'duration' => '190',
-            'genres' => [ 0 => "1" ],
-            'celebs' => [ 0 => "1" ],
-            'characters' => [ 0 => "Test 1" ],
         ]);
     }
 
