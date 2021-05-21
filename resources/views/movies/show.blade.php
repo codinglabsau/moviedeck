@@ -64,13 +64,13 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="flex justify-center">
-                            <button class="flex items-center px-2 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
+                        <div class="flex justify-center" x-data="{ open: false }">
+                            <button @click="open = true" class="flex items-center px-2 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
                                 <svg class="w-5 h-5 mx-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
-                                <a href="{{ $movie->trailer }}"><span class="mx-2 whitespace-nowrap">Play Trailer</span></a>
+                                <span class="mx-2 whitespace-nowrap">Play Trailer</span>
                             </button>
                             <button class="flex items-center ml-5 px-2 py-2 font-medium tracking-wide capitalize transition-colors duration-200 transform bg-transparent rounded-md hover:bg-gray-800 focus:outline-none focus:bg-blue-500">
                                 <svg class="w-5 h-5 mx-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#f8f8f8">
@@ -78,6 +78,13 @@
                                 </svg>
                                 <a href="#"><span class="text-gray-300 mx-2 whitespace-nowrap font-normal">Add to Watchlist</span></a>
                             </button>
+                            <div class="fixed top-0 left-0 flex items-center justify-center w-full h-full z-50" style="background-color: rgba(0,0,0,.5);" x-show="open">
+
+                                <!-- A basic modal dialog with title, body and one button to close -->
+                                <div class="h-auto p-4 mx-2 text-left bg-white rounded shadow-xl w-auto" @click.away="open = false">
+                                    <iframe src="{{ $movie->trailer }}" width="1280" height="720" frameborder="0" allowfullscreen></iframe>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
