@@ -79,8 +79,6 @@
                                 <a href="#"><span class="text-gray-300 mx-2 whitespace-nowrap font-normal">Add to Watchlist</span></a>
                             </button>
                             <div class="fixed top-0 left-0 flex items-center justify-center w-full h-full z-50" style="background-color: rgba(0,0,0,.5);" x-show="open">
-
-                                <!-- A basic modal dialog with title, body and one button to close -->
                                 <div class="h-auto p-4 mx-2 text-left bg-white rounded shadow-xl w-auto" @click.away="open = false">
                                     <iframe src="{{ $movie->trailer }}" width="1280" height="720" frameborder="0" allowfullscreen></iframe>
                                 </div>

@@ -88,6 +88,11 @@ class MovieFactory extends Factory
             'https://www.youtube.com/embed/GAau1QEOWns',
             'https://www.youtube.com/embed/QiCif7A2NRI',
             'https://www.youtube.com/embed/9JZ1nVH-dzg',
+            'https://www.youtube.com/embed/RDOPiR5IAaI',
+            'https://www.youtube.com/embed/mvGhDqz6oFM',
+            'https://www.youtube.com/embed/fMbV1BDlmqQ',
+            'https://www.youtube.com/embed/nW948Va-l10',
+            'https://www.youtube.com/embed/wZti8QKBWPo',
         ];
 
         return $trailers[array_rand($trailers)];
