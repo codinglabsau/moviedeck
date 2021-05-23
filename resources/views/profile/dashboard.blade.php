@@ -81,7 +81,6 @@
                             <div class="w-full max-w-xs flex justify-start text-center">
                                 <div class="flex flex-col">
                                     <img class="object-cover object-center flex h-16 md:h-32 mx-auto justify-start" src="{{$review->movie->poster}}" alt="movie_poster"/>
-                                    <div class="text-lg flex font-medium leading-none text-gray-700 ">{{$review->movie->title}}</div>
                                 </div>
                                 <div class="mt-1 flex flex-col items-start">
                                     <div class="flex">
