@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Celeb;
 use App\Models\Movie;
+use App\Models\Review;
 
 class HomeController extends Controller
 {
@@ -20,13 +21,14 @@ class HomeController extends Controller
 
         $random = $movies->random();
 
-        $celebs = Celeb::take(5)
-            ->get();
+        $celebs = Celeb::take(5)->get();
+        $reviews = Review::take(4)->get();
 
         return view('home', [
             'movies'=> $movies,
+            'random' => $random,
             'celebs' => $celebs,
-            'random' => $random
+            'reviews' => $reviews,
         ]);
     }
 }
