@@ -45,7 +45,7 @@
                                         </a>
                                     </div>
                                     <div class="items-center align-middle px-2 py-2">
-                                        <form method="POST" action="{{ route('movies.delete', $movie) }}">
+                                        <form method="POST" action="{{ route('movies.destroy', $movie) }}">
                                             @csrf
                                             @method('delete')
                                             <button class="bg-gray-300 rounded rounded-sm text-gray-500 hover:text-gray-600" type="submit">

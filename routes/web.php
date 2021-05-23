@@ -45,7 +45,7 @@ Route::group(['middleware'=>'admin'], function()
     Route::post('/movies', [MovieController::class, 'store'])->name('movies.store');
     Route::get('/movies/{movie}/edit', [MovieController::class, 'edit'])->name('movies.edit');
     Route::put('/movies/{movie}', [MovieController::class, 'update'])->name('movies.update');
-    Route::delete('/movies/{movie}', [MovieController::class, 'destroy'])->name('movies.delete');
+    Route::delete('/movies/{movie}', [MovieController::class, 'destroy'])->name('movies.destroy');
 });
 
 /** Middleware Auth */
