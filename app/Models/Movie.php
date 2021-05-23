@@ -12,8 +12,8 @@ class Movie extends Model
 
     protected $guarded = [];
 
-    public function watchlists() {
-        return $this->belongsToMany(Watchlist::class, 'movie_watchlist');
+    public function users() {
+        return $this->belongsToMany(User::class, 'movie_user')->withTimestamps();
     }
 
     public function reviews() {

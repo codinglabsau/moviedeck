@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-class CreateWatchlistsTable extends Migration
+class CreateMovieUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class CreateWatchlistsTable extends Migration
      */
     public function up()
     {
-        Schema::create('watchlists', function (Blueprint $table) {
-            $table->increments('id');
+        Schema::create('movie_user', function (Blueprint $table) {
+            $table->unsignedinteger('movie_id')->index();
             $table->unsignedinteger('user_id')->index();
             $table->timestamps();
         });
@@ -27,6 +27,6 @@ class CreateWatchlistsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('watchlists');
+        Schema::dropIfExists('movie_user');
     }
 }

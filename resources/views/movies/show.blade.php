@@ -22,11 +22,12 @@
                         <div class="flex justify-center mb-12">
                             <div class="flex items-center py-2 font-medium tracking-wide">
                                 <span class="text-gray-300 mx-2 whitespace-nowrap"> {{ $movie->duration }} </span>
-                                <span class="whitespace-nowrap font-normal"><span class="text-gray-300 mx-4 whitespace-nowrap">|</span>
-                                @foreach($movie->genres as $genre)
+                                <span class="whitespace-nowrap font-normal">
+                                    <span class="text-gray-300 mx-4 whitespace-nowrap">|</span>
+                                    @foreach($movie->genres as $genre)
                                         <span class="text-gray-300">{{ ($genre->name) }}@if (!$loop->last),@endif</span>
                                     @endforeach
-                            </span>
+                                </span>
                             </div>
                         </div>
                         <div class="flex justify-center">
@@ -37,12 +38,17 @@
                                 </svg>
                                 <a href="{{ $movie->trailer }}"><span class="mx-2 whitespace-nowrap">Play Trailer</span></a>
                             </button>
-                            <button class="flex items-center ml-5 px-2 py-2 font-medium tracking-wide capitalize transition-colors duration-200 transform bg-transparent rounded-md hover:bg-gray-800 focus:outline-none focus:bg-blue-500">
-                                <svg class="w-5 h-5 mx-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#f8f8f8">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
-                                </svg>
-                                <a href="#"><span class="text-gray-300 mx-2 whitespace-nowrap font-normal">Add to Watchlist</span></a>
-                            </button>
+                            @if(auth()->check())
+                                <form method="post" action="{{ route('watchlist.store', ['user'=>auth()->user()->id, 'movie'=>$movie->id]) }}">
+                                    @csrf
+                                    <button value="{{$movie->id}}" name="movie_id" class="flex items-center ml-5 px-2 py-2 font-medium tracking-wide capitalize transition-colors duration-200 transform bg-transparent rounded-md hover:bg-gray-800 focus:outline-none focus:bg-blue-500">
+                                        <svg class="w-5 h-5 mx-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#f8f8f8">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                                        </svg>
+                                        <span class="text-gray-300 mx-2 whitespace-nowrap font-normal">Add to Watchlist</span>
+                                    </button>
+                                </form>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -107,7 +113,9 @@
                                     </svg> {{ $review->rating }} <span class="font-normal text-sm">/ 10</span> </h1>
                                 <h2 class="font-medium pt-2 text-md"> {{ $review->title }} </h2>
                             </a>
-                            <span class="font-bold text-sm text-blue-500 mr-4"> {{ $review->user->name }} </span>
+                            <a href="{{ route('profile.dashboard', $review->user->id) }}">
+                                <span class="font-bold text-sm text-blue-500 mr-4"> {{ $review->user->name }} </span>
+                            </a>
                             <span class="font-normal text-sm"> {{ $review->created_at->diffForHumans() }} </span>
                             <p class="py-2"> {{ $review->excerpt }}
                                 @if(strlen($review->content) > 200)

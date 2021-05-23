@@ -19,6 +19,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'avatar',
+        'about_me',
+        'is_admin',
     ];
 
     /**
@@ -41,9 +44,9 @@ class User extends Authenticatable
         'is_admin' => 'boolean'
     ];
 
-    public function watchlist()
+    public function movies()
     {
-        return $this->hasOne(Watchlist::class);
+        return $this->belongsToMany(Movie::class, 'movie_user')->withTimestamps();
     }
 
     public function reviews()
