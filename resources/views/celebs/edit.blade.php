@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <section class="max-w-4xl p-6 mt-10 mx-auto bg-white rounded-md shadow-md">
+    <section class="max-w-4xl p-6 my-24 mx-auto bg-white rounded-md shadow-md">
         <h2 class="text-lg font-semibold text-gray-700 capitalize">Edit Celebrity</h2>
 
         <form method="POST" action="{{ route('celebs.update', $celeb->id) }}">
@@ -33,9 +33,11 @@
                 </div>
 
             </div>
-
-            <div class="flex justify-end mt-6">
-                <button type="submit" class="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">Update</button>
+            <div class="flex flex-col mt-10">
+                <div class="flex flex-row align-middle items-center">
+                    <button type="submit" class="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">Update</button>
+                    <a class="text-gray-400 hover:text-gray-600 px-4 py-2" href="{{ route('celebs.show', $celeb) }}">Cancel</a>
+                </div>
             </div>
         </form>
     </section>
