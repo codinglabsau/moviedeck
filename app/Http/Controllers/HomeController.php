@@ -18,12 +18,15 @@ class HomeController extends Controller
             })
             ->sortByDesc('average_rating');
 
+        $random = $movies->random();
+
         $celebs = Celeb::take(5)
             ->get();
 
         return view('home', [
             'movies'=> $movies,
-            'celebs' => $celebs
+            'celebs' => $celebs,
+            'random' => $random
         ]);
     }
 }
