@@ -10,6 +10,9 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
+    <!-- Alpine JS -->
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.2/dist/alpine.min.js" defer></script>
+
     <!-- Styles -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
@@ -65,29 +68,29 @@
                             <span class="mx-2 whitespace-nowrap">{{ __('Login') }}</span>
                         </button>
                     @else
-{{--                        <div x-data="{}" x-props="{ isOpen: false }" class="relative w-1/2 ml-3 flex cursor-pointer items-center">--}}
-{{--                            <div @click="isOpen = !isOpen" class="flex flex-row">--}}
-{{--                                <img class="object-cover ml-5 items-center rounded-full h-12 w-12" src="{{ asset(auth()->user()->avatar) }}" alt="{{ asset(auth()->user()->name) }}">--}}
-{{--                                <svg class="h-5 w-5 mt-4 ml-2 text-gray-400 hover:text-gray-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">--}}
-{{--                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />--}}
-{{--                                </svg>--}}
-{{--                            </div>--}}
-{{--                            <div x-show="isOpen" @click.away="isOpen = false" class="absolute w-56 mt-4 right-1 top-full rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">--}}
-{{--                                <div class="py-1 border-b-2 border-gray-100">--}}
-{{--                                    <span class="text-gray-700 block px-4 py-2 text-xs"> Hello, <span class="font-bold">{{ auth()->user()->name }}</span>.</span>--}}
-{{--                                </div>--}}
-{{--                                <div class="p-2">--}}
-{{--                                    <a href="{{ route('profile.dashboard', auth()->user()->id) }}" class="text-gray-600 hover:text-gray-700 px-4 py-2 text-sm">My Profile</a>--}}
-{{--                                    <button class="text-gray-600 hover:text-gray-700 block px-4 py-2 text-sm">--}}
-{{--                                <span class="block whitespace-nowrap">--}}
-{{--                                    <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>--}}
-{{--                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">--}}
-{{--                                        @csrf--}}
-{{--                                    </form>--}}
-{{--                                </span>--}}
-{{--                                    </button>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
+                        <div x-data="{ isOpen: false }" class="relative w-1/2 ml-3 flex cursor-pointer items-center">
+                            <div @click="isOpen = !isOpen" class="flex flex-row">
+                                <img class="object-cover ml-5 items-center rounded-full h-12 w-12" src="{{ asset(auth()->user()->avatar) }}" alt="{{ asset(auth()->user()->name) }}">
+                                <svg class="h-5 w-5 mt-4 ml-2 text-gray-400 hover:text-gray-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </div>
+                            <div x-show="isOpen" @click.away="isOpen = false" class="absolute w-56 mt-4 right-1 top-full rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+                                <div class="py-1 border-b-2 border-gray-100">
+                                    <span class="text-gray-700 block px-4 py-2 text-xs"> Hello, <span class="font-bold">{{ auth()->user()->name }}</span>.</span>
+                                </div>
+                                <div class="p-2">
+                                    <a href="{{ route('profile.dashboard', auth()->user()->id) }}" class="text-gray-600 hover:text-gray-700 px-4 py-2 text-sm">My Profile</a>
+                                    <button class="text-gray-600 hover:text-gray-700 block px-4 py-2 text-sm">
+                                <span class="block whitespace-nowrap">
+                                    <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
+                                        @csrf
+                                    </form>
+                                </span>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     @endguest
                 </div>
