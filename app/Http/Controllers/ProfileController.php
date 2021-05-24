@@ -24,7 +24,7 @@ class ProfileController extends Controller
 
         $watchlist = $user->movies()
                           ->select('id', 'title', 'poster')
-                          ->take(3)
+                          ->take(5)
                           ->get();
 
         return view('profile/dashboard', [

@@ -57,7 +57,7 @@
                     <svg class="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                     </svg>
-                    <span class="font-medium text-gray-700 whitespace-nowrap capitalize md:text-2xl">Featured Today</span>
+                    <span class="font-medium text-gray-700 whitespace-nowrap capitalize md:text-2xl">Featured Movies</span>
                 </div>
                 <div class="flex px-4 py-2 items-center font-medium tracking-wide capitalize transition-colors duration-200 transform rounded-md border-2 border-gray-700 hover:border-gray-500">
                     <a href="{{ route('movies.index') }}" class="mx-2 whitespace-nowrap">All Movies</a>
