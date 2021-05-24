@@ -114,7 +114,7 @@
                 </div>
             </div>
             {{-- Watchlist --}}
-            @if (Auth::user()==$user)
+            @if (auth()->user()->id === $user->id)
                 <div class="container w-full px-14 py-10 mx-auto">
                     <div class="flex justify-between">
                         <span class="font-medium text-gray-800 whitespace-nowrap capitalize md:text-2xl">Watch Next</span>
