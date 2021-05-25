@@ -83,27 +83,16 @@ class MovieFactory extends Factory
     public function randomTrailer()
     {
         $trailers = [
-            'https://www.youtube.com/watch?v=W-8_Y0_wMFc&list=PLuAiHxLeTqiTeCoAiB39PUYALbxKprq6e&index=1',
-            'https://www.youtube.com/watch?v=6yi9P7NEnMQ&list=PLuAiHxLeTqiTeCoAiB39PUYALbxKprq6e&index=6',
-            'https://www.youtube.com/watch?v=wNAhDaPaKRM&list=PLuAiHxLeTqiTeCoAiB39PUYALbxKprq6e&index=7',
-            'https://www.youtube.com/watch?v=61_hWww9pnk&list=PLuAiHxLeTqiTeCoAiB39PUYALbxKprq6e&index=8',
-            'https://www.youtube.com/watch?v=Da3STcxIUqw&list=PLuAiHxLeTqiTeCoAiB39PUYALbxKprq6e&index=9',
-            'https://www.youtube.com/watch?v=NjG5vxAe1eY&list=PLuAiHxLeTqiTeCoAiB39PUYALbxKprq6e&index=13',
-            'https://www.youtube.com/watch?v=YUj-niW2sl8&list=PLuAiHxLeTqiTeCoAiB39PUYALbxKprq6e&index=18',
-            'https://www.youtube.com/watch?v=P8aa4wtH_UE&list=PLuAiHxLeTqiTeCoAiB39PUYALbxKprq6e&index=20',
-            'https://www.youtube.com/watch?v=k7ILRVC4FGQ&list=PLuAiHxLeTqiTeCoAiB39PUYALbxKprq6e&index=22',
-            'https://www.youtube.com/watch?v=5JsZ2bAl3Jk&list=PLuAiHxLeTqiTeCoAiB39PUYALbxKprq6e&index=35',
-            'https://www.youtube.com/watch?v=fgqEyC19538&list=PLuAiHxLeTqiTeCoAiB39PUYALbxKprq6e&index=41',
-            'https://www.youtube.com/watch?v=mYmQkxiqn20&list=PLuAiHxLeTqiTeCoAiB39PUYALbxKprq6e&index=45',
-            'https://www.youtube.com/watch?v=CHT8era7GOk&list=PLuAiHxLeTqiTeCoAiB39PUYALbxKprq6e&index=54',
-            'https://www.youtube.com/watch?v=dvaycRwzsxA&list=PLuAiHxLeTqiTeCoAiB39PUYALbxKprq6e&index=64',
-            'https://www.youtube.com/watch?v=WhLTyBUpUmg&list=PLuAiHxLeTqiTeCoAiB39PUYALbxKprq6e&index=61',
-            'https://www.youtube.com/watch?v=_dikcPOJBqk&list=PLuAiHxLeTqiTeCoAiB39PUYALbxKprq6e&index=67',
-            'https://www.youtube.com/watch?v=gjs6lKhedwg&list=PLuAiHxLeTqiTeCoAiB39PUYALbxKprq6e&index=72',
-            'https://www.youtube.com/watch?v=06g6kHWNQoE&list=PLuAiHxLeTqiTeCoAiB39PUYALbxKprq6e&index=75',
-            'https://www.youtube.com/watch?v=8ibK_JRC7Xw&list=PLuAiHxLeTqiTeCoAiB39PUYALbxKprq6e&index=88',
-            'https://www.youtube.com/watch?v=RSXc5z9F7Do&list=PLuAiHxLeTqiTeCoAiB39PUYALbxKprq6e&index=96',
-            'https://www.youtube.com/watch?v=5upIB9kxdvM&list=PLuAiHxLeTqiTeCoAiB39PUYALbxKprq6e&index=106',
+            'https://www.youtube.com/embed/rrwBnlYOp4g',
+            'https://www.youtube.com/embed/V67sjW5eyJU',
+            'https://www.youtube.com/embed/GAau1QEOWns',
+            'https://www.youtube.com/embed/QiCif7A2NRI',
+            'https://www.youtube.com/embed/9JZ1nVH-dzg',
+            'https://www.youtube.com/embed/RDOPiR5IAaI',
+            'https://www.youtube.com/embed/mvGhDqz6oFM',
+            'https://www.youtube.com/embed/fMbV1BDlmqQ',
+            'https://www.youtube.com/embed/nW948Va-l10',
+            'https://www.youtube.com/embed/wZti8QKBWPo',
         ];
 
         return $trailers[array_rand($trailers)];
