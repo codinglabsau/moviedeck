@@ -68,11 +68,11 @@
                             <span class="mx-2 whitespace-nowrap">{{ __('Login') }}</span>
                         </button>
                     @else
-                        <div x-data="{ isOpen: false }" class="relative w-1/2 ml-3 flex cursor-pointer items-center">
+                        <div x-data="{ isOpen: false }" class="relative w-1/2 ml-3 flex cursor-pointer items-center group">
                             <div @click="isOpen = !isOpen" class="flex flex-row">
                                 <img class="object-cover ml-5 items-center rounded-full h-12 w-12" src="{{ asset(auth()->user()->avatar) }}" alt="{{ asset(auth()->user()->name) }}">
-                                <svg class="h-5 w-5 mt-4 ml-2 text-gray-400 hover:text-gray-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                <svg class="h-5 w-5 mt-4 ml-2 text-gray-400 group-hover:text-gray-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                                 </svg>
                             </div>
                             <div x-show="isOpen" @click.away="isOpen = false" class="absolute w-56 mt-4 right-1 top-full rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
