@@ -84,11 +84,11 @@
                                     </svg>
                                     <span class="font-semibold text-base text-gray-600 self-start">{{ $review->rating . ' ' }} </span> <span class="self-center text-sm text-gray-400"> / 10 </span>
                                 </div>
-                                <a href="{{ route('reviews.show', ['movie'=>$review->movie->id, 'review'=>$review->id]) }}" class="hover:text-gray-500 mt-2 text-lg font-medium text-left leading-none text-gray-600">
+                                <a href="{{ route('reviews.show', ['movie'=>$review->movie->id, 'review'=>$review->id]) }}" class="hover:text-gray-500 mt-2 text-base font-normal text-left leading-none text-gray-600">
                                     {{$review->title}}
                                 </a>
                                 <div class="flex mt-1 text-left leading-none justify-start">
-                                    <span class="font-medium text-blue-600">{{$review->user->name}}</span>
+                                    <span class="font-bold text-sm text-blue-600">{{$review->user->name}}</span>
                                     <span class="ml-3 text-gray-400">{{$review->created_at->format('M d')}}</span>
                                 </div>
                                 @if (Auth::user()==$user)

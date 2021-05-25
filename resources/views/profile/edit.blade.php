@@ -65,7 +65,7 @@
                 </div>
                 <div class="w-1/4 flex flex-col items-end mb-16 md:mb-0">
                     <div class="flex-col pb-6">
-                        <img class="flex w-80 border rounded-sm mb-4 align-middle justify-end" src="{{ asset($user->avatar) }}" alt="avatar">
+                        <img class="flex w-72 h-96 border rounded-sm mb-4 align-middle justify-end object-cover" src="{{ asset($user->avatar) }}" alt="avatar">
                     </div>
                 </div>
             </div>
