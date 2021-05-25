@@ -85,7 +85,7 @@ class ReviewTest extends TestCase
         $this->actingAs($anotherUser)
             ->get("/movies/{$movie->id}/reviews/{$review->id}/edit")
             ->assertRedirect("/movies/{$movie->id}/reviews/{$review->id}")
-            ->assertSessionHas('status', 'Oops! You do not have permission to edit this review.');
+            ->assertSessionHas('message', 'Oops! You do not have permission to edit this review.');
     }
 
     /** @test */
@@ -124,7 +124,7 @@ class ReviewTest extends TestCase
                 Saepe occaecati id aut doloremque repellat. Maiores neque deserunt dolores numquam quia ab quam.'
             ])
             ->assertRedirect('/reviews')
-            ->assertSessionHas('status', 'Success! Review has been added.');
+            ->assertSessionHas('message', 'Success! Review has been added.');
 
         $this->assertDatabaseHas('reviews', [
             'user_id' => $user->id,
@@ -197,7 +197,7 @@ class ReviewTest extends TestCase
                 Saepe occaecati id aut doloremque repellat. Maiores neque deserunt dolores numquam quia ab quam.'
             ])
             ->assertRedirect("/movies/{$movie->id}/reviews/{$review->id}")
-            ->assertSessionHas('status', 'Success! Review has been updated.');
+            ->assertSessionHas('message', 'Success! Review has been updated.');
 
         $this->assertDatabaseHas('reviews', [
             'id' => $review->id,
@@ -320,7 +320,7 @@ class ReviewTest extends TestCase
         $this->actingAs($user)
             ->delete("/movies/{$movie->id}/reviews/{$review->id}")
             ->assertRedirect('/reviews')
-            ->assertSessionHas('status', 'Success! Review has been deleted.');
+            ->assertSessionHas('message', 'Success! Review has been deleted.');
 
         $this->assertDatabaseMissing('reviews', [
             'id' => $review->id,
@@ -351,9 +351,9 @@ class ReviewTest extends TestCase
         ]);
 
         $this->actingAs($anotherUser)
-            ->delete("/movies/$movie->id/reviews/$review->id")
-            ->assertRedirect("/movies/$movie->id/reviews/$review->id")
-            ->assertSessionHas('status', 'Oops! You do not have permission to delete this review.');
+            ->delete("/movies/{$movie->id}/reviews/{$review->id}")
+            ->assertRedirect("/movies/{$movie->id}/reviews/{$review->id}")
+            ->assertSessionHas('message', 'Oops! You do not have permission to delete this review.');
 
         $this->assertDatabaseHas('reviews', [
             'id' => $review->id,
@@ -407,7 +407,7 @@ class ReviewTest extends TestCase
         $this->actingAs($admin)
             ->delete("/movies/{$movie->id}/reviews/{$review->id}")
             ->assertRedirect('/reviews')
-            ->assertSessionHas('status', 'Success! Review has been deleted.');
+            ->assertSessionHas('message', 'Success! Review has been deleted.');
 
         $this->assertDatabaseMissing('reviews', [
             'id' => $review->id,

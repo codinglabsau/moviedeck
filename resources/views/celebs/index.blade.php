@@ -25,7 +25,7 @@
                     @foreach($celebs as $celeb)
                         <div>
                             <a href="{{ route('celebs.show', $celeb) }}">
-                                <img class="object-cover w-60 h-full" src="{{ $celeb->photo }}" alt="{{ $celeb->photo }}">
+                                <img class="object-cover w-60 h-96" src="{{ $celeb->photo }}" alt="{{ $celeb->photo }}">
                                 <h3>{{ $celeb->name }}</h3>
                             </a>
                         </div>
