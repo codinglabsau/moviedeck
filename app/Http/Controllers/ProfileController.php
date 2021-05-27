@@ -13,38 +13,33 @@ class ProfileController extends Controller
 {
     public function dashboard(User $user)
     {
-        $reviews = Review::select('id', 'rating', 'title', 'created_at', 'movie_id', 'user_id')
-            ->where('user_id', $user->id)
-            ->with(['movie:id,title,poster', 'user:id,name'])
+        $user->loadCount('reviews', 'movies as watchlist_count');
+
+        $reviews = $user->reviews()
+            ->select('id', 'user_id','movie_id', 'title', 'rating', 'created_at')
+            ->with(['movie:id,title,poster'])
             ->latest()
             ->take(4)
             ->get();
-
-        $review_count = Review::where('user_id', $user->id)
-            ->count();
 
         $watchlist = $user->movies()
                           ->select('id', 'title', 'poster')
                           ->take(3)
                           ->get();
 
-        $watchlist_count = MovieUser::where('user_id', $user->id)
-            ->count();
-
         return view('profile/dashboard', [
-            'user' => $user,
             'reviews' => $reviews,
-            'review_count' => $review_count,
             'watchlist' => $watchlist,
-            'watchlist_count' => $watchlist_count
+            'user' => $user
         ]);
     }
 
     public function reviews(User $user)
     {
-        $reviews = Review::select('id', 'rating', 'title', 'created_at', 'movie_id', 'user_id')
-            ->where('user_id', $user->id)
-            ->with(['movie:id,title,poster', 'user:id,name'])
+        $reviews = $user->reviews()
+            ->select('id', 'user_id','movie_id', 'title', 'rating', 'created_at')
+            ->with(['movie:id,title,poster'])
+            ->latest()
             ->paginate(8);
 
         return view('profile/reviews', [
@@ -55,7 +50,7 @@ class ProfileController extends Controller
 
     public function edit(User $user)
     {
-        if(auth()->user()->id == $user->id || auth()->user()->is_admin) {
+        if(auth()->user()->id === $user->id || auth()->user()->is_admin) {
             return view('profile/edit', [
                 'user' => $user
             ]);
@@ -67,15 +62,15 @@ class ProfileController extends Controller
 
     public function update(ProfileRequest $request, User $user)
     {
-        if(auth()->user()->id == $user->id) {
-            $user->update($request->validated());
-
-            return redirect("profile/$user->id")
-                ->with('message', 'You\'ve successfully updated your profile');
-        } else {
+        if(auth()->user()->id !== $user->id) {
             return redirect('/')
                 ->with('message', 'You don\'t have access to that function');
         }
+
+        $user->update($request->validated());
+
+        return redirect("profile/$user->id")
+            ->with('message', 'You\'ve successfully updated your profile');
     }
 
     public function makeAdmin(User $user)

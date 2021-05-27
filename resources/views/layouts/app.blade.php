@@ -73,7 +73,7 @@
                         <div class="relative ml-3 flex items-center">
                             <input type="checkbox" id="sortbox" class="hidden absolute">
                             <label for="sortbox" class="flex items-center space-x-1 cursor-pointer">
-                                <span class="text-lg font-medium text-gray-600 whitespace-nowrap">{{ auth()->user()->name }}</span>
+                                <span class="text-lg font-medium text-gray-600 whitespace-nowrap">{{ auth()->user()->username }}</span>
                                 <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                                 </svg>

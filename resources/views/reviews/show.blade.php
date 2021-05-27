@@ -18,7 +18,7 @@
                         </span>
                     </h1>
                     <a href="{{ route('profile.dashboard', $review->user->id) }}">
-                        <span class="font-bold text-sm text-blue-500 mt-2"> {{ $review->user->name }} </span>
+                        <span class="font-bold text-sm text-blue-500 mt-2"> {{ $review->user->username }} </span>
                     </a>
                     <span class="font-normal text-sm"> {{ $review->created_at->diffForHumans() }} </span>
                     <div class="flex w-full justify-between my-10">
