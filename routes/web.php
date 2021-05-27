@@ -59,7 +59,7 @@ Route::group(['middleware'=> 'auth'], function()
     /** Reviews */
     Route::resource('movies/{movie}/reviews', ReviewController::class)->except(['index', 'show']);
 
-    /** User Profile */
+    /** Profile */
     Route::get('/profile/{user}', [ProfileController::class, 'dashboard'])->name('profile.dashboard');
     Route::get('/profile/{user}/reviews', [ProfileController::class, 'reviews'])->name('profile.reviews');
     Route::get('/profile/{user}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
