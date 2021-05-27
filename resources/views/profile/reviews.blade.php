@@ -9,10 +9,10 @@
             <div class="flex flex-col items-start justify-end bg-cover bg-center w-32 h-32 md:w-64 md:h-64" style="background-image: url({{asset($user->avatar)}})">
                 <div class="flex justify-between w-full">
                     <div>
-                        <h4 class="mx-3 mt-2 md:text-base text-sm font-medium text-gray-100">{{$user->name}}</h4>
+                        <h4 class="mx-3 mt-2 md:text-base text-sm font-medium text-gray-100">{{$user->username}}</h4>
                         <p class="mx-3 mb-2 md:text-sm text-xs text-gray-300 ">{{$user->email}}</p>
                     </div>
-                    @if (Auth::user()==$user)
+                    @if (auth()->user()==$user || auth()->user()->is_admin)
                         <a href="{{ route('profile.edit', $user->id) }}" class="text-gray-400 flex items-center justify-end mr-4 hover:text-gray-500">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
                                 <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
@@ -26,6 +26,8 @@
             @if($user->is_admin)
                 <h3 class="mx-4 mt-2 p-1 whitespace-nowrap flex text-gray-500 items-center font-medium tracking-wide capitalize">Admin</h3>
             @endif
+
+            <h3 class="mx-4 mt-2 p-1 whitespace-nowrap flex text-gray-300 items-center font-medium tracking-wide capitalize">{{$user->name}}</h3>
 
             <p class="m-4 text-gray-300 text-sm">{{$user->about_me}}</p>
 
@@ -89,7 +91,7 @@
                                         {{$review->title}}
                                     </a>
                                     <div class="flex mt-1 text-left leading-none justify-start">
-                                        <span class="font-medium text-blue-600">{{$review->user->name}}</span>
+                                        <span class="font-medium text-blue-600">{{$review->user->username}}</span>
                                         <span class="ml-3 text-gray-400">{{$review->created_at->format('M d')}}</span>
                                     </div>
                                     @if (Auth::user()==$user)

@@ -9,7 +9,7 @@
             <div class="flex flex-col items-start justify-end bg-cover bg-center w-32 h-32 md:w-64 md:h-64" style="background-image: url({{asset($user->avatar)}})">
                 <div class="flex justify-between w-full">
                     <div>
-                        <h4 class="mx-3 mt-2 md:text-base text-sm font-medium text-gray-100">{{$user->name}}</h4>
+                        <h4 class="mx-3 mt-2 md:text-base text-sm font-medium text-gray-100">{{$user->username}}</h4>
                         <p class="mx-3 mb-2 md:text-sm text-xs text-gray-300 ">{{$user->email}}</p>
                     </div>
                     @if (auth()->user()==$user || auth()->user()->is_admin)
@@ -26,6 +26,8 @@
             @if($user->is_admin)
                 <h3 class="mx-4 mt-2 p-1 whitespace-nowrap flex text-gray-500 items-center font-medium tracking-wide capitalize">Admin</h3>
             @endif
+
+            <h3 class="mx-4 mt-2 p-1 whitespace-nowrap flex text-gray-300 items-center font-medium tracking-wide capitalize">{{$user->name}}</h3>
 
             <p class="mx-4 mt-2 text-gray-300 text-sm">{{$user->about_me}}</p>
 
@@ -47,7 +49,8 @@
 
                         <span class="mx-4 font-medium">Reviews</span>
                     </a>
-                    @if (auth()->user()==$user)
+
+                    @if(auth()->user()==$user)
                         <a class="flex items-center px-4 py-2 mt-5 text-gray-100 transition-colors duration-200 transform hover:bg-gray-700 hover:text-gray-200" href="{{ route('watchlist.index', $user->id) }}">
                             <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M15 5V7M15 11V13M15 17V19M5 5C3.89543 5 3 5.89543 3 7V10C4.10457 10 5 10.8954 5 12C5 13.1046 4.10457 14 3 14V17C3 18.1046 3.89543 19 5 19H19C20.1046 19 21 18.1046 21 17V14C19.8954 14 19 13.1046 19 12C19 10.8954 19.8954 10 21 10V7C21 5.89543 20.1046 5 19 5H5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -69,7 +72,7 @@
             <div class="container w-full px-14 py-5 mx-auto">
                 <div class="flex justify-between">
                     <span class="font-medium text-gray-800 whitespace-nowrap capitalize md:text-2xl">Recent Reviews</span>
-                    @if (auth()->user()==$user)
+                    @if(auth()->user()==$user)
                         <div class="flex items-center px-4 py-2 font-medium tracking-wide capitalize transition-colors duration-200 transform rounded-md border-2 border-gray-300">
                             <a href="{{ route('profile.reviews', $user->id) }}"><span class="mx-2 whitespace-nowrap">{{$user->reviews_count}} | Manage Reviews</span></a>
                         </div>
@@ -94,10 +97,10 @@
                                        {{$review->title}}
                                     </a>
                                     <div class="flex mt-1 text-left leading-none justify-start">
-                                        <span class="font-medium text-blue-600">{{$review->user->name}}</span>
+                                        <span class="font-medium text-blue-600">{{$review->user->username}}</span>
                                         <span class="ml-3 text-gray-400">{{$review->created_at->format('M d')}}</span>
                                     </div>
-                                    @if (Auth::user()==$user)
+                                    @if(auth()->user()==$user)
                                         <div class="font-medium flex text-gray-600 mt-4">
                                             <a href="{{ route('reviews.edit', ['movie'=>$review->movie->id, 'review'=>$review->id]) }}" class="hover:text-gray-500">Edit</a>
                                             <span class="px-2">|</span>
@@ -115,7 +118,7 @@
                 </div>
             </div>
             {{-- Watchlist --}}
-            @if (Auth::user()==$user)
+            @if(auth()->user()==$user)
                 <div class="container w-full px-14 py-10 mx-auto">
                     <div class="flex justify-between">
                         <span class="font-medium text-gray-800 whitespace-nowrap capitalize md:text-2xl">Watch Next</span>
@@ -125,12 +128,12 @@
                     </div>
                     <div class="flex items-baseline justify-center">
                         <div class="grid gap-8 mt-8 sm:grid-cols-1 md:grid-cols-3">
-                            @foreach($watchlist as $item)
-                                <a href="{{route('movies.show', $item->id)}}">
+                            @foreach($watchlist as $movie)
+                                <a href="{{route('movies.show', $movie->id)}}">
                                     <div class="w-full max-w-xs text-center">
-                                        <img class="object-cover object-center w-full h-80 mx-auto" src={{$item->poster}} alt="movie_poster"/>
+                                        <img class="object-cover object-center w-full h-80 mx-auto" src={{$movie->poster}} alt="movie_poster"/>
                                         <div class="mt-2 flex justify-between">
-                                            <span class="text-lg font-medium text-gray-700 ">{{$item->title}}</span>
+                                            <span class="text-lg font-medium text-gray-700 ">{{$movie->title}}</span>
                                             {{--<span class="mt-1 font-medium text-gray-600">{{$item->average_rating}}</span>--}}
                                         </div>
                                     </div>

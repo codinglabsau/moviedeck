@@ -9,7 +9,7 @@
             <div class="flex flex-col items-start justify-end bg-cover bg-center w-32 h-32 md:w-64 md:h-64" style="background-image: url({{asset($user->avatar)}})">
                 <div class="flex justify-between w-full">
                     <div>
-                        <h4 class="mx-3 mt-2 md:text-base text-sm font-medium text-gray-100">{{$user->name}}</h4>
+                        <h4 class="mx-3 mt-2 md:text-base text-sm font-medium text-gray-100">{{$user->username}}</h4>
                         <p class="mx-3 mb-2 md:text-sm text-xs text-gray-300 ">{{$user->email}}</p>
                     </div>
                     @if (auth()->user()==$user)
@@ -26,6 +26,8 @@
             @if($user->is_admin)
                 <h3 class="mx-4 mt-2 p-1 whitespace-nowrap flex text-gray-500 items-center font-medium tracking-wide capitalize">Admin</h3>
             @endif
+
+            <h3 class="mx-4 mt-2 p-1 whitespace-nowrap flex text-gray-300 items-center font-medium tracking-wide capitalize">{{$user->name}}</h3>
 
             <p class="m-4 text-gray-300 text-sm">{{$user->about_me}}</p>
 
@@ -73,17 +75,17 @@
                 </div>
                 <div class="flex items-baseline">
                     <div class="grid gap-12 mt-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-                        @foreach($watchlist as $item)
+                        @foreach($watchlist as $movie)
                             <div>
-                                <a href="{{ route('movies.show', $item->id) }}">
-                                    <img class="object-cover w-full h-30" src="{{ $item->poster }}" alt="{{ $item->poster }}">
+                                <a href="{{ route('movies.show', $movie->id) }}">
+                                    <img class="object-cover w-full h-30" src="{{ $movie->poster }}" alt="movie_poster">
                                 </a>
                                 <div class="flex justify-between">
-                                    <h3>{{ $item->title }}</h3>
-                                    <form method="post" action="{{ route('watchlist.destroy', ['user'=>$user->id, 'movie'=>$item->id]) }}">
+                                    <h3>{{ $movie->title }}</h3>
+                                    <form method="post" action="{{ route('watchlist.destroy', ['user'=>$user->id, 'movie'=>$movie->id]) }}">
                                         @csrf
                                         @method('delete')
-                                        <button value="{{$item->id}}" name="movie_id" style="outline: none;" class="h-8 flex text-gray-500 items-center font-medium capitalize transition-colors duration-200 transform hover:text-gray-400 focus:text-gray-900">
+                                        <button value="{{$movie->id}}" name="movie_id" style="outline: none;" class="h-8 flex text-gray-500 items-center font-medium capitalize transition-colors duration-200 transform hover:text-gray-400 focus:text-gray-900">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                                             </svg>

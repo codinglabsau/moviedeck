@@ -25,11 +25,16 @@ class ProfileRequest extends FormRequest
     public function rules()
     {
         return [
+            'username' => [
+                'required',
+                'string',
+                'between:4,30',
+                Rule::unique('users')->ignore($this->user)
+            ],
             'name' => [
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('users')->ignore($this->user)
             ],
             'avatar' => [
                 'required',
