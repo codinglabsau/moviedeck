@@ -30,7 +30,6 @@ Route::get('/celebs', [CelebController::class, 'index'])->name('celebs.index');
 Route::get('/movies', [MovieController::class, 'index'])->name('movies.index');
 Route::get('/reviews', [ReviewController::class, 'index'])->name('reviews.index');
 
-
 /** Middleware Admin */
 Route::group(['middleware'=>'admin'], function()
 {
@@ -59,7 +58,7 @@ Route::group(['middleware'=> 'auth'], function()
     /** Reviews */
     Route::resource('movies/{movie}/reviews', ReviewController::class)->except(['index', 'show']);
 
-    /** User Profile */
+    /** Profile */
     Route::get('/profile/{user}', [ProfileController::class, 'dashboard'])->name('profile.dashboard');
     Route::get('/profile/{user}/reviews', [ProfileController::class, 'reviews'])->name('profile.reviews');
     Route::get('/profile/{user}/edit', [ProfileController::class, 'edit'])->name('profile.edit');

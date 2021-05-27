@@ -49,10 +49,19 @@
                                 <span class="text-gray-300 mx-2 whitespace-nowrap"> {{ $movie->duration }} </span>
                                 <span class="whitespace-nowrap font-normal">
                                     <span class="text-gray-300 mx-4 whitespace-nowrap">|</span>
-                                    @foreach($movie->genres as $genre)
-                                        <span class="text-gray-300">{{ ($genre->name) }}@if (!$loop->last),@endif</span>
-                                    @endforeach
                                 </span>
+                                @foreach($movie->genres as $genre)
+                                    <span class="text-gray-300"> {{ $genre->name }}@if (!$loop->last),@endif&nbsp;</span>
+                                @endforeach
+                                @if (auth()->check() && auth()->user()->is_admin)
+                                    <div class="items-center align-bottom px-2 py-2">
+                                        <a href="{{ route('movies.edit', $movie) . "#genres" }}">
+                                            <button class="bg-blue-600 hover:bg-blue-500 rounded rounded-sm text-white">
+                                                <span class="mx-2 whitespace-nowrap">Manage Genres</span>
+                                            </button>
+                                        </a>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                         <div x-data="{ open: false }" class="flex justify-center">
@@ -166,7 +175,7 @@
                                 <h2 class="font-medium pt-2 text-md"> {{ $review->title }} </h2>
                             </a>
                             <a href="{{ route('profile.dashboard', $review->user->id) }}">
-                                <span class="font-bold text-sm text-blue-500 mr-4"> {{ $review->user->name }} </span>
+                                <span class="font-bold text-sm text-blue-500 mr-4"> {{ $review->user->username }} </span>
                             </a>
                             <span class="font-normal text-sm"> {{ $review->created_at->diffForHumans() }} </span>
                             <p class="py-2"> {{ $review->excerpt }}

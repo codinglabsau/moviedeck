@@ -98,7 +98,7 @@
                                     <span class="font-bold text-sm text-blue-600">{{$review->user->name}}</span>
                                     <span class="ml-3 text-gray-400">{{$review->created_at->format('M d')}}</span>
                                 </div>
-                                @if (Auth::user()==$user)
+                                @if(auth()->user()->id === $user->id)
                                     <div class="font-medium flex text-gray-600 mt-4">
                                         <a href="{{ route('reviews.edit', ['movie'=>$review->movie->id, 'review'=>$review->id]) }}" class="hover:text-gray-500">Edit</a>
                                         <span class="px-2">|</span>

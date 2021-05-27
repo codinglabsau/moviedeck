@@ -50,23 +50,18 @@ class ProfileController extends Controller
 
     public function edit(User $user)
     {
-        if(auth()->user()->id === $user->id || auth()->user()->is_admin) {
-            return view('profile/edit', [
-                'user' => $user
-            ]);
-        } else {
+        if(auth()->user()->id !== $user->id && !auth()->user()->is_admin) {
             return redirect('/')
                 ->with('message', 'You don\'t have access to that page');
         }
+
+        return view('profile/edit', [
+            'user' => $user
+        ]);
     }
 
     public function update(ProfileRequest $request, User $user)
     {
-        if(auth()->user()->id !== $user->id) {
-            return redirect('/')
-                ->with('message', 'You don\'t have access to that function');
-        }
-
         $user->update($request->validated());
 
         return redirect("profile/$user->id")

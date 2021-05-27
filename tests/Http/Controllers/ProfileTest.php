@@ -140,22 +140,31 @@ class ProfileTest extends TestCase
     /** @test */
     public function admin_can_update_own_profile()
     {
-        $admin = User::factory()->admin()->create();
+        $this->withoutExceptionHandling();
+
+        $admin = User::factory()->admin()->create([
+            'username' => 'GenericAdmin',
+            'name' => 'Admin Generic',
+            'avatar' => 'https://genericAvatars.com',
+            'about_me' => 'This is a sample bit about me'
+        ]);
 
         $this->actingAs($admin)
             ->putJson(route('profile.update', $admin->id), [
-              'name' => 'Admin Generic',
-              'avatar' => 'https://genericAvatars.com',
-              'about_me' => 'This is a sample bit about me'
+                'username' => 'ChangedAdmin',
+                'name' => 'Admin Changed',
+                'avatar' => 'https://differentAvatars.com',
+                'about_me' => 'This is a changed bit about me'
             ])->assertStatus(302);
 
         $this->assertDatabaseHas('users', [
             'id' => $admin->id,
-            'name' => 'Admin Generic',
+            'username' => 'ChangedAdmin',
+            'name' => 'Admin Changed',
             'email' => $admin->email,
             'password' => $admin->password,
-            'avatar' => 'https://genericAvatars.com',
-            'about_me' => 'This is a sample bit about me',
+            'avatar' => 'https://differentAvatars.com',
+            'about_me' => 'This is a changed bit about me',
             'is_admin' => $admin->is_admin
         ]);
     }
@@ -165,23 +174,29 @@ class ProfileTest extends TestCase
     {
         $admin = User::factory()->admin()->create();
         $user = User::factory()->create([
+            'username' => 'GenericMan',
+            'name' => 'Joe Generic',
+            'avatar' => 'https://genericAvatars.com',
+            'about_me' => 'This is a sample bit about me',
             'is_admin' => false
         ]);
 
         $this->actingAs($admin)
             ->putJson(route('profile.update', $user->id), [
-                'name' => 'Joe Generic',
-                'avatar' => 'https://genericAvatars.com',
-                'about_me' => 'This is a sample bit about me'
-            ])->assertStatus(302);
+                'username' => 'ChangedMan',
+                'name' => 'Joe Changed',
+                'avatar' => 'https://differentAvatars.com',
+                'about_me' => 'This is a changed bit about me'
+            ])->assertStatus(403); //forbidden
 
         $this->assertDatabaseMissing('users', [
             'id' => $user->id,
-            'name' => 'Joe Generic',
+            'username' => 'ChangedMan',
+            'name' => 'Joe Changed',
             'email' => $user->email,
             'password' => $user->password,
-            'avatar' => 'https://genericAvatars.com',
-            'about_me' => 'This is a sample bit about me',
+            'avatar' => 'https://differentAvatars.com',
+            'about_me' => 'This is a changed bit about me',
             'is_admin' => $user->is_admin
         ]);
     }
@@ -190,23 +205,29 @@ class ProfileTest extends TestCase
     public function user_can_update_own_profile()
     {
         $user = User::factory()->create([
+            'username' => 'GenericMan',
+            'name' => 'Joe Generic',
+            'avatar' => 'https://genericAvatars.com',
+            'about_me' => 'This is a sample bit about me',
             'is_admin' => false
         ]);
 
         $this->actingAs($user)
             ->putJson(route('profile.update', $user->id), [
-                'name' => 'Joe Generic',
-                'avatar' => 'https://genericAvatars.com',
-                'about_me' => 'This is a sample bit about me'
+                'username' => 'ChangedMan',
+                'name' => 'Joe Changed',
+                'avatar' => 'https://differentAvatars.com',
+                'about_me' => 'This is a changed bit about me'
             ])->assertStatus(302);
 
         $this->assertDatabaseHas('users', [
             'id' => $user->id,
-            'name' => 'Joe Generic',
+            'username' => 'ChangedMan',
+            'name' => 'Joe Changed',
             'email' => $user->email,
             'password' => $user->password,
-            'avatar' => 'https://genericAvatars.com',
-            'about_me' => 'This is a sample bit about me',
+            'avatar' => 'https://differentAvatars.com',
+            'about_me' => 'This is a changed bit about me',
             'is_admin' => $user->is_admin
         ]);
     }
@@ -218,23 +239,29 @@ class ProfileTest extends TestCase
             'is_admin' => false
         ]);
         $user2 = User::factory()->create([
+            'username' => 'GenericMan',
+            'name' => 'Joe Generic',
+            'avatar' => 'https://genericAvatars.com',
+            'about_me' => 'This is a sample bit about me',
             'is_admin' => false
         ]);
 
         $this->actingAs($user1)
             ->putJson(route('profile.update', $user2->id), [
-                'name' => 'Joe Generic',
-                'avatar' => 'https://genericAvatars.com',
-                'about_me' => 'This is a sample bit about me'
-            ])->assertStatus(302);
+                'username' => 'ChangedMan',
+                'name' => 'Joe Changed',
+                'avatar' => 'https://differentAvatars.com',
+                'about_me' => 'This is a changed bit about me'
+            ])->assertStatus(403); //forbidden
 
         $this->assertDatabaseMissing('users', [
             'id' => $user2->id,
-            'name' => 'Joe Generic',
+            'username' => 'ChangedMan',
+            'name' => 'Joe Changed',
             'email' => $user2->email,
             'password' => $user2->password,
-            'avatar' => 'https://genericAvatars.com',
-            'about_me' => 'This is a sample bit about me',
+            'avatar' => 'https://differentAvatars.com',
+            'about_me' => 'This is a changed bit about me',
             'is_admin' => $user2->is_admin
         ]);
     }
@@ -243,41 +270,48 @@ class ProfileTest extends TestCase
     public function guest_cannot_update_profile()
     {
         $user = User::factory()->create([
+            'username' => 'GenericMan',
+            'name' => 'Joe Generic',
+            'avatar' => 'https://genericAvatars.com',
+            'about_me' => 'This is a sample bit about me',
             'is_admin' => false
         ]);
 
         $this->putJson(route('profile.update', $user->id), [
-                'name' => 'Joe Generic',
-                'avatar' => 'https://genericAvatars.com',
-                'about_me' => 'This is a sample bit about me'
-            ])->assertStatus(401); //unauthorised
+            'username' => 'ChangedMan',
+            'name' => 'Joe Changed',
+            'avatar' => 'https://differentAvatars.com',
+            'about_me' => 'This is a changed bit about me'
+        ])->assertStatus(401); //unauthorised
 
         $this->assertDatabaseMissing('users', [
             'id' => $user->id,
-            'name' => 'Joe Generic',
+            'username' => 'ChangedMan',
+            'name' => 'Joe Changed',
             'email' => $user->email,
             'password' => $user->password,
-            'avatar' => 'https://genericAvatars.com',
-            'about_me' => 'This is a sample bit about me',
+            'avatar' => 'https://differentAvatars.com',
+            'about_me' => 'This is a changed bit about me',
             'is_admin' => $user->is_admin
         ]);
     }
 
     /** @test */
-    public function validation_error_when_name_already_exists()
+    public function validation_error_when_username_already_exists()
     {
         $user = User::factory()->create();
         $existingName = User::factory()->create([
-            'name' => 'Jen Invalid'
+            'username' => 'InvalidUser'
         ]);
 
         $this->actingAs($user)
             ->put(route('profile.update', $user->id), [
-                'name' => $existingName->name,
+                'username' => $existingName->username,
+                'name' => 'Joe Generic',
                 'avatar' => 'https://genericAvatars.com',
                 'about_me' => 'This is a sample bit about me'
             ])->assertSessionHasErrors([
-                'name' => 'The name has already been taken.'
+                'username' => 'The username has already been taken.'
             ]);
     }
 
@@ -288,10 +322,12 @@ class ProfileTest extends TestCase
 
         $this->actingAs($user)
             ->put(route('profile.update', $user->id), [
+                'username' => null,
                 'name' => null,
                 'avatar' => null,
                 'about_me' => null
             ])->assertSessionHasErrors([
+                'username' => 'The username field is required.',
                 'name' => 'The name field is required.',
                 'avatar' => 'The avatar field is required.'
             ]);
@@ -304,6 +340,7 @@ class ProfileTest extends TestCase
 
         $this->actingAs($user)
             ->put(route('profile.update', $user->id), [
+                'username' => 'GenericUser',
                 'name' => 'Joe Generic',
                 'avatar' => 'https://genericAvatars.com',
                 'about_me' => 'Temporibus vel non ea ex. Et et a voluptas et rerum corrupti.
@@ -317,13 +354,14 @@ class ProfileTest extends TestCase
     }
 
     /** @test */
-    public function no_validation_error_when_name_is_unchanged()
+    public function no_validation_error_when_username_is_unchanged()
     {
         $user = User::factory()->create();
 
         $this->actingAs($user)
             ->put(route('profile.update', $user->id), [
-                'name' => $user->name,
+                'username' => $user->username,
+                'name' => 'Joe Generic',
                 'avatar' => 'https://genericAvatars.com',
                 'about_me' => 'This is a sample bit about me'
             ])->assertSessionHasNoErrors();
