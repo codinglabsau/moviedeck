@@ -97,7 +97,7 @@
                                             class="form-select ml-6 mr-3 h-12 w-1/3 mt-1 rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0">
                                         <option value="">Select a celebrity</option>
                                         @foreach($celebs as $celeb)
-                                            <option value="{{ $celeb->id }}" @if(old("celebs.$celeb->id" == $celeb->id)) selected @endif>{{ $celeb->name }}</option>
+                                            <option value="{{ $celeb->id }}">{{ $celeb->name }}</option>
                                         @endforeach
                                     </select>
                                     <input x-model="cast.name" type="text" name="characters[]"
