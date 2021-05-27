@@ -12,7 +12,7 @@
                     <option value="movies" @if($switch === 'movies') selected @endif>Movies</option>
                     <option value="celebs" @if($switch === 'celebs') selected @endif>Celebs</option>
                 </select>
-                <input id="search" name="search" type="text" value="{{ old('search', $keyword) }}" class="flex w-full ml-1 px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 focus:outline-none focus:ring" placeholder="Find Movies or Celebs">
+                <input id="search" name="search" type="text" value="{{ old('search', $search) }}" class="flex w-full ml-1 px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 focus:outline-none focus:ring" placeholder="Find Movies or Celebs">
             </div>
         </form>
     </div>

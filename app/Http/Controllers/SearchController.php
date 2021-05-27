@@ -10,31 +10,27 @@ use Illuminate\Http\Request;
 class SearchController extends Controller
 {
     public function search(Request $request) {
-        $keyword = $request->input('search');
+        $search = $request->input('search');
         $switch = $request->input('switch');
 
         if($switch === 'movies') {
             $results = Movie::query()
                 ->select('id', 'title', 'poster')
-                ->when($keyword, function ($q) use ($keyword) {
-                    $q->where('title', 'LIKE', "%{$keyword}%");
-                })
+                ->where('title', 'LIKE', "%{$request->query('search')}%")
                 ->orderBy('title')
                 ->paginate(10);
         } else {
             $results = Celeb::query()
                 ->select('id', 'name', 'photo')
-                ->when($keyword, function ($q) use ($keyword) {
-                    $q->where('name', 'LIKE', "%{$keyword}%");
-                })
+                ->where('name', 'LIKE', "%{$request->query('search')}%")
                 ->orderBy('name')
                 ->paginate(10);
         }
 
         return view('search', [
-            'keyword' => $keyword,
+            'search' => $search,
             'switch' => $switch,
-            'results'  => $results,
+            'results'  => $results->appends(['search' => $search, 'switch' => $switch]),
         ]);
     }
 }
