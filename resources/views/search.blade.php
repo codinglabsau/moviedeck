@@ -18,10 +18,10 @@
     <div class="container px-6 mx-auto md:flex">
         <div class="text-gray-600 body-font">
             <h1 class="font-medium pb-6 tracking-wide text-gray-600 text-2xl">{{ $results->total() }} Results</h1>
-            @if($type === 'movies')
-                <div class="flex items-baseline justify-center">
-                    <div class="grid gap-12 mt-0 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-                        @foreach($results as $result)
+            <div class="flex items-baseline justify-center">
+                <div class="grid gap-12 mt-0 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+                    @foreach($results as $result)
+                        @if($type === 'movies')
                             <div>
                                 <a href="{{ route('movies.show', $result->id) }}">
                                     <img class="object-cover w-60 h-full" src="{{ $result->poster }}" alt="poster">
@@ -40,29 +40,20 @@
                                     @endif
                                 </div>
                             </div>
-                        @endforeach
-                    </div>
+                            @elseif($type === 'celebs')
+                                <div>
+                                    <a href="{{ route('celebs.show', $result->id) }}">
+                                        <img class="object-cover w-60 h-full" src="{{ $result->photo }}" alt="celeb_photo">
+                                    </a>
+                                    <h3 class="flex justify-center mt-1">{{ $result->name }}</h3>
+                                </div>
+                            @endif
+                    @endforeach
                 </div>
-                <div class="flex justify-center py-20">
-                    {{ $results->links() }}
-                </div>
-            @else
-                <div class="flex items-baseline justify-center">
-                    <div class="grid gap-12 mt-0 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-                        @foreach($results as $result)
-                            <div>
-                                <a href="{{ route('celebs.show', $result->id) }}">
-                                    <img class="object-cover w-60 h-full" src="{{ $result->photo }}" alt="celeb_photo">
-                                </a>
-                                <h3 class="flex justify-center mt-1">{{ $result->name }}</h3>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-                <div class="flex justify-center py-20">
-                    {{ $results->links() }}
-                </div>
-            @endif
+            </div>
+            <div class="flex justify-center py-20">
+                {{ $results->links() }}
+            </div>
         </div>
     </div>
 @endsection
