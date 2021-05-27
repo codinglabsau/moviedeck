@@ -16,7 +16,7 @@
 
                                 <div class="flex flex-col pb-6">
                                     <label for="username" class="text-md font-medium py-2">Change your username</label>
-                                    <input id="username" name="username" value="{{ $user->username }}" class="@error('username') is-invalid @enderror outline-none border border-4 border-gray-200 text-gray-700 rounded rounded-md p-4 text-md font-light">
+                                    <input id="username" name="username" value="{{ $user->username }}" class="@error('username') is-invalid @enderror outline-none border border-4 border-gray-200 text-gray-700 rounded rounded-md p-2 text-md font-light">
                                     @error('username')
                                         <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">{{ $message }}</div>
                                     @enderror

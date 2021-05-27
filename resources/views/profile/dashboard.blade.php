@@ -9,7 +9,7 @@
             <div class="flex flex-col items-start justify-end bg-cover bg-center w-full h-72" style="background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(27, 28, 32, 1)), url({{asset($user->avatar)}})">
                 <div class="flex justify-between w-full">
                     <div>
-                        <h4 class="mx-3 mt-2 md:text-base text-sm font-medium text-gray-100">{{$user->name}}</h4>
+                        <h4 class="mx-3 mt-2 md:text-base text-sm font-medium text-gray-100">{{$user->username}}</h4>
                         <p class="mx-3 mb-2 md:text-sm text-xs text-gray-300 ">{{$user->email}}</p>
                     </div>
                     @if (auth()->user()->id === $user->id || auth()->user()->is_admin)
@@ -27,7 +27,8 @@
                 <h3 class="mx-2 mt-4 p-1 whitespace-nowrap flex text-gray-200 text-sm items-center font-normal tracking-wide capitalize"><span class="bg-blue-600 py-1 px-2 rounded-xl">Admin</span></h3>
             @endif
 
-            <p class="mx-4 mt-4 text-gray-300 text-sm">{{$user->about_me}}</p>
+            <h3 class="mx-4 mt-4 whitespace-nowrap flex text-gray-100 items-center font-semibold tracking-wide capitalize">{{$user->name}}</h3>
+            <p class="mx-4 text-gray-300 text-sm">{{$user->about_me}}</p>
 
             <div class="flex flex-col justify-between flex-1 mt-6">
                 <nav>
@@ -63,7 +64,7 @@
         {{-- Reviews --}}
         <div class="w-4/5 mx-24 my-14">
             @if(session()->has('message'))
-                <div class="text-blue-500 bg-blue-100 border border-2 border-blue-400 rounded rounded-md p-6 m-2 w-full mb-6">
+                <div class="text-blue-500 bg-blue-100 border border-2 border-blue-400 rounded rounded-md p-6 w-full my-8">
                     {{ session()->get('message') }}
                 </div>
             @endif

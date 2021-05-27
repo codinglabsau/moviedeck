@@ -13,7 +13,7 @@
                         <p class="mx-3 mb-2 md:text-sm text-xs text-gray-300 ">{{$user->email}}</p>
                     </div>
                     @if (auth()->user()->id === $user->id)
-                        <a href="{{ route('profile.edit', $user->id) }}" class="text-gray-400 flex items-center justify-end mr-4 hover:text-gray-500">
+                        <a href="{{ route('profile.edit', $user->id) }}" class="text-gray-300 flex items-center justify-end mr-4 hover:text-gray-100">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
                                 <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
                                 <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" />
@@ -27,9 +27,8 @@
                 <h3 class="mx-2 mt-4 p-1 whitespace-nowrap flex text-gray-200 text-sm items-center font-normal tracking-wide capitalize"><span class="bg-blue-600 py-1 px-2 rounded-xl">Admin</span></h3>
             @endif
 
-            <h3 class="mx-4 mt-2 p-1 whitespace-nowrap flex text-gray-300 items-center font-medium tracking-wide capitalize">{{$user->name}}</h3>
-
-            <p class="m-4 text-gray-300 text-sm">{{$user->about_me}}</p>
+            <h3 class="mx-4 mt-4 whitespace-nowrap flex text-gray-100 items-center font-semibold tracking-wide capitalize">{{$user->name}}</h3>
+            <p class="mx-4 text-gray-300 text-sm">{{$user->about_me}}</p>
 
             <div class="flex flex-col justify-between flex-1 mt-6">
                 <nav>
@@ -62,45 +61,43 @@
             </div>
         </div>
         {{-- Content --}}
-        <div class="flex flex-col">
+        <div class="w-4/5 mx-24 my-14">
             @if(session()->has('message'))
                 <div class="w-full text-blue-500 bg-blue-100 border border-2 border-blue-400 p-6">
                     {{ session()->get('message') }}
                 </div>
             @endif
-            <div class="container w-full px-14 py-5 mx-auto">
-                <div class="flex w-full justify-between">
-                    <span class="flex font-medium text-gray-800 whitespace-nowrap capitalize md:text-2xl">Watchlist</span>
-                    <div class="flex items-center px-4 py-2 font-medium tracking-wide capitalize transition-colors duration-200 transform rounded-md border-2 border-gray-300 hover:border-gray-500">
-                        <a href="{{ route('watchlist.create', $user->id) }}"><span class="mx-2 whitespace-nowrap">Add a Movie</span></a>
-                    </div>
+            <div class="flex w-full justify-between mb-6">
+                <span class="flex font-medium text-gray-800 whitespace-nowrap capitalize md:text-2xl">Watchlist</span>
+                <div class="flex items-center px-4 py-2 font-medium tracking-wide capitalize transition-colors duration-200 transform rounded-md border-2 border-gray-900">
+                    <a href="{{ route('watchlist.create', $user->id) }}"><span class="mx-2 whitespace-nowrap">Add a Movie</span></a>
                 </div>
-                <div class="flex items-baseline">
-                    <div class="grid gap-12 mt-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-                        @foreach($watchlist as $movie)
-                            <div>
-                                <a href="{{ route('movies.show', $movie->id) }}">
-                                    <img class="object-cover w-full h-30" src="{{ $movie->poster }}" alt="movie_poster">
-                                </a>
-                                <div class="flex justify-between">
-                                    <h3>{{ $movie->title }}</h3>
-                                    <form method="post" action="{{ route('watchlist.destroy', ['user'=>$user->id, 'movie'=>$movie->id]) }}">
-                                        @csrf
-                                        @method('delete')
-                                        <button value="{{$movie->id}}" name="movie_id" style="outline: none;" class="h-8 flex text-gray-500 items-center font-medium capitalize transition-colors duration-200 transform hover:text-gray-400 focus:text-gray-900">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                            </svg>
-                                        </button>
-                                    </form>
-                                </div>
+            </div>
+            <div class="flex items-baseline">
+                <div class="grid gap-12 mt-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+                    @foreach($watchlist as $movie)
+                        <div>
+                            <a href="{{ route('movies.show', $movie->id) }}">
+                                <img class="object-cover w-full h-30" src="{{ $movie->poster }}" alt="movie_poster">
+                            </a>
+                            <div class="flex justify-between">
+                                <h3>{{ $movie->title }}</h3>
+                                <form method="post" action="{{ route('watchlist.destroy', ['user'=>$user->id, 'movie'=>$movie->id]) }}">
+                                    @csrf
+                                    @method('delete')
+                                    <button value="{{$movie->id}}" name="movie_id" style="outline: none;" class="h-8 flex text-gray-500 items-center font-medium capitalize transition-colors duration-200 transform hover:text-gray-400 focus:text-gray-900">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                    </button>
+                                </form>
                             </div>
-                        @endforeach
-                    </div>
+                        </div>
+                    @endforeach
                 </div>
-                <div class="flex justify-center py-20">
-                    {{ $watchlist->links() }}
-                </div>
+            </div>
+            <div class="flex justify-center py-20">
+                {{ $watchlist->links() }}
             </div>
         </div>
     </div>
