@@ -140,6 +140,8 @@ class ProfileTest extends TestCase
     /** @test */
     public function admin_can_update_own_profile()
     {
+        $this->withoutExceptionHandling();
+
         $admin = User::factory()->admin()->create([
             'username' => 'GenericAdmin',
             'name' => 'Admin Generic',
@@ -185,7 +187,7 @@ class ProfileTest extends TestCase
                 'name' => 'Joe Changed',
                 'avatar' => 'https://differentAvatars.com',
                 'about_me' => 'This is a changed bit about me'
-            ])->assertStatus(302);
+            ])->assertStatus(403); //forbidden
 
         $this->assertDatabaseMissing('users', [
             'id' => $user->id,
@@ -250,7 +252,7 @@ class ProfileTest extends TestCase
                 'name' => 'Joe Changed',
                 'avatar' => 'https://differentAvatars.com',
                 'about_me' => 'This is a changed bit about me'
-            ])->assertStatus(302);
+            ])->assertStatus(403); //forbidden
 
         $this->assertDatabaseMissing('users', [
             'id' => $user2->id,

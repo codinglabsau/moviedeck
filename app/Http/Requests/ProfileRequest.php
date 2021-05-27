@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Http\Request;
 
 class ProfileRequest extends FormRequest
 {
@@ -12,9 +13,19 @@ class ProfileRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(Request $request)
     {
-        return auth()->check();
+        $user = $request->route('user');
+
+        if (auth()->user()->id !== $user->id)
+        {
+            redirect('/')
+                ->with('message', 'You don\'t have access to that function');
+
+            return false;
+        }
+
+        return true;
     }
 
     /**
