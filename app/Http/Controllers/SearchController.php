@@ -11,9 +11,9 @@ class SearchController extends Controller
 {
     public function search(Request $request) {
         $search = $request->input('search');
-        $switch = $request->input('switch');
+        $type = $request->input('switch');
 
-        if($switch === 'movies') {
+        if($type === 'movies') {
             $results = Movie::query()
                 ->select('id', 'title', 'poster')
                 ->where('title', 'LIKE', "%{$request->query('search')}%")
@@ -29,8 +29,8 @@ class SearchController extends Controller
 
         return view('search', [
             'search' => $search,
-            'switch' => $switch,
-            'results'  => $results->appends(['search' => $search, 'switch' => $switch]),
+            'type' => $type,
+            'results'  => $results->appends(['search' => $search, 'type' => $type]),
         ]);
     }
 }

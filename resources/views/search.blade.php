@@ -8,9 +8,9 @@
             @csrf
             <label for="search" class="title-font sm:text-6xl text-5xl mb-4 font-medium text-gray-500">Search</label>
             <div class="flex flex-row">
-                <select name="switch" id="switch" class="flex px-1 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 focus:outline-none focus:ring">
-                    <option value="movies" @if($switch === 'movies') selected @endif>Movies</option>
-                    <option value="celebs" @if($switch === 'celebs') selected @endif>Celebs</option>
+                <select name="type" id="type" class="flex px-1 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 focus:outline-none focus:ring">
+                    <option value="movies" @if($type === 'movies') selected @endif>Movies</option>
+                    <option value="celebs" @if($type === 'celebs') selected @endif>Celebs</option>
                 </select>
                 <input id="search" name="search" type="text" value="{{ old('search', $search) }}" class="flex w-full ml-1 px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 focus:outline-none focus:ring" placeholder="Find Movies or Celebs">
             </div>
@@ -19,7 +19,7 @@
     <div class="container px-6 mx-auto md:flex">
         <div class="text-gray-600 body-font">
             <h1 class="font-medium pb-6 tracking-wide text-gray-600 text-2xl">{{ $results->total() }} Results</h1>
-            @if($switch === 'movies')
+            @if($type === 'movies')
                 <div class="flex items-baseline justify-center">
                     <div class="grid gap-12 mt-0 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
                         @foreach($results as $result)
