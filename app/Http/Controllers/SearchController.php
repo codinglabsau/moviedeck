@@ -11,7 +11,7 @@ class SearchController extends Controller
 {
     public function search(Request $request) {
         $search = $request->input('search');
-        $type = $request->input('switch');
+        $type = $request->input('type');
 
         if($type === 'movies') {
             $results = Movie::query()
