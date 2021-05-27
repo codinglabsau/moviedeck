@@ -113,7 +113,7 @@
             <div class="flex items-baseline justify-center">
                 <div class="grid gap-8 mt-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                     @foreach ($celebs as $celeb)
-                        <a href="{{ route("celebs.show", $celeb->id) }}">
+                        <a href="{{ route('celebs.show', $celeb->id) }}">
                             <div class="w-full max-w-xs text-center">
                                 <img class="object-cover object-center w-full h-80 mx-auto rounded-lg" src={{$celeb->photo}} alt="movie_poster"/>
                                 <div class="mt-2 flex">
