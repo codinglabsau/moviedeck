@@ -15,23 +15,25 @@ class SearchTest extends TestCase
     public function when_movies_is_selected_only_searches_through_movies_table()
     {
         $movie1 = Movie::factory()->create([
-           'title' => 'Generic Movie1'
+            'title' => 'Generic Movie1'
         ]);
-        $movie2 = Movie::factory()->create([
+
+        $movie2 =Movie::factory()->create([
             'title' => 'Generic Movie2'
         ]);
-        $celeb1 = Celeb::factory()->create([
+
+        Celeb::factory()->create([
             'name' => 'Jen Generic'
         ]);
-        $celeb2 = Celeb::factory()->create([
+
+        Celeb::factory()->create([
             'name' => 'James Generic'
         ]);
 
-        $this->get('/search?type=movies&&search=Generic')
-            ->assertViewHasAll(['results']);
+        $response = $this->getJson('/search?type=movies&&search=Generic')
+            ->assertOk()
+            ->assertViewHas('results');
 
-//            ->assertJsonCount(2)
-//            ->assertJsonFragment(['results'=> $movie1])
-//            ->assertJsonFragment(['results'=> $movie2]);
+        $this->assertEquals(2, count($response->original['results']));
     }
 }
