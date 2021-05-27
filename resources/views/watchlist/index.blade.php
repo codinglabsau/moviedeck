@@ -12,7 +12,7 @@
                         <h4 class="mx-3 mt-2 md:text-base text-sm font-medium text-gray-100">{{$user->username}}</h4>
                         <p class="mx-3 mb-2 md:text-sm text-xs text-gray-300 ">{{$user->email}}</p>
                     </div>
-                    @if (auth()->user()==$user)
+                    @if (auth()->user()->id === $user->id)
                         <a href="{{ route('profile.edit', $user->id) }}" class="text-gray-400 flex items-center justify-end mr-4 hover:text-gray-500">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
                                 <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />

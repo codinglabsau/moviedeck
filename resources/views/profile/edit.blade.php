@@ -8,7 +8,7 @@
             <div class="container mx-auto flex px-5 py-16 md:flex-row flex-col items-start align-top">
                 <div class="flex flex-col w-3/4 md:items-start md:text-left mr-10 mb-16 md:mb-0 items-center text-center bg-white p-12">
                     <h1 class="font-medium text-gray-500 text-4xl mb-6">Edit Your Profile Details</h1>
-                    @if (auth()->user()==$user)
+                    @if (auth()->user()->id === $user->id)
                         <div class="flex w-full justify-between">
                             <form method="POST" action="{{ route('profile.update', $user) }}" class="mx-auto w-full">
                                 @csrf
@@ -54,7 +54,7 @@
                         </div>
                     @endif
 
-                    @if(auth()->user()->is_admin && auth()->user() != $user)
+                    @if(auth()->user()->is_admin && auth()->user()->id !== $user->id)
                         <h1 class="font-medium text-gray-400 text-2xl mb-6">{{$user->name}}</h1>
                         @if($user->is_admin)
                             <h1 class="h-8 flex text-gray-600 items-center font-medium tracking-wide transition-colors duration-200 transform rounded-md">Already an Admin</h1>
