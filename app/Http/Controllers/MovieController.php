@@ -36,7 +36,15 @@ class MovieController extends Controller
 
     public function store(MovieRequest $request)
     {
-        $movie = Movie::create($request->except('genres', 'celebs', 'characters'));
+        $movie = Movie::create([
+            'title' => $request->input('title'),
+            'synopsis' => $request->input('synopsis'),
+            'year' => $request->input('year'),
+            'poster' => $request->input('poster'),
+            'banner' => $request->input('banner'),
+            'trailer' => $request->input('trailer'),
+            'duration' => $request->input('duration'),
+        ]);
 
         $genres = $request->input('genres');
         $movie->genres()->sync($genres);
@@ -84,7 +92,15 @@ class MovieController extends Controller
 
     public function update(MovieRequest $request, Movie $movie)
     {
-        $movie->update($request->except('genres', 'celebs', 'characters'));
+        $movie->update([
+            'title' => $request->input('title'),
+            'synopsis' => $request->input('synopsis'),
+            'year' => $request->input('year'),
+            'poster' => $request->input('poster'),
+            'banner' => $request->input('banner'),
+            'trailer' => $request->input('trailer'),
+            'duration' => $request->input('duration'),
+        ]);
 
         $genres = $request->input('genres');
         $movie->genres()->sync($genres);
