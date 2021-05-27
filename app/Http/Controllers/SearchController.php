@@ -9,31 +9,32 @@ use Illuminate\Http\Request;
 
 class SearchController extends Controller
 {
-    public function search(Request $request, User $user) {
+    public function search(Request $request) {
         $keyword = $request->input('search');
+        $switch = $request->input('switch');
 
-        $movies = Movie::query()
-            ->select('id', 'title', 'poster')
-            ->when($keyword, function ($q) use ($keyword){
-                $q->where('title', 'LIKE', "%{$keyword}%");
-            })
-            ->orderBy('title')
-            ->paginate(5);
-
-        $celebs = Celeb::query()
-            ->select('id', 'name', 'photo')
-            ->when($keyword, function ($q) use ($keyword){
-                $q->where('name', 'LIKE', "%{$keyword}%");
-            })
-            ->orderBy('name')
-            ->paginate(5);
-
+        if($switch === 'movies') {
+            $results = Movie::query()
+                ->select('id', 'title', 'poster')
+                ->when($keyword, function ($q) use ($keyword) {
+                    $q->where('title', 'LIKE', "%{$keyword}%");
+                })
+                ->orderBy('title')
+                ->paginate(10);
+        } else {
+            $results = Celeb::query()
+                ->select('id', 'name', 'photo')
+                ->when($keyword, function ($q) use ($keyword) {
+                    $q->where('name', 'LIKE', "%{$keyword}%");
+                })
+                ->orderBy('name')
+                ->paginate(10);
+        }
 
         return view('search', [
             'keyword' => $keyword,
-            'movies' => $movies,
-            'celebs' => $celebs,
-            //'user' => $user
+            'switch' => $switch,
+            'results'  => $results,
         ]);
     }
 }

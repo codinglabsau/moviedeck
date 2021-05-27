@@ -113,7 +113,7 @@
                                     </svg> {{ $review->rating }} <span class="font-normal text-sm">/ 10</span> </h1>
                                 <h2 class="font-medium pt-2 text-md"> {{ $review->title }} </h2>
                             </a>
-                            <a href="{{ route('profile.dashboard', $review->user->id) }}">
+                            <a href="{{ route('profile.reviews', $review->user->id) }}">
                                 <span class="font-bold text-sm text-blue-500 mr-4"> {{ $review->user->username }} </span>
                             </a>
                             <span class="font-normal text-sm"> {{ $review->created_at->diffForHumans() }} </span>
