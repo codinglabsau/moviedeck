@@ -80,14 +80,14 @@
                                     <span class="text-gray-700 block px-4 py-2 text-xs"> Hello, <span class="font-bold">{{ auth()->user()->name }}</span>.</span>
                                 </div>
                                 <div class="p-2">
-                                    <a href="{{ route('profile.dashboard', auth()->user()->id) }}" class="text-gray-600 hover:text-gray-700 px-4 py-2 text-sm">My Profile</a>
-                                    <button class="text-gray-600 hover:text-gray-700 block px-4 py-2 text-sm">
-                                <span class="block whitespace-nowrap">
-                                    <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
-                                        @csrf
-                                    </form>
-                                </span>
+                                    <a href="{{ route('profile.dashboard', auth()->user()->id) }}" class="text-gray-600 hover:text-blue-500 px-4 py-2 text-sm">My Profile</a>
+                                    <button class="text-gray-600 hover:text-blue-500 block px-4 py-2 text-sm hover:font-bold">
+                                        <span class="block whitespace-nowrap">
+                                            <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
+                                                @csrf
+                                            </form>
+                                         </span>
                                     </button>
                                 </div>
                             </div>
