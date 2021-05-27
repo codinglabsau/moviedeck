@@ -1,11 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    @if(session()->has('message'))
-        <div class="w-full text-green-500 bg-green-100 border border-2 border-green-400 p-6 mb-12">
-            {{ session()->get('message') }}
-        </div>
-    @endif
     <div class="container mx-auto mt-12">
         <section class="text-gray-600 body-font">
             <div class="container mx-auto flex px-5 py-5 md:flex-row flex-col items-start align-top">
@@ -15,6 +10,11 @@
                             <h1 class="font-medium text-gray-700 text-4xl my-10">Titles</h1>
                         </div>
                     </div>
+                    @if(session()->has('message'))
+                        <div class="w-full text-green-500 bg-green-100 border border-2 border-green-400 rounded rounded-md p-6 mb-12">
+                            {{ session()->get('message') }}
+                        </div>
+                    @endif
                     @foreach ($titles as $title)
                         <div class="flex w-full justify-between">
                             <div class="flex">

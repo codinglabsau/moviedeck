@@ -13,14 +13,14 @@
                                 <label class="text-gray-700" for="name">Name</label>
                                 <input id="name" name="name" type="text" value="{{ old('name') }}" class="@error('name') is-invalid @enderror block w-3/4 px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 focus:outline-none focus:ring">
                                 @error('name')
-                                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">{{ $message }}</div>
+                                <div class="bg-red-100 my-3 w-3/4 border border-red-400 text-red-700 px-4 py-3 rounded relative">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="w-1/2">
                                 <label class="text-gray-700" for="date_of_birth">Date of Birth</label>
                                 <input id="date_of_birth" name="date_of_birth" type="date" value="{{ old('date_of_birth') }}" class="@error('date_of_birth') is-invalid @enderror block w-3/4 px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
                                 @error('date_of_birth')
-                                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">{{ $message }}</div>
+                                <div class="bg-red-100 my-3 w-3/4 border border-red-400 text-red-700 px-4 py-3 rounded relative">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
@@ -28,7 +28,7 @@
                         <label class="text-gray-700 dark:text-gray-200" for="photo">Photo URL</label>
                         <input id="photo" name="photo" type="url" value="{{ old('photo') }}" class="@error('photo') is-invalid @enderror block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 focus:outline-none focus:ring">
                         @error('photo')
-                        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">{{ $message }}</div>
+                        <div class="bg-red-100 my-3 w-full border border-red-400 text-red-700 px-4 py-3 rounded relative">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="flex flex-col mt-10">
