@@ -77,11 +77,11 @@
                             </div>
                             <div x-show="isOpen" @click.away="isOpen = false" class="absolute w-56 mt-4 right-1 top-full rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
                                 <div class="py-1 border-b-2 border-gray-100">
-                                    <span class="text-gray-700 block px-4 py-2 text-xs"> Hello, <span class="font-bold">{{ auth()->user()->name }}</span>.</span>
+                                    <span class="text-gray-500 block px-4 py-2 text-xs"> Hello, <span class="font-bold">{{ auth()->user()->name }}</span>.</span>
                                 </div>
                                 <div class="p-2">
-                                    <a href="{{ route('profile.dashboard', auth()->user()->id) }}" class="text-gray-600 hover:text-blue-500 px-4 py-2 text-sm">My Profile</a>
-                                    <button class="text-gray-600 hover:text-blue-500 block px-4 py-2 text-sm hover:font-bold">
+                                    <a href="{{ route('profile.dashboard', auth()->user()->id) }}" class="text-gray-400 hover:text-gray-900 px-4 py-2 text-sm">My Profile</a>
+                                    <button class="text-gray-400 hover:text-gray-900 block px-4 py-2 text-sm">
                                         <span class="block whitespace-nowrap">
                                             <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
                                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
