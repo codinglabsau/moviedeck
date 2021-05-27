@@ -61,7 +61,7 @@
                             </span>
                             <input id="search" name="search" type="text" class="focus:outline-none pl-10 pr-4 border-gray-300 border-r-0 rounded-md rounded-r-none" placeholder="Search">
                             <div class="inset-y-0 right-0 flex items-center">
-                                <select id="type" name="type" class="focus:outline-none h-full py-0 pl-2 pr-8 border-gray-300 border-l-0 bg-transparent text-gray-500 sm:text-sm rounded-md rounded-l-none">
+                                <select id="type" name="type" class="focus:outline-none h-full py-0 pl-2 pr-1 border-gray-300 border-l-0 bg-transparent text-gray-500 sm:text-sm rounded-md rounded-l-none">
                                     <option value="movies">Movies</option>
                                     <option value="celebs">Celebs</option>
                                 </select>
