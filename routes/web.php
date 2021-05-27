@@ -6,6 +6,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CelebController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\WatchlistController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +25,7 @@ Auth::routes();
 /** Home */
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-/** Celebs, Movies, Reviews */
+/** Celebs, Movies, Reviews | Index */
 Route::get('/celebs', [CelebController::class, 'index'])->name('celebs.index');
 Route::get('/movies', [MovieController::class, 'index'])->name('movies.index');
 Route::get('/reviews', [ReviewController::class, 'index'])->name('reviews.index');
@@ -44,14 +46,33 @@ Route::group(['middleware'=>'admin'], function()
     Route::get('/movies/{movie}/edit', [MovieController::class, 'edit'])->name('movies.edit');
     Route::put('/movies/{movie}', [MovieController::class, 'update'])->name('movies.update');
     Route::delete('/movies/{movie}', [MovieController::class, 'destroy'])->name('movies.destroy');
+
+    /** Profile */
+    Route::patch('/profile/{user}', [ProfileController::class, 'makeAdmin'])->name('profile.makeAdmin');
+    Route::patch('/profile/{user}/edit', [ProfileController::class, 'removeAdmin'])->name('profile.removeAdmin');
 });
 
 /** Middleware Auth */
 Route::group(['middleware'=> 'auth'], function()
 {
+    /** Reviews */
     Route::resource('movies/{movie}/reviews', ReviewController::class)->except(['index', 'show']);
+
+    /** Profile */
+    Route::get('/profile/{user}', [ProfileController::class, 'dashboard'])->name('profile.dashboard');
+    Route::get('/profile/{user}/reviews', [ProfileController::class, 'reviews'])->name('profile.reviews');
+    Route::get('/profile/{user}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile/{user}', [ProfileController::class, 'update'])->name('profile.update');
+
+    /** Watchlist */
+    Route::get('/profile/{user}/watchlist', [WatchlistController::class, 'index'])->name('watchlist.index');
+    Route::get('/profile/{user}/watchlist/create', [WatchlistController::class, 'create'])->name('watchlist.create');
+    Route::get('/profile/{user}/watchlist/{movie}', [WatchlistController::class, 'showMovie'])->name('watchlist.showMovie');
+    Route::post('/profile/{user}/watchlist', [WatchlistController::class, 'store'])->name('watchlist.store');
+    Route::delete('/profile/{user}/watchlist/{movie}', [WatchlistController::class, 'destroy'])->name('watchlist.destroy');
 });
 
+/** Celebs, Movies, Reviews | Show */
 Route::get('/celebs/{celeb}', [CelebController::class, 'show'])->name('celebs.show');
 Route::get('/movies/{movie}', [MovieController::class, 'show'])->name('movies.show');
 Route::get('/movies/{movie}/reviews/{review}', [ReviewController::class, 'show'])->name('reviews.show');

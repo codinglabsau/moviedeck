@@ -1,14 +1,19 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="bg-gray-700 px-12 py-3">
+    <div class="bg-gray-700 px-12 py-3 w-full bg-fixed bg-bottom bg-cover" style="background-image: linear-gradient(rgba(248, 248, 248, 0.2), rgba(28, 28, 28, 0.9)), url('{{ $movies->first()->banner }}')">
+        @if(session()->has('message'))
+            <div class="w-full text-green-500 bg-green-100 border border-2 border-green-400 p-6">
+                {{ session()->get('message') }}
+            </div>
+        @endif
         <section class="text-gray-400 body-font">
             {{--     Movie Summary Section       --}}
             <div class="container mx-auto flex px-10 py-32 md:flex-row flex-col items-center">
                 <div class="w-full lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
                     <div class="flex justify-center mb-6">
                         <div class="flex items-center px-4 py-2 font-medium tracking-wide capitalize transition-colors duration-200 transform rounded-md border-2 border-gray-300">
-                            <span class="mx-2 whitespace-nowrap">{{ $movies->first()->year }}</span>
+                            <span class="text-gray-200 mx-2 whitespace-nowrap">{{ $movies->first()->year }}</span>
                         </div>
                         <div class="flex items-center ml-5 px-4 py-2 font-medium text-white tracking-wide capitalize transition-colors duration-200 transform bg-blue-600 rounded-md focus:outline-none focus:bg-blue-500">
                             <svg class="w-5 h-5 mx-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#fff">
@@ -28,7 +33,7 @@
                             <span class="whitespace-nowrap font-normal">
                                 <span class="mx-4 whitespace-nowrap">|</span>
                                 @foreach($movies->first()->genres as $genre)
-                                    {{$genre->name}}@if (!$loop->last),@endif
+                                    <span class="text-gray-300">{{$genre->name}}@if (!$loop->last),@endif</span>
                                 @endforeach
                             </span>
                         </div>
@@ -41,12 +46,17 @@
                             </svg>
                             <a href="{{$movies->first()->trailer }}"><span class="mx-2 whitespace-nowrap">Play Trailer</span></a>
                         </button>
-                        <button class="flex items-center ml-5 px-2 py-2 font-medium tracking-wide capitalize transition-colors duration-200 transform bg-transparent rounded-md hover:bg-gray-600 focus:outline-none focus:bg-blue-500">
-                            <svg class="w-5 h-5 mx-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
-                            </svg>
-                            <a href="#"><span class="mx-2 whitespace-nowrap font-normal">Add to Watchlist</span></a>
-                        </button>
+                        @if(auth()->check())
+                            <form method="post" action="{{ route('watchlist.store', ['user'=>auth()->user()->id, 'movie'=>$movies->first()->id]) }}">
+                                @csrf
+                                <button value="{{$movies->first()->id}}" name="movie_id" class="flex items-center ml-5 px-2 py-2 font-medium tracking-wide capitalize transition-colors duration-200 transform bg-transparent rounded-md hover:bg-gray-800 focus:outline-none focus:bg-blue-500">
+                                    <svg class="w-5 h-5 mx-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#f8f8f8">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                                    </svg>
+                                    <span class="text-gray-300 mx-2 whitespace-nowrap font-normal">Add to Watchlist</span>
+                                </button>
+                            </form>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -73,7 +83,7 @@
             <div class="flex items-baseline justify-center">
                 <div class="grid gap-8 mt-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                     @foreach ($movies as $movie)
-                        <a href={{ route("movies.show", $movie->id) }}>
+                        <a href="{{ route('movies.show', $movie->id) }}">
                             <div class="w-full max-w-xs text-center">
                                 <img class="object-cover object-center w-full h-80 mx-auto rounded-lg" src={{$movie->poster}} alt="movie_poster"/>
                                 <div class="mt-2 flex justify-between">
@@ -103,7 +113,7 @@
             <div class="flex items-baseline justify-center">
                 <div class="grid gap-8 mt-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                     @foreach ($celebs as $celeb)
-                        <a href={{ route("celebs.show", $celeb->id) }}>
+                        <a href="{{ route('celebs.show', $celeb->id) }}">
                             <div class="w-full max-w-xs text-center">
                                 <img class="object-cover object-center w-full h-80 mx-auto rounded-lg" src={{$celeb->photo}} alt="movie_poster"/>
                                 <div class="mt-2 flex">

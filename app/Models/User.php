@@ -3,8 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Authenticatable
 {
@@ -16,9 +18,13 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
+        'username',
         'name',
         'email',
         'password',
+        'avatar',
+        'about_me',
+        'is_admin',
     ];
 
     /**
@@ -41,12 +47,12 @@ class User extends Authenticatable
         'is_admin' => 'boolean'
     ];
 
-    public function watchlist()
+    public function movies():BelongsToMany
     {
-        return $this->hasOne(Watchlist::class);
+        return $this->belongsToMany(Movie::class, 'movie_user')->withTimestamps();
     }
 
-    public function reviews()
+    public function reviews():HasMany
     {
         return $this->hasMany(Review::class);
     }

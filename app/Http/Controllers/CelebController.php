@@ -34,7 +34,8 @@ class CelebController extends Controller
     public function show(Celeb $celeb)
     {
         $titles = $celeb->movies()
-                        ->paginate(3)
+                        ->select('id', 'title', 'poster')
+                        ->paginate(4)
                         ->onEachside(1);
 
         return view('celebs/show', [

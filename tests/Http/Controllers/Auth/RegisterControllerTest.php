@@ -16,6 +16,7 @@ class RegisterControllerTest extends TestCase
         $this->withoutExceptionHandling();
 
         $response = $this->postJson('/register', [
+            'username' => 'joeHand',
             'name' => 'Joseph Hand',
             'email' => 'joseph.hand@example.com',
             'password' => 'secretPass',
