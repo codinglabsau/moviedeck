@@ -20,7 +20,7 @@
                         </label>
 
                         <input id="name" type="text" class="form-input w-full @error('username')  border-red-500 @enderror"
-                            name="name" value="{{ old('username') }}" required autocomplete="name" autofocus>
+                               name="name" value="{{ old('username') }}" required autocomplete="name" autofocus>
 
                         @error('username')
                         <p class="text-red-500 text-xs italic mt-4">
