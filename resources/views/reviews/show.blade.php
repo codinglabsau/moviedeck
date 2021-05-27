@@ -7,9 +7,9 @@
         <section class="text-gray-600 body-font">
             <div class="container mx-auto flex px-5 py-16 md:flex-row flex-col items-start align-top">
                 <div class="flex flex-col w-3/4 md:items-start md:text-left mr-20 mb-16 md:mb-0 items-center text-center bg-white p-12">
-                    @if(session('status'))
+                    @if(session('message'))
                         <div class="w-full text-indigo-500 bg-indigo-100 border border-2 border-indigo-400 rounded rounded-md p-6 mb-12">
-                            {{ session('status') }}
+                            {{ session('message') }}
                         </div>
                     @endif
                     <h1 class="font-medium text-gray-500 text-4xl">A review of

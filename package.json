@@ -20,5 +20,8 @@
         "postcss-nested": "^4.2",
         "tailwindcss": "^2.0.4",
         "vue-template-compiler": "^2.6.11"
+    },
+    "dependencies": {
+        "@tailwindcss/forms": "^0.3.2"
     }
 }

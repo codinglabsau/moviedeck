@@ -21,15 +21,21 @@ class Movie extends Model
     }
 
     public function genres() {
-        return $this->belongsToMany(Genre::class, 'genre_movie');
+        return $this->belongsToMany(Genre::class, 'genre_movie')
+            ->withTimestamps();
     }
 
     public function celebs() {
         return $this->belongsToMany(Celeb::class, 'celeb_movie')
-            ->withPivot('character_name');
+            ->withPivot('character_name')
+            ->withTimestamps();
     }
 
     public function getDurationAttribute() {
         return CarbonInterval::minutes($this->attributes['duration'])->cascade()->forHumans(['short' => true]);
+    }
+
+    public function getRawDurationAttribute() {
+        return $this->attributes['duration'];
     }
 }

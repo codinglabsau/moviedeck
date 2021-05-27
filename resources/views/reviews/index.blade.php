@@ -12,9 +12,9 @@
             </div>
             <div class="flex items-baseline justify-center">
                 <div class="w-full lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0">
-                    @if(session('status'))
+                    @if(session('message'))
                         <div class="w-full text-green-500 bg-green-100 border border-2 border-green-400 rounded rounded-md p-6 mb-12">
-                            {{ session('status') }}
+                            {{ session('message') }}
                         </div>
                     @endif
                     <div class="grid gap-12 mt-0 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-stretch">
