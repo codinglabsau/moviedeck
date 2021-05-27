@@ -5,7 +5,6 @@
 @section('content')
     <div class="flex flex-col my-20 w-full items-center">
         <form method="GET" action="{{ route('search') }}" class="w-5/6">
-            @csrf
             <label for="search" class="title-font sm:text-6xl text-5xl mb-4 font-medium text-gray-500">Search</label>
             <div class="flex flex-row">
                 <select name="type" id="type" class="flex px-1 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 focus:outline-none focus:ring">
