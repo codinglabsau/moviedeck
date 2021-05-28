@@ -63,7 +63,7 @@
         {{-- Content --}}
         <div class="w-4/5 mx-24 my-14">
             @if(session()->has('message'))
-                <div class="w-full text-blue-500 bg-blue-100 border border-2 border-blue-400 p-6">
+                <div class="text-blue-500 bg-blue-100 border border-2 border-blue-400 rounded rounded-md p-6 w-full my-8">
                     {{ session()->get('message') }}
                 </div>
             @endif
