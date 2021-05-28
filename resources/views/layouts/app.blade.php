@@ -52,16 +52,16 @@
                 </div>
 
                 <div class="relative flex">
-                    <form method="GET" action="{{ route('search') }}" class="flex items-center border-2 rounded-md">
+                    <form method="GET" action="{{ route('search') }}" class="flex items-center rounded-md">
                         <div class="flex flex-row">
                             <span class="absolute inset-y-0 left-0 flex items-center pl-3">
                                 <svg class="w-5 h-5 text-gray-400" viewBox="0 0 24 24" fill="none">
                                     <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
                                 </svg>
                             </span>
-                            <input id="search" name="search" type="text" class="focus:outline-none pl-10 pr-4 border-gray-300 border-r-0 rounded-md rounded-r-none" placeholder="Search">
+                            <input id="search" name="search" type="text" class="pl-10 pr-4 border-gray-300 border-r-0 rounded-md rounded-r-none" placeholder="Search">
                             <div class="inset-y-0 right-0 flex items-center">
-                                <select id="type" name="type" class="focus:outline-none h-full py-0 pl-2 pr-1 border-gray-300 border-l-0 bg-transparent text-gray-500 sm:text-sm rounded-md rounded-l-none">
+                                <select id="type" name="type" class="h-full py-0 pl-2 border-gray-300 border-l-0 bg-transparent text-gray-500 sm:text-sm rounded-md rounded-l-none">
                                     <option value="movies">Movies</option>
                                     <option value="celebs">Celebs</option>
                                 </select>
