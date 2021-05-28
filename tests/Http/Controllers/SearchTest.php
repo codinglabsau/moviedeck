@@ -22,19 +22,19 @@ class SearchTest extends TestCase
             'title' => 'Generic Movie2'
         ]);
 
-        Celeb::factory()->create([
+        $celeb = Celeb::factory()->create([
             'name' => 'Jen Generic'
         ]);
 
 
         $response = $this->getJson('/search?type=movies&&search=Generic')
             ->assertOk()
-            ->assertViewHas('results');
+            ->assertViewHas('results')
+            ->assertSee($movie1->title)
+            ->assertSee($movie2->title)
+            ->assertDontsee($celeb->name);
 
-        $this->assertEquals(2, count($response->original['results']));
-
-        $this->assertEquals($movie1->title, $response->original['results'][0]['title']);
-        $this->assertEquals($movie2->title, $response->original['results'][1]['title']);
+        $this->assertCount(2, $response->original['results']);
     }
 
     /** @test */
