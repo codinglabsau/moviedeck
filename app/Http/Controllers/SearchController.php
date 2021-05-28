@@ -11,15 +11,15 @@ class SearchController extends Controller
 {
     public function search(Request $request) {
         $search = $request->input('search');
-        $type = $request->input('type');
+        $type = $request->input('type', 'movies');
 
-        if($type === 'movies') {
+        if ($type === 'movies') {
             $results = Movie::query()
                 ->select('id', 'title', 'poster')
                 ->where('title', 'LIKE', "%{$request->query('search')}%")
                 ->orderBy('title')
                 ->paginate(10);
-        } else {
+        } elseif ($type === 'celebs') {
             $results = Celeb::query()
                 ->select('id', 'name', 'photo')
                 ->where('name', 'LIKE', "%{$request->query('search')}%")
@@ -30,7 +30,7 @@ class SearchController extends Controller
         return view('search', [
             'search' => $search,
             'type' => $type,
-            'results'  => $results->appends(['search' => $search, 'type' => $type]),
+            'results' => $results->appends(['type' => $type, 'search' => $search]),
         ]);
     }
 }
