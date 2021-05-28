@@ -26,7 +26,6 @@ class SearchTest extends TestCase
             'name' => 'Jen Generic'
         ]);
 
-
         $response = $this->getJson('/search?type=movies&&search=Generic')
             ->assertOk()
             ->assertViewHas('results')
@@ -40,11 +39,11 @@ class SearchTest extends TestCase
     /** @test */
     public function when_celebs_is_selected_only_searches_through_celebs_table()
     {
-        Movie::factory()->create([
+        $movie1 = Movie::factory()->create([
             'title' => 'Generic Movie1'
         ]);
 
-        Movie::factory()->create([
+        $movie2 = Movie::factory()->create([
             'title' => 'Generic Movie2'
         ]);
 
@@ -54,58 +53,62 @@ class SearchTest extends TestCase
 
         $response = $this->getJson('/search?type=celebs&&search=Generic')
             ->assertOk()
-            ->assertViewHas('results');
+            ->assertViewHas('results')
+            ->assertSee($celeb->name)
+            ->assertDontsee($movie1->title)
+            ->assertDontsee($movie2->title);
 
-        $this->assertEquals(1, count($response->original['results']));
+        $this->assertCount(1, $response->original['results']);
 
-        $this->assertEquals($celeb->name, $response->original['results'][0]['name']);
     }
 
     /** @test */
     public function when_movies_is_selected_search_filters_results_properly()
     {
-        $movie = Movie::factory()->create([
+        $movie1 = Movie::factory()->create([
             'title' => 'Generic Movie'
         ]);
 
-        Movie::factory()->create([
+        $movie2 = Movie::factory()->create([
             'title' => 'Different Movie'
-        ]);
-
-        Celeb::factory()->create([
-            'name' => 'Jen Generic'
-        ]);
-
-        $response = $this->getJson('/search?type=movies&&search=Generic')
-            ->assertOk()
-            ->assertViewHas('results');
-
-        $this->assertEquals(1, count($response->original['results']));
-
-        $this->assertEquals($movie->title, $response->original['results'][0]['title']);
-    }
-
-    /** @test */
-    public function when_celebs_is_selected_search_filters_results_properly()
-    {
-        Movie::factory()->create([
-            'title' => 'Generic Movie'
         ]);
 
         $celeb = Celeb::factory()->create([
             'name' => 'Jen Generic'
         ]);
 
-        Celeb::factory()->create([
+        $response = $this->getJson('/search?type=movies&&search=Generic')
+            ->assertOk()
+            ->assertViewHas('results')
+            ->assertSee($movie1->title)
+            ->assertDontsee($movie2->title)
+            ->assertDontsee($celeb->name);
+
+        $this->assertCount(1, $response->original['results']);
+    }
+
+    /** @test */
+    public function when_celebs_is_selected_search_filters_results_properly()
+    {
+        $movie = Movie::factory()->create([
+            'title' => 'Generic Movie'
+        ]);
+
+        $celeb1 = Celeb::factory()->create([
+            'name' => 'Jen Generic'
+        ]);
+
+        $celeb2 = Celeb::factory()->create([
             'name' => 'James Simple'
         ]);
 
         $response = $this->getJson('/search?type=celebs&&search=Generic')
             ->assertOk()
-            ->assertViewHas('results');
+            ->assertViewHas('results')
+            ->assertSee($celeb1->name)
+            ->assertDontsee($movie->title)
+            ->assertDontsee($celeb2->name);
 
-        $this->assertEquals(1, count($response->original['results']));
-
-        $this->assertEquals($celeb->name, $response->original['results'][0]['name']);
+        $this->assertCount(1, $response->original['results']);
     }
 }
