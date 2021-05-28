@@ -48,7 +48,7 @@ class SearchTest extends TestCase
             'title' => 'Generic Movie2'
         ]);
 
-        Celeb::factory()->create([
+        $celeb = Celeb::factory()->create([
             'name' => 'Jen Generic'
         ]);
 
@@ -57,12 +57,14 @@ class SearchTest extends TestCase
             ->assertViewHas('results');
 
         $this->assertEquals(1, count($response->original['results']));
+
+        $this->assertEquals($celeb->name, $response->original['results'][0]['name']);
     }
 
     /** @test */
     public function when_movies_is_selected_search_filters_results_properly()
     {
-        Movie::factory()->create([
+        $movie = Movie::factory()->create([
             'title' => 'Generic Movie'
         ]);
 
@@ -79,6 +81,8 @@ class SearchTest extends TestCase
             ->assertViewHas('results');
 
         $this->assertEquals(1, count($response->original['results']));
+
+        $this->assertEquals($movie->title, $response->original['results'][0]['title']);
     }
 
     /** @test */
@@ -88,7 +92,7 @@ class SearchTest extends TestCase
             'title' => 'Generic Movie'
         ]);
 
-        Celeb::factory()->create([
+        $celeb = Celeb::factory()->create([
             'name' => 'Jen Generic'
         ]);
 
@@ -101,5 +105,7 @@ class SearchTest extends TestCase
             ->assertViewHas('results');
 
         $this->assertEquals(1, count($response->original['results']));
+
+        $this->assertEquals($celeb->name, $response->original['results'][0]['name']);
     }
 }
