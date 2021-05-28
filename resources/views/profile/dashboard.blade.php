@@ -57,6 +57,9 @@
                         @endif
                     </nav>
                 </div>
+                <div class="mt-12">
+                    <span class="ml-4 text-gray-300 text-sm"> Need Help? <span class="font-bold text-gray-100"><a href="#">Contact us</a></span></span>
+                </div>
             @endif
         </div>
 
