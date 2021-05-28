@@ -5,9 +5,9 @@
 @section('content')
     <div class="flex flex-col my-20 w-full items-center">
         <form method="GET" action="{{ route('search') }}" class="w-5/6">
-            <label for="search" class="title-font sm:text-6xl text-5xl mb-4 font-medium text-gray-500">Search</label>
-            <div class="flex flex-row">
-                <select name="type" id="type" class="flex px-1 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 focus:outline-none focus:ring">
+            <label for="search" class="title-font sm:text-6xl text-5xl font-medium text-gray-500">Search</label>
+            <div class="flex flex-row mt-12">
+                <select name="type" id="type" class="flex pr-8 py-2 mt-2 text-gray-700 text-left bg-white border border-gray-300 rounded-md focus:border-blue-500 focus:outline-none focus:ring">
                     <option value="movies" @if($type === 'movies') selected @endif>Movies</option>
                     <option value="celebs" @if($type === 'celebs') selected @endif>Celebs</option>
                 </select>
@@ -15,7 +15,7 @@
             </div>
         </form>
     </div>
-    <div class="container px-6 mx-auto md:flex">
+    <div class="container mx-auto md:flex">
         <div class="text-gray-600 body-font">
             <h1 class="font-medium pb-6 tracking-wide text-gray-600 text-2xl">{{ $results->total() }} Results</h1>
             <div class="flex items-baseline justify-center">
