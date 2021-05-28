@@ -13,7 +13,8 @@ class Celeb extends Model
 
     public function movies() {
         return $this->belongsToMany(Movie::class, 'celeb_movie')
-            ->withPivot('character_name');
+            ->withPivot('character_name')
+            ->withTimestamps();
     }
 
     public function setCelebDobAttribute($value)

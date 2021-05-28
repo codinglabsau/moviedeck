@@ -42,7 +42,7 @@ class ReviewController extends Controller
         Review::create($request->validated());
 
         return redirect()->route('reviews.index')
-            ->with('status', 'Success! Review has been added.');
+            ->with('message', 'Success! Review has been added.');
     }
 
     public function edit(Movie $movie, Review $review)
@@ -56,7 +56,7 @@ class ReviewController extends Controller
         }
 
         return redirect()->route('reviews.show', ['movie' => $movie, 'review' => $review])
-            ->with('status', 'Oops! You do not have permission to edit this review.');
+            ->with('message', 'Oops! You do not have permission to edit this review.');
     }
 
     public function update(Update $request, Movie $movie, Review $review)
@@ -64,7 +64,7 @@ class ReviewController extends Controller
         $review->update($request->validated());
 
         return redirect()->route('reviews.show', ['movie' => $movie, 'review' => $review])
-                ->with('status', 'Success! Review has been updated.');
+                ->with('message', 'Success! Review has been updated.');
     }
 
     public function destroy(Movie $movie, Review $review)
@@ -74,10 +74,10 @@ class ReviewController extends Controller
             $review->delete();
 
             return redirect()->route('reviews.index')
-                ->with('status', 'Success! Review has been deleted.');
+                ->with('message', 'Success! Review has been deleted.');
         }
 
         return redirect()->route('reviews.show', ['movie' => $movie, 'review' => $review])
-            ->with('status', 'Oops! You do not have permission to delete this review.');
+            ->with('message', 'Oops! You do not have permission to delete this review.');
     }
 }

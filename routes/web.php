@@ -34,7 +34,6 @@ Route::get('/celebs', [CelebController::class, 'index'])->name('celebs.index');
 Route::get('/movies', [MovieController::class, 'index'])->name('movies.index');
 Route::get('/reviews', [ReviewController::class, 'index'])->name('reviews.index');
 
-
 /** Middleware Admin */
 Route::group(['middleware'=>'admin'], function()
 {

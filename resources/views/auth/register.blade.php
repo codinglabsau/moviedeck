@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<main class="sm:container sm:mx-auto sm:max-w-lg sm:mt-10">
+<main class="sm:container sm:mx-auto sm:max-w-lg sm:my-10">
     <div class="flex">
         <div class="w-full">
             <section class="flex flex-col break-words bg-white sm:border-1 sm:rounded-md sm:shadow-sm sm:shadow-lg">
@@ -35,7 +35,7 @@
                         </label>
 
                         <input id="name" type="text" class="form-input w-full @error('name')  border-red-500 @enderror"
-                               name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                            name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
 
                         @error('name')
                         <p class="text-red-500 text-xs italic mt-4">
