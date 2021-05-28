@@ -7,7 +7,7 @@
         <div class="text-gray-600 body-font">
             <div class="flex justify-between mb-12 pt-24">
                 <div class="flex pr-4 py-2 font-medium text-white tracking-wide capitalize">
-                    <h1 class="font-medium text-gray-500 text-4xl whitespace-nowrap">Popular Movies</h1>
+                    <h1 class="font-medium text-gray-800 text-4xl whitespace-nowrap">Movies</h1>
                 </div>
                 @if (auth()->check() && auth()->user()->is_admin)
                     <a href="{{ route('movies.create') }}">
@@ -23,7 +23,7 @@
                 </div>
             @endif
             <div class="flex items-baseline justify-center">
-                <div class="grid gap-12 mt-0 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+                <div class="grid gap-16 mt-0 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
                     @foreach($movies as $movie)
                         <div>
                             <div class="flex flex-col">

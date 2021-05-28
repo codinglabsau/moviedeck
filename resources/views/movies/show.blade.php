@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="w-full bg-fixed bg-bottom bg-cover" style="background-image: linear-gradient(rgba(248, 248, 248, 0.2), rgba(28, 28, 28, 0.9)), url('{{ $movie->banner }}')">
+    <div class="w-full bg-fixed bg-bottom bg-cover shadow-inner" style="background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(27, 28, 32, 1)), url('{{ $movie->banner }}')">
         <div class="container px-6 py-3 mx-auto">
             <section class="text-gray-600 body-font">
                 {{--     Movie Summary Section       --}}
@@ -64,7 +64,7 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="flex justify-center" x-data="{ open: false }">
+                        <div x-data="{ open: false }" class="flex justify-center">
                             <button @click="open = true" class="flex items-center px-2 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
                                 <svg class="w-5 h-5 mx-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
@@ -129,7 +129,7 @@
                 <div class="w-full lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
                     <div class="flex py-16">
                         <div class="flex">
-                            <h1 class="font-medium text-gray-500 text-4xl">Main Casts</h1>
+                            <h1 class="font-medium text-gray-500 text-4xl">Main Cast</h1>
                         </div>
                         <div class="flex mx-6">
                             @if (auth()->check() && auth()->user()->is_admin)

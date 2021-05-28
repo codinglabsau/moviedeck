@@ -72,20 +72,30 @@
                     <a href="{{ route('movies.show', $movie) }}">
                         <img class="flex w-full border rounded-sm mb-4 align-middle items-center" src="{{ $movie->poster }}" alt="{{ $movie->title }}">
                     </a>
-                    <div class="flex w-full justify-between">
-                        <button class="flex items-center px-2 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
+                    <div x-data="{ open: false }" class="flex justify-center">
+                        <button @click="open = true" class="flex items-center px-2 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
                             <svg class="w-5 h-5 mx-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
-                            <a href="{{ $movie->trailer }}"><span class="mx-2 whitespace-nowrap text-sm">Play Trailer</span></a>
+                            <span class="mx-2 whitespace-nowrap">Play Trailer</span>
                         </button>
-                        <button class="flex items-center px-2 py-2 font-medium tracking-wide capitalize rounded-md bg-gray-800 hover:bg-gray-600">
-                            <svg class="w-5 h-5 mx-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#f8f8f8">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
-                            </svg>
-                            <a href="#"><span class="text-gray-300 mx-2 whitespace-nowrap font-normal text-sm">Add to Watchlist</span></a>
-                        </button>
+                        @if(auth()->check())
+                            <form method="post" action="{{ route('watchlist.store', ['user'=>auth()->user()->id, 'movie'=>$movie->id]) }}">
+                                @csrf
+                                <button value="{{$movie->id}}" name="movie_id" class="flex items-center ml-5 px-2 py-2 font-medium tracking-wide capitalize rounded-md bg-gray-800 hover:bg-gray-600">
+                                    <svg class="w-5 h-5 mx-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#f8f8f8">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                                    </svg>
+                                    <span class="text-gray-300 mx-2 whitespace-nowrap font-normal">Add to Watchlist</span>
+                                </button>
+                            </form>
+                        @endif
+                        <div class="fixed top-0 left-0 flex items-center justify-center w-full h-full z-50 transition transition-all ease-in-out duration-1000" style="background-color: rgba(0,0,0,.8);" x-show="open">
+                            <div class="h-auto p-4 mx-2 text-left bg-white rounded shadow-xl w-auto" @click.away="open = false">
+                                <iframe src="{{ $movie->trailer }}" width="1280" height="720" frameborder="0" allowfullscreen></iframe>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
