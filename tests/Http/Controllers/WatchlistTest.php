@@ -114,7 +114,7 @@ class WatchlistTest extends TestCase
             ->postJson(route('watchlist.store', $user->id), [
                 'movie_id' => $movie->id,
                 'user_id' => $user->id
-            ])->assertStatus(302);
+            ])->assertRedirect();
 
         $this->assertDatabaseHas('movie_user', [
             'movie_id' => $movie->id,
@@ -220,7 +220,7 @@ class WatchlistTest extends TestCase
 
         $this->actingAs($user)
             ->deleteJson(route('watchlist.destroy', ['user' => $watchlist->user_id, 'movie' => $watchlist->movie_id]))
-            ->assertStatus(302);
+            ->assertRedirect();
 
         $this->assertDatabaseMissing('movie_user', [
             'movie_id' => $watchlist->movie_id,
