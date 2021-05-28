@@ -11,15 +11,14 @@ class SearchTest extends TestCase
 {
     use RefreshDatabase;
 
-
     /** @test */
     public function when_movies_is_selected_only_searches_through_movies_table()
     {
-        Movie::factory()->create([
+        $movie1 = Movie::factory()->create([
             'title' => 'Generic Movie1'
         ]);
 
-        Movie::factory()->create([
+        $movie2 = Movie::factory()->create([
             'title' => 'Generic Movie2'
         ]);
 
@@ -33,6 +32,9 @@ class SearchTest extends TestCase
             ->assertViewHas('results');
 
         $this->assertEquals(2, count($response->original['results']));
+
+        $this->assertEquals($movie1->title, $response->original['results'][0]['title']);
+        $this->assertEquals($movie2->title, $response->original['results'][1]['title']);
     }
 
     /** @test */
