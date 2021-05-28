@@ -129,7 +129,7 @@
                 <div class="w-full lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
                     <div class="flex py-16">
                         <div class="flex">
-                            <h1 class="font-medium text-gray-500 text-4xl">Main Casts</h1>
+                            <h1 class="font-medium text-gray-500 text-4xl">Main Cast</h1>
                         </div>
                         <div class="flex mx-6">
                             @if (auth()->check() && auth()->user()->is_admin)
