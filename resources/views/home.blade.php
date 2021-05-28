@@ -5,7 +5,7 @@
         <div class="container px-6 py-3 mx-auto">
             <section class="text-gray-600 body-font">
                 {{--     Movie Summary Section       --}}
-                <div class="container mx-auto flex px-5 py-32 mt-64 md:flex-row flex-col items-center align-baseline">
+                <div class="container mx-auto flex px-5 py-32 2xl:mt-64 md:flex-row flex-col items-center align-baseline">
                     <div class="w-full lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
                         <div class="flex justify-center mb-12">
                             <div class="flex items-center px-4 py-2 font-medium tracking-wide capitalize transition-colors duration-200 transform rounded-md border-2 border-gray-200">

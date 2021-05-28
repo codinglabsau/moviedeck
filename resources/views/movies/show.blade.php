@@ -98,7 +98,7 @@
         <section class="text-gray-600 body-font">
             <div class="container w-full mx-auto flex bg-white shadow overflow-hidden sm:rounded-lg -mt-16">
                 <div>
-                    <div class="pl-96 pr-12 py-8 bg-gray-300">
+                    <div class="md:pl-96 pr-12 py-8 bg-gray-300">
                         <div class="flex justify-between">
                             <div>
                                 <h1 class="text-6xl font-bold text-gray-600">
@@ -119,8 +119,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="flex px-4 py-5">
-                        <img class="w-60 mx-12 -mt-24 mb-12" src="{{ $movie->poster }}" alt="{{ $movie->title }}">
+                    <div class="md:flex px-4 py-5">
+                        <img class="w-60 mx-12 mt-30 md:-mt-24 mb-12" src="{{ $movie->poster }}" alt="{{ $movie->title }}">
                         <p class="pl-5 pr-12 py-12">{{ $movie->synopsis }}</p>
                     </div>
                 </div>

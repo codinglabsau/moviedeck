@@ -25,7 +25,7 @@
                             @method('PUT')
                             <input type="hidden" name="user_id" value="{{ $review->user_id }}">
                             <input type="hidden" name="movie_id" value="{{ $movie->id }}">
-                            <div class="flex flex-row">
+                            <div class="xl:flex flex-row">
                                 <div class="flex flex-col pb-6">
                                     <label for="title" class="text-md font-medium py-2">Review Title:</label>
                                         <textarea name="title" cols="60" rows="5" class="outline-none border border-4 border-gray-200 text-gray-700 rounded rounded-md p-4 text-md font-light">{{ $review->title }}</textarea>
@@ -56,13 +56,13 @@
                         </form>
                     </div>
                 </div>
-                <div class="w-1/4 flex flex-col items-end mb-16 md:mb-0">
+                <div class="w-1/2 md:w-1/4 flex flex-col items-end mb-16 md:mb-0">
                     <div class="flex-col pb-6">
                         <a href="{{ route('movies.show', $movie) }}" target="_blank">
                             <img class="flex w-80 border rounded-sm mb-4 align-middle justify-end" src="{{ $movie->poster }}" alt="{{ $movie->title }}">
                         </a>
                     </div>
-                    <div x-data="{ open: false }" class="flex justify-center w-80">
+                    <div x-data="{ open: false }" class="flex lg:flex-row flex-col justify-center">
                         <button @click="open = true" class="flex items-center px-2 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
                             <svg class="w-5 h-5 mx-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
