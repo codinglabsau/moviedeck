@@ -127,7 +127,7 @@
                     </div>
                 </div>
                 <div class="flex items-baseline">
-                    <div class="grid gap-12 mt-14 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+                    <div class="grid gap-12 mt-14 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5">
                         @foreach($watchlist as $item)
                             <a href="{{route('movies.show', $item->id)}}">
                                 <div class="w-full max-w-xs text-center">
