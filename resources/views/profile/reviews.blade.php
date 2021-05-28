@@ -89,7 +89,7 @@
                                     {{$review->title}}
                                 </a>
                                 <div class="flex mt-1 text-left leading-none justify-start">
-                                    <span class="font-bold text-sm text-blue-600">{{$review->user->name}}</span>
+                                    <span class="font-bold text-sm text-blue-600">{{$review->user->username}}</span>
                                     <span class="ml-3 text-gray-400">{{$review->created_at->format('M d')}}</span>
                                 </div>
                                 @if(auth()->user()->id === $user->id)
