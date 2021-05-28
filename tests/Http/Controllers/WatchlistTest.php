@@ -66,7 +66,7 @@ class WatchlistTest extends TestCase
 
         $this->actingAs($user)
             ->getJson(route('watchlist.create', $user->id))
-            ->assertStatus(302); //found
+            ->assertRedirect();
     }
 
     /** @test */
