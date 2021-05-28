@@ -88,7 +88,7 @@
             </div>
             <div class="container mx-auto flex px-5 py-16 md:flex-row flex-col items-start align-top">
                 <div class="w-full lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
-                    <h1 class="font-medium text-gray-500 text-4xl py-16">Main Casts</h1>
+                    <h1 class="font-medium text-gray-500 text-4xl py-16">Main Cast</h1>
                     @foreach($movie->celebs as $cast)
                         <div class="flex w-full justify-between">
                             <div class="flex">
