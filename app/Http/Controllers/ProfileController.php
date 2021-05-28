@@ -13,6 +13,11 @@ class ProfileController extends Controller
 {
     public function dashboard(User $user)
     {
+        if(auth()->user()->id !== $user->id) {
+            return redirect('/')
+                ->with('message', 'You don\'t have access to that page');
+        }
+
         $user->loadCount('reviews', 'movies as watchlist_count');
 
         $reviews = $user->reviews()

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CelebController;
 use App\Http\Controllers\MovieController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WatchlistController;
@@ -24,6 +25,9 @@ Auth::routes();
 
 /** Home */
 Route::get('/', [HomeController::class, 'index'])->name('home');
+
+/** Search */
+Route::get('/search', [SearchController::class, 'search'])->name('search');
 
 /** Celebs, Movies, Reviews | Index */
 Route::get('/celebs', [CelebController::class, 'index'])->name('celebs.index');

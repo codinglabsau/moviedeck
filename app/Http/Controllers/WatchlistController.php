@@ -34,22 +34,8 @@ class WatchlistController extends Controller
                 ->with('message', 'You don\'t have access to that page');
         }
 
-        $keyword = $request->input('search');
-
-        $movies = Movie::query()
-            ->select('id', 'title', 'poster')
-            ->when($keyword, function ($q) use ($keyword){
-                $q->where('title', 'LIKE', "%{$keyword}%");
-            })
-            ->orderBy('title')
-            ->paginate(10);
-
-
-        return view('watchlist/create', [
-            'keyword' => $request->input('title'),
-            'movies' => $movies,
-            'user' => $user
-        ]);
+        return redirect('search')
+            ->with('user', $user);
     }
 
     public function store(Request $request, User $user)
