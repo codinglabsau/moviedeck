@@ -8,6 +8,11 @@
             <div class="container mx-auto flex px-5 py-16 md:flex-row flex-col items-start align-top">
                 <div class="flex flex-col w-3/4 md:items-start md:text-left mr-10 mb-16 md:mb-0 items-center text-center bg-white p-12">
                     <h1 class="font-medium text-gray-500 text-4xl mb-12">Edit Profile Details</h1>
+                    @if(session()->has('message'))
+                        <div class="text-blue-500 bg-blue-100 border border-2 border-blue-400 rounded rounded-md p-6 w-full mb-8">
+                            {{ session()->get('message') }}
+                        </div>
+                    @endif
                     @if (auth()->user()->id === $user->id)
                         <div class="flex w-full justify-between">
                             <form method="POST" action="{{ route('profile.update', $user) }}" class="mx-auto w-full">
@@ -81,10 +86,12 @@
                         @endif
                     @endif
                 </div>
-                <div class="w-1/4 flex flex-col items-end mb-16 md:mb-0">
-                    <div class="flex-col pb-6">
-                        <img class="flex w-72 h-96 border rounded-sm mb-4 align-middle justify-end object-cover" src="{{ asset($user->avatar) }}" alt="avatar">
-                    </div>
+                <div class="w-1/2 md:w-1/4 flex flex-col items-end mb-16 md:mb-0">
+                    <a href="{{route('profile.reviews', $user->id)}}">
+                        <div class="flex-col pb-6">
+                            <img class="flex w-72 h-96 border rounded-sm mb-4 align-middle justify-end object-cover" src="{{ asset($user->avatar) }}" alt="avatar">
+                        </div>
+                    </a>
                 </div>
             </div>
         </section>

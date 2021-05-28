@@ -21,7 +21,7 @@
                         <span class="font-bold text-sm text-blue-500 mt-2"> {{ $review->user->username }} </span>
                     </a>
                     <span class="font-normal text-sm"> {{ $review->created_at->diffForHumans() }} </span>
-                    <div class="flex w-full justify-between my-10">
+                    <div class="lg:flex w-full justify-between my-10">
                         <div class="flex flex-col">
                             <h1 class="font-medium pt-2 text-2xl"> {{ $review->title }} </h1>
                             <p class="py-2"> {{ $review->content }} </p>
@@ -68,11 +68,11 @@
                         </div>
                     @endif
                 </div>
-                <div class="flex flex-col w-1/4 items-end mb-16 md:mb-0">
+                <div class="flex flex-col w-1/2 md:w-1/4 items-end mb-16 md:mb-0">
                     <a href="{{ route('movies.show', $movie) }}">
                         <img class="flex w-full border rounded-sm mb-4 align-middle items-center" src="{{ $movie->poster }}" alt="{{ $movie->title }}">
                     </a>
-                    <div x-data="{ open: false }" class="flex justify-center">
+                    <div x-data="{ open: false }" class="flex lg:flex-row flex-col justify-center">
                         <button @click="open = true" class="flex items-center px-2 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
                             <svg class="w-5 h-5 mx-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
@@ -83,7 +83,7 @@
                         @if(auth()->check())
                             <form method="post" action="{{ route('watchlist.store', ['user'=>auth()->user()->id, 'movie'=>$movie->id]) }}">
                                 @csrf
-                                <button value="{{$movie->id}}" name="movie_id" class="flex items-center ml-5 px-2 py-2 font-medium tracking-wide capitalize rounded-md bg-gray-800 hover:bg-gray-600">
+                                <button value="{{$movie->id}}" name="movie_id" class="flex items-center md:ml-5 px-2 py-2 font-medium tracking-wide capitalize rounded-md bg-gray-800 hover:bg-gray-600">
                                     <svg class="w-5 h-5 mx-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#f8f8f8">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
                                     </svg>

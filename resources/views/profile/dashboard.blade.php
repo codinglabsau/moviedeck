@@ -6,11 +6,11 @@
     <div class="flex w-3/4 my-24 mx-auto bg-white shadow-md">
         {{-- Side Nav Bar --}}
         <div class="flex flex-col w-1/5 pb-8 bg-gray-600 border-r">
-            <div class="flex flex-col items-start justify-end bg-cover bg-center w-full h-72" style="background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(27, 28, 32, 1)), url({{asset($user->avatar)}})">
-                <div class="flex justify-between w-full">
+            <div class="flex flex-col items-start justify-end bg-cover bg-center w-full h-36 lg:h-72" style="background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(27, 28, 32, 1)), url({{asset($user->avatar)}})">
+                <div class="lg:flex justify-between w-full">
                     <div>
                         <h4 class="mx-3 mt-2 md:text-base text-sm font-medium text-gray-100">{{$user->username}}</h4>
-                        <p class="mx-3 mb-2 md:text-sm text-xs text-gray-300 ">{{$user->email}}</p>
+                        <p class="mx-3 hidden lg:block mb-2 md:text-sm text-xs text-gray-300 ">{{$user->email}}</p>
                     </div>
                     @if (auth()->user()->id === $user->id || auth()->user()->is_admin)
                         <a href="{{ route('profile.edit', $user->id) }}" class="text-gray-300 flex items-center justify-end mr-4 hover:text-gray-100">
@@ -27,8 +27,8 @@
                 <h3 class="mx-2 mt-4 p-1 whitespace-nowrap flex text-gray-200 text-sm items-center font-normal tracking-wide capitalize"><span class="bg-blue-600 py-1 px-2 rounded-xl">Admin</span></h3>
             @endif
 
-            <h3 class="mx-4 mt-4 whitespace-nowrap flex text-gray-100 items-center font-semibold tracking-wide capitalize">{{$user->name}}</h3>
-            <p class="mx-4 text-gray-300 text-sm">{{$user->about_me}}</p>
+            <h3 class="mx-4 mt-4 md:whitespace-nowrap flex text-gray-100 items-center font-semibold tracking-wide capitalize">{{$user->name}}</h3>
+            <p class="mx-4 hidden md:block text-gray-300 text-sm">{{$user->about_me}}</p>
 
             @if(auth()->user()->id === $user->id)
                 <div class="flex flex-col justify-between flex-1 mt-6">
@@ -37,7 +37,7 @@
                             <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M19 11H5M19 11C20.1046 11 21 11.8954 21 13V19C21 20.1046 20.1046 21 19 21H5C3.89543 21 3 20.1046 3 19V13C3 11.8954 3.89543 11 5 11M19 11V9C19 7.89543 18.1046 7 17 7M5 11V9C5 7.89543 5.89543 7 7 7M7 7V5C7 3.89543 7.89543 3 9 3H15C16.1046 3 17 3.89543 17 5V7M7 7H17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                             </svg>
-                            <span class="mx-4 font-bold">Dashboard </span>
+                            <span class="mx-4 hidden md:block font-bold">Dashboard </span>
                         </a>
 
                         <a class="flex items-center pl-4 p-2 text-gray-100 transition-colors duration-200 transform hover:bg-gray-700 hover:text-gray-200" href="{{ route('profile.reviews', $user->id) }}">
@@ -45,14 +45,14 @@
                                 <path d="M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                 <path d="M12 14C8.13401 14 5 17.134 5 21H19C19 17.134 15.866 14 12 14Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                             </svg>
-                            <span class="mx-4">Reviews</span>
+                            <span class="mx-4 hidden md:block">Reviews</span>
                         </a>
                         @if (auth()->user()->id === $user->id)
                             <a class="flex items-center pl-4 p-2 text-gray-100 transition-colors duration-200 transform hover:bg-gray-700 hover:text-gray-200" href="{{ route('watchlist.index', $user->id) }}">
                                 <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M15 5V7M15 11V13M15 17V19M5 5C3.89543 5 3 5.89543 3 7V10C4.10457 10 5 10.8954 5 12C5 13.1046 4.10457 14 3 14V17C3 18.1046 3.89543 19 5 19H19C20.1046 19 21 18.1046 21 17V14C19.8954 14 19 13.1046 19 12C19 10.8954 19.8954 10 21 10V7C21 5.89543 20.1046 5 19 5H5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                 </svg>
-                                <span class="mx-4">Watchlist</span>
+                                <span class="mx-4 hidden md:block">Watchlist</span>
                             </a>
                         @endif
                     </nav>
@@ -64,13 +64,13 @@
         </div>
 
         {{-- Reviews --}}
-        <div class="w-4/5 mx-24 my-14">
+        <div class="w-4/5 mx-4 md:mx-24 my-14">
             @if(session()->has('message'))
                 <div class="text-blue-500 bg-blue-100 border border-2 border-blue-400 rounded rounded-md p-6 w-full my-8">
                     {{ session()->get('message') }}
                 </div>
             @endif
-            <div class="flex justify-between">
+            <div class="lg:flex justify-between">
                 <span class="font-medium text-gray-800 whitespace-nowrap capitalize md:text-2xl">Recent Reviews</span>
                 @if (auth()->user()->id === $user->id)
                     <div class="flex items-center px-4 py-2 font-medium tracking-wide capitalize border-2 border-gray-800 rounded-md">
@@ -79,7 +79,7 @@
                 @endif
             </div>
             <div class="flex items-baseline">
-                <div class="grid gap-x-24 gap-y-12 mt-14 sm:grid-cols-1 md:grid-cols-2">
+                <div class="grid gap-x-24 gap-y-12 mt-14 sm:grid-cols-1 lg:grid-cols-2">
                     @foreach($reviews as $review)
                         <div class="flex">
                             <div class="flex flex-col">
@@ -120,7 +120,7 @@
 
             {{-- Watchlist --}}
             @if (auth()->user()->id === $user->id)
-                <div class="flex w-full justify-between mt-24">
+                <div class="lg:flex w-full justify-between mt-24">
                     <span class="font-medium text-gray-800 whitespace-nowrap capitalize md:text-2xl">Watch Next</span>
                     <div class="flex items-center px-4 py-2 font-medium tracking-wide capitalize border-2 border-gray-800 rounded-md">
                         <a href="{{ route('watchlist.index', $user->id) }}"><span class="mx-2 whitespace-nowrap">{{$user->watchlist_count}} | Manage List</span></a>
@@ -132,7 +132,7 @@
                             <a href="{{route('movies.show', $item->id)}}">
                                 <div class="w-full max-w-xs text-center">
                                     <img class="object-cover w-40 h-60" src={{$item->poster}} alt="movie_poster"/>
-                                    <div class="mt-2 flex justify-between">
+                                    <div class="mt-2">
                                         <h3>{{$item->title}}</h3>
                                         {{--<span class="mt-1 font-medium text-gray-600">{{$item->average_rating}}</span>--}}
                                     </div>

@@ -77,7 +77,7 @@ class ProfileController extends Controller
     {
         $user->update(['is_admin' => true]);
 
-        return redirect("profile/$user->id")
+        return redirect()->back()
             ->with('message', "$user->name is now an admin");
     }
 
@@ -85,7 +85,7 @@ class ProfileController extends Controller
     {
         $user->update(['is_admin' => false]);
 
-        return redirect("profile/$user->id")
+        return redirect()->back()
             ->with('message', "$user->name has been removed as an admin");
     }
 }
